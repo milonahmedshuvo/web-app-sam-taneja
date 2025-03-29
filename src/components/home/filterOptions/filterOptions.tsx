@@ -78,7 +78,7 @@ const ToggleComponent = () => {
     setOpenCategory(null); // Close the category after selection
   };
 
-  console.log(showAll);
+  
 
 
 
@@ -96,7 +96,7 @@ const ToggleComponent = () => {
           className="px-4 py-2 border rounded border-slate-400 flex items-center gap-2 hover:bg-gray-200 transition-all duration-300"
         >
           <AiOutlineFilter />
-          Filter
+          Filters
         </button>
 
 
@@ -108,6 +108,7 @@ const ToggleComponent = () => {
           Interests
           <AiOutlineFilter />
         </button>
+
       </div>
 
       {/* Filter Options with Smooth Animation */}

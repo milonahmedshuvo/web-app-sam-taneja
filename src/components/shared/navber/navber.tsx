@@ -1,10 +1,11 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import { FaUser, FaShoppingCart, FaSearch, FaBars } from "react-icons/fa";
 import { MdArrowForwardIos, MdOutlineKeyboardArrowDown } from "react-icons/md";
-
+import { FaRegHeart } from "react-icons/fa6";
+import { IoSettingsOutline } from "react-icons/io5";
+import { FaAngleLeft } from "react-icons/fa6";
 interface ChildCategory {
   name: string;
 }
@@ -85,6 +86,11 @@ export default function Navbar() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeSubCategory, setActiveSubCategory] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+
+
+  console.log(isModalOpen)
+
 
   return (
     <div className=" mb-2 md:mb-4 relative absolute z-30 ">
@@ -118,7 +124,7 @@ export default function Navbar() {
                         onMouseEnter={() => setActiveSubCategory(sub.name)}
                         onMouseLeave={() => setActiveSubCategory(null)}
                       >
-                        <Link href="/products" className="flex justify-between items-center px-2">
+                        <Link href={`/products/${sub.name}`} className="flex justify-between items-center px-2">
                           <button className="block px-4 py-2 w-full text-left hover:bg-gray-200">{sub.name}</button>
                           {sub.childCategories.length > 0 && (
                             activeSubCategory === sub.name ? <MdOutlineKeyboardArrowDown className="text-2xl ml-6" /> : <MdArrowForwardIos />
@@ -129,7 +135,7 @@ export default function Navbar() {
                         {activeSubCategory === sub.name && (
                           <div className="absolute left-full top-0 mt-0 bg-white w-40 shadow-md">
                             {sub.childCategories.map((child, childIndex) => (
-                              <Link key={childIndex} href="#" className="block px-4 py-2 hover:bg-gray-200">
+                              <Link key={childIndex} href={`/products/${child.name}`} className="block px-4 py-2 hover:bg-gray-200">
                                 {child.name}
                               </Link>
                             ))}
@@ -145,10 +151,37 @@ export default function Navbar() {
         </div>
 
         {/* Right - Icons */}
-        <div className="flex gap-4 text-xl">
+        <div className="flex gap-4 text-xl relative">
           <FaSearch className="cursor-pointer hover:text-gray-300" />
           <FaShoppingCart className="cursor-pointer hover:text-gray-300" />
-          <FaUser className="cursor-pointer hover:text-gray-300" />
+          <FaUser className="cursor-pointer hover:text-gray-300" onClick={() => setIsModalOpen(!isModalOpen)} />
+
+
+            {
+               isModalOpen && <div className="absolute right-0 top-[30px] bg-white p-5 w-[200px] shadow space-y-3.5">
+                    
+                     
+                    <div className="flex gap-3"  onClick={()=> setIsModalOpen(false)} >
+                    <FaUser className="cursor-pointer  text-[#2c65af]" />
+                    <Link href='/viewProfile' ><span className="text-[#2c65af] font-normal text-[15px] ">View Profile</span></Link>
+                    </div>
+               
+                    <div className="flex gap-3">
+                    <FaRegHeart className="cursor-pointer  text-[#2c65af]" />
+                    <span className="text-[#2c65af] font-normal text-[15px] ">Save Deals</span>
+                    </div>
+
+                    <div className="flex gap-3">
+                    <IoSettingsOutline className="cursor-pointer  text-[#2c65af]" />
+                    <span className="text-[#2c65af] font-normal text-[15px] ">Interests</span>
+                    </div>
+                        
+                    <div className="flex gap-3" onClick={()=> setIsModalOpen(false)}>
+                    <FaAngleLeft className="cursor-pointer  text-[#2c65af]" />
+                    <span className="text-[#2c65af] font-normal text-[15px] ">Sign Out</span>
+                    </div>
+               </div>
+            }
         </div>
       </nav>
 

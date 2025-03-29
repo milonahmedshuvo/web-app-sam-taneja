@@ -166,9 +166,11 @@ export default function Navbar() {
                     <Link href='/viewProfile' ><span className="text-[#2c65af] font-normal text-[15px] ">View Profile</span></Link>
                     </div>
                
-                    <div className="flex gap-3">
+                    <div className="flex gap-3" onClick={()=> setIsModalOpen(false)} >
                     <FaRegHeart className="cursor-pointer  text-[#2c65af]" />
+                    <Link href='/saveDeals' > 
                     <span className="text-[#2c65af] font-normal text-[15px] ">Save Deals</span>
+                    </Link>
                     </div>
 
                     <div className="flex gap-3">

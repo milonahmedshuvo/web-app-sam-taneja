@@ -19,16 +19,18 @@ const CardTab: React.FC = () => {
 
 
 
+
+
   // Dynamic items based on the active tab
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: <>  <span className='text-[#2c65af] font-medium tracking-widest'>Datails</span> </>,
+      label: <>  <span className='text-[#2c65af] font-normal tracking-widest text-[16px]  '>Datails</span> </>,
       children: activeTab === '1' ? <CardDeals/> : null, // Render component for Tab 1
     },
     {
       key: '2',
-      label: <> <span className='text-[#2c65af] font-medium tracking-widest'>Comments</span> </>,
+      label: <> <span className='text-[#2c65af] font-normal tracking-widest text-[16px]'>Comments</span> </>,
       children: activeTab === '2' ? <CardComments /> : null, // Render component for Tab 2
     },
     

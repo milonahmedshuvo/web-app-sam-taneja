@@ -143,9 +143,9 @@ export default function CartCarousel() {
       {canScrollLeft && (
         <button
           onClick={() => scroll("left")}
-          className="absolute left-[-13px] top-1/2 -translate-y-1/2 w-5 h-10 drop-shadow-xl bg-gray-300 text-white rounded-r-full flex items-center justify-center z-10"
+          className="absolute left-[-13px] top-1/2 -translate-y-1/2 w-5 h-10 drop-shadow-xl bg-[#ACAEAF] text-white rounded-r-full flex items-center justify-center z-10"
         >
-          <FaAngleLeft className="text-lg text-white"></FaAngleLeft>
+          <FaAngleLeft className="text-md text-white"></FaAngleLeft>
         </button>
       )}
       <div
@@ -183,9 +183,9 @@ export default function CartCarousel() {
       {canScrollRight && (
         <button
           onClick={() => scroll("right")}
-          className="absolute right-[-19px] top-1/2 -translate-y-1/2 w-5 h-10 drop-shadow-xl bg-gray-300 text-white rounded-l-full flex items-center justify-center z-10"
+          className="absolute right-[-19px] top-1/2 -translate-y-1/2 w-5 h-10 drop-shadow-xl bg-[#ACAEAF] text-white rounded-l-full flex items-center justify-center z-10"
         >
-          <FaAngleRight className="text-lg text-white"></FaAngleRight>
+          <FaAngleRight className="text-md text-white"></FaAngleRight>
         </button>
       )}
       <style jsx>{`

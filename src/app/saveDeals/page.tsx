@@ -5,7 +5,7 @@ import img1 from "../../image/img1.webp"
 const page = () => {
   return (
     <div className="max-w-7xl mx-auto" >
-    <p className="text-[#303437] text-2xl font-semibold " >Showing 1 - 1 out of 1 saved items</p>
+    <p className="text-[#303437] text-2xl font-semibold " >Showing 1 + 1 out of 2 saved items</p>
 
 
        <div className="flex flex-wrap gap-5"> 

@@ -58,24 +58,24 @@ const CardDeals = () => {
       <div className="w-3/5 mx-auto  border-l-[1px] border-gray-200 pl-3 ">
         <Breadcrumb className="!text-sm ">
           <Breadcrumb.Item>
-            <span className="!font-semibold !text-blue-500 text-md hover:underline">
+            <span className="!font-semibold !text-[#2c65af] text-md hover:underline text-[15px]">
               Home
             </span>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             {/* <a href="" className="!text-blue-500 hover:!text-blue-700 !font-semibold text-md">Application Center</a> */}
-            <span className="!font-semibold !text-blue-500 text-md hover:underline">
-              Application Center
+            <span className="!font-semibold !text-[#2c65af] text-md hover:underline text-[15px]">
+              All Deals
             </span>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <span className="!font-semibold !text-blue-500 text-md hover:underline">
+            <span className="!font-semibold !text-[#2c65af] text-md hover:underline text-[15px]">
               Application List
             </span>
           </Breadcrumb.Item>
 
           <Breadcrumb.Item>
-            <span className="!font-semibold !text-blue-500 text-md hover:underline">
+            <span className="!font-semibold !text-[#2c65af] text-md hover:underline text-[15px]">
               An Application
             </span>
           </Breadcrumb.Item>

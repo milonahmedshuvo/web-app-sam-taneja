@@ -7,10 +7,10 @@ const CardComments = () => {
 
 
       <div>
-        <p className="text-md text-center">Leave a comment!</p>
-        <button className='bg-[#2c65af] py-1 px-6  !text-white rounded !text-xl '>Sign in</button>
+        <p className="text-lg text-center">Leave a comment!</p>
+        <button className='bg-[#2c65af] py-1 px-4 !text-white rounded !text-lg '>Sign in</button>
         <span className="!text-xl mx-3">or</span>
-        <button className='bg-[#2c65af] py-1 px-6  !text-white rounded !text-xl '>Sign in</button>
+        <button className='bg-[#2c65af] py-1 px-4 !text-white rounded !text-lg '>Sign up</button>
       </div>
 
     </div>

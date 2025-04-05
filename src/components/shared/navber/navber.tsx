@@ -150,6 +150,7 @@ export default function Navbar() {
           </div>
         </div>
 
+
         {/* Right - Icons */}
         <div className="flex gap-4 text-xl relative">
           <FaSearch className="cursor-pointer hover:text-gray-300" />

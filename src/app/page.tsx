@@ -62,9 +62,7 @@ const page = () => {
         <div className="xl:w-[70%] ">
           <ProductFilterComponent />
           <Carousel />
-          {/* <Cartparent />
-          <Cartparent />
-          <Cartparent /> */}
+          {/* <Cartparent /> */}
 
           {cartDatas.map((item) => (
             <Card

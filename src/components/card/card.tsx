@@ -122,7 +122,7 @@ const Card = ({ image, smallText, title, price, description }: CardProps) => {
                   </Link>
                 </div>
 
-                <div className="flex gap-3">
+                <div className="flex gap-3 cursor-pointer">
                   <MdReport className="cursor-pointer  text-[#2c65af] text-2xl" />
                   <span className="text-[#2c65af] font-normal text-[15px] ">
                     Report in Error
@@ -130,7 +130,7 @@ const Card = ({ image, smallText, title, price, description }: CardProps) => {
                 </div>
 
                 <div
-                  className="flex gap-3"
+                  className="flex gap-3 cursor-pointer"
                   onClick={() => setIsModalOpen(false)}
                 >
                   <CiShare2 className="cursor-pointer  text-[#2c65af] text-2xl" />

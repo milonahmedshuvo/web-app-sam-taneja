@@ -1,8 +1,11 @@
+import AbountusBanner from "@/components/deelnews/aboutus/banner/AbountusBanner"
 
 
 const page = () => {
   return (
-    <div> abount us page</div>
+    <div> 
+      <AbountusBanner/>
+    </div>
   )
 }
 

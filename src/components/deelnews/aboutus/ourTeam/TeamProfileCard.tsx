@@ -33,7 +33,7 @@ export default function TeamProfileCard({
     <div className="overflow-hidden ">
       <div className="flex flex-col items-center ">
 
-        <div className="relative !w-full mb-4 bg-cover group cursor-pointer">
+        <div className="relative !w-full mb-4 bg-cover group cursor-pointer flex justify-center">
           <Image
             src={imageSrc || "/placeholder.svg"}
             alt={name}

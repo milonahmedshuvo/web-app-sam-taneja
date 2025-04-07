@@ -6,77 +6,94 @@ import { MdArrowForwardIos, MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaAngleLeft } from "react-icons/fa6";
+
 interface ChildCategory {
   name: string;
+  path: string;
 }
 
 interface SubCategory {
   name: string;
+  path: string;
   childCategories: ChildCategory[];
 }
 
 interface Category {
   name: string;
+  path: string,
   subCategories: SubCategory[];
 }
+
+
+
+
 
 const categories: Category[] = [
   {
     name: "Categories",
+    path: '/',
     subCategories: [
-      { name: "Clothing", childCategories: [{ name: "Activewear" }, { name: "Jackets" }, { name: "Jeans" }] },
-      { name: "Laptops", childCategories: [{ name: "Dell" }, { name: "HP" }, { name: "MacBook" }] },
-      { name: "Electronics", childCategories: [{name: '49" or smaller'}, {name: '9" or smaller'}, {name: '65" or smaller'}] },
-      { name: "Airfare", childCategories: [] },
-      { name: "Automotive", childCategories: [] },
-      { name: "Clothing & Accessories", childCategories: [] },
-      { name: "Credit Cards", childCategories: [] },
+      { name: "Clothing",path: '/', childCategories: [{ name: "Activewear", path: '/', }, { name: "Jackets", path: '/', }, { name: "Jeans", path: '/', }] },
+      { name: "Laptops",path: '/', childCategories: [{ name: "Dell", path: '/', }, { name: "HP", path: '/', }, { name: "MacBook", path: '/', }] },
+      { name: "Electronics",path: '/', childCategories: [{name: '49" or smaller', path: '/',}, {name: '9" or smaller', path: '/',}, {name: '65" or smaller', path: '/',}] },
+      { name: "Airfare",path: '/', childCategories: [] },
+      { name: "Automotive",path: '/', childCategories: [] },
+      { name: "Clothing & Accessories",path: '/', childCategories: [] },
+      { name: "Credit Cards",path: '/', childCategories: [] },
     ],
   },
   {
     name: "Storis",
+    path: '/',
     subCategories: [
-      { name: "Amazon", childCategories: [{ name: "Laptops" }, { name: "Shoes" }, { name: "i5 Laptops" }, {name : 'i7 Windows Laptops'} ] },
-      { name: "Dell", childCategories: [{ name: "Dresses" }, { name: "Jewelry" }, { name: "Bags" }] },
-      { name: "Disney Plus", childCategories: [{ name: "Dresses" }, { name: "Jewelry" }, { name: "Bags" }] },
-      { name: "eBay", childCategories: [{ name: "Dresses" }, { name: "Jewelry" }, { name: "Bags" }] },
-      { name: "Kohl's", childCategories: [] },
+      { name: "Amazon",path: '/', childCategories: [{ name: "Laptops", path: '/', }, { name: "Shoes", path: '/', }, { name: "i5 Laptops", path: '/', }, {name : 'i7 Windows Laptops', path: '/',} ] },
+      { name: "Dell",path: '/', childCategories: [{ name: "Dresses", path: '/', }, { name: "Jewelry", path: '/', }, { name: "Bags", path: '/', }] },
+      { name: "Disney Plus",path: '/', childCategories: [{ name: "Dresses", path: '/', }, { name: "Jewelry", path: '/', }, { name: "Bags", path: '/', }] },
+      { name: "eBay",path: '/', childCategories: [{ name: "Dresses", path: '/', }, { name: "Jewelry", path: '/', }, { name: "Bags", path: '/', }] },
+      { name: "Kohl's",path: '/', childCategories: [] },
     ],
   },
 
   {
     name: "From The Blog",
+    path: '/blog',
     subCategories: [
-      { name: "Buying Guides", childCategories: [ ] },
-      { name: "Roundups", childCategories: [] },
-      { name: "All Blog Articles", childCategories: [] },
-      { name: "eBay", childCategories: [] },
-      { name: "Kohl's", childCategories: [] },
+      { name: "Buying Guides", path: '/blog', childCategories: [ ] },
+      { name: "Roundups",path: '/blog', childCategories: [] },
+      { name: "All Blog Articles",path: '/blog', childCategories: [] },
+      { name: "eBay",path: '/blog', childCategories: [] },
+      { name: "Kohl's",path: '/blog', childCategories: [] },
     ],
   },
 
   {
     name: "Daily Deals",
+    path: '/',
     subCategories: [
-      { name: "Apple Gift Cards", childCategories: [ ] },
-      { name: "Disney Plus Gift Cards", childCategories: [] },
-      { name: "All Gift Cards", childCategories: [] },
-      { name: "eBay", childCategories: [] },
-      { name: "Kohl's", childCategories: [] },
+      { name: "Apple Gift Cards",path: '/', childCategories: [ ] },
+      { name: "Disney Plus Gift Cards",path: '/', childCategories: [] },
+      { name: "All Gift Cards",path: '/', childCategories: [] },
+      { name: "eBay",path: '/', childCategories: [] },
+      { name: "Kohl's",path: '/', childCategories: [] },
     ],
   },
 
   {
     name: "Streaming Deals",
+    path: '/',
     subCategories: [
-      { name: "Disney Plus", childCategories: [ ] },
-      { name: "Peacock TV", childCategories: [] },
-      { name: "Paramount Plus", childCategories: [] },
-      { name: "YouTube TV", childCategories: [] },
-      { name: "Kohl's", childCategories: [] },
+      { name: "Disney Plus",path: '/', childCategories: [ ] },
+      { name: "Peacock TV",path: '/', childCategories: [] },
+      { name: "Paramount Plus",path: '/', childCategories: [] },
+      { name: "YouTube TV",path: '/', childCategories: [] },
+      { name: "Kohl's",path: '/', childCategories: [] },
     ],
   },
 ];
+
+
+
+
 
 
 
@@ -89,7 +106,7 @@ export default function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false); 
 
 
-  console.log(isModalOpen)
+  // console.log(isModalOpen)
 
 
   return (
@@ -114,7 +131,14 @@ export default function Navbar() {
                 onMouseEnter={() => setActiveCategory(category.name)}
                 onMouseLeave={() => setActiveCategory(null)}
               >
-                <button className="hover:text-gray-300">{category.name}</button>
+                {/* <button className="hover:text-gray-300">{category.name}</button> */}
+                <Link className="hover:text-gray-300" href={category.path} >{category.name} </Link>   
+
+
+
+
+
+
                 {activeCategory === category.name && (
                   <div className="absolute left-0 bg-white w-52 text-[#2c65af] border border-gray-300 shadow-lg">
                     {category.subCategories.map((sub, subIndex) => (
@@ -124,7 +148,8 @@ export default function Navbar() {
                         onMouseEnter={() => setActiveSubCategory(sub.name)}
                         onMouseLeave={() => setActiveSubCategory(null)}
                       >
-                        <Link href={`/products/${sub.name}`} className="flex justify-between items-center px-2">
+                        {/* href={`/products/${sub.name}`} */}
+                        <Link href={`${sub.path}`} className="flex justify-between items-center px-2">
                           <button className="block px-4 py-2 w-full text-left hover:bg-gray-200">{sub.name}</button>
                           {sub.childCategories.length > 0 && (
                             activeSubCategory === sub.name ? <MdOutlineKeyboardArrowDown className="text-2xl ml-6" /> : <MdArrowForwardIos />

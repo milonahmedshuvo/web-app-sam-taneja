@@ -7,7 +7,7 @@ import man3 from "../../../../image/man3.png";
 
 const OurTeam = () => {
   return (
-    <div className="custom-container !pt-20 !pb-20">
+    <div className="custom-container !pt-20 !pb-20 px-6">
       <h2 className="text-[40px] mulish !font-[700] ">Our Executive Team</h2>
       <p className="w-[100px] h-[5px] bg-[#AEC6EF] !mt-[-14px] rounded-2xl"></p>
       <p className="text-[16px] font-[400] text-[#616161] max-w-5xl mulish leading-6 ">

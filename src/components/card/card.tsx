@@ -10,6 +10,7 @@ import { MdReport } from "react-icons/md";
 import { CiShare2 } from "react-icons/ci";
 
 interface CardProps {
+  id:string;
   image: string;
   smallText: string;
   title: string;
@@ -17,10 +18,17 @@ interface CardProps {
   description: string;
 }
 
-const Card = ({ image, smallText, title, price, description }: CardProps) => {
+
+
+
+const Card = ({ image, smallText, title, price, description, id }: CardProps) => {
   const [showFullText, setShowFullText] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+
+
+  
+  
   return (
     <div className="bg-white  p-4 rounded-lg w-full my-5 border border-[#c1c4cc]">
       <div className=" flex flex-wrap md:grid md:grid-cols-[auto_1fr_auto] gap-4  relative  ">
@@ -103,7 +111,7 @@ const Card = ({ image, smallText, title, price, description }: CardProps) => {
                   onClick={() => setIsModalOpen(false)}
                 >
                   <FaUser className="cursor-pointer text-[#2c65af] ml-1" />
-                  <Link href="/viewProfile">
+                  <Link href={`/cardDatails/${id}`}>
                     <span className="text-[#2c65af] !font-thin text-[14px]">
                       Open Offer in New Tab
                     </span>

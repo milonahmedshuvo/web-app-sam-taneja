@@ -1,5 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaUser, FaShoppingCart, FaSearch, FaBars } from "react-icons/fa";
 import { MdArrowForwardIos, MdOutlineKeyboardArrowDown } from "react-icons/md";
@@ -29,19 +30,24 @@ interface Category {
 
 
 const categories: Category[] = [
-  {
-    name: "Categories",
-    path: '/',
-    subCategories: [
-      { name: "Clothing",path: '/', childCategories: [{ name: "Activewear", path: '/', }, { name: "Jackets", path: '/', }, { name: "Jeans", path: '/', }] },
-      { name: "Laptops",path: '/', childCategories: [{ name: "Dell", path: '/', }, { name: "HP", path: '/', }, { name: "MacBook", path: '/', }] },
-      { name: "Electronics",path: '/', childCategories: [{name: '49" or smaller', path: '/',}, {name: '9" or smaller', path: '/',}, {name: '65" or smaller', path: '/',}] },
-      { name: "Airfare",path: '/', childCategories: [] },
-      { name: "Automotive",path: '/', childCategories: [] },
-      { name: "Clothing & Accessories",path: '/', childCategories: [] },
-      { name: "Credit Cards",path: '/', childCategories: [] },
-    ],
-  },
+  // {
+  //   name: "Categories",
+  //   path: '/',
+  //   subCategories: [
+  //     { name: "Clothing",path: '/', childCategories: [{ name: "Activewear", path: '/', }, { name: "Jackets", path: '/', }, { name: "Jeans", path: '/', }] },
+  //     { name: "Laptops",path: '/', childCategories: [{ name: "Dell", path: '/', }, { name: "HP", path: '/', }, { name: "MacBook", path: '/', }] },
+  //     { name: "Electronics",path: '/', childCategories: [{name: '49" or smaller', path: '/',}, {name: '9" or smaller', path: '/',}, {name: '65" or smaller', path: '/',}] },
+  //     { name: "Airfare",path: '/', childCategories: [] },
+  //     { name: "Automotive",path: '/', childCategories: [] },
+  //     { name: "Clothing & Accessories",path: '/', childCategories: [] },
+  //     { name: "Credit Cards",path: '/', childCategories: [] },
+  //   ],
+  // },
+
+
+
+
+
   {
     name: "Storis",
     path: '/',
@@ -99,6 +105,8 @@ const categories: Category[] = [
 
 
 
+
+
 export default function Navbar() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeSubCategory, setActiveSubCategory] = useState<string | null>(null);
@@ -106,8 +114,36 @@ export default function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false); 
 
 
-  // console.log(isModalOpen)
+  
+          const [data, setData] = useState<any[] >([]);
+          const [loading, setLoading] = useState(true);
+        
 
+
+          useEffect(() => {
+            fetch("http://10.0.10.245:9829/api/v1/categories/main-categories")
+              .then((res) => res.json())
+              .then((data) => {
+                setData(data?.data || []);
+                setLoading(false);
+              })
+              .catch((err) => {
+                console.error(err);
+                setLoading(false);
+              });
+          }, []);
+        
+  
+  
+          if (loading) {
+            return (
+              <div className="text-center py-10 text-lg font-medium">Loading...</div>
+            );
+          }
+
+
+
+  console.log("categoris", data)
 
   return (
     <div className=" mb-2 md:mb-4 relative absolute z-30 ">
@@ -123,7 +159,63 @@ export default function Navbar() {
           </div>
 
           {/* Center - Categories (Hidden in Mobile) */}
-          <div className="hidden md:flex relative gap-6 ">
+          <div className="hidden md:flex relative gap-7 ">
+
+
+         
+              {/* show one categoris manu  */}
+              <div 
+                className="relative group"
+                onMouseEnter={() => setActiveCategory('category')}
+                onMouseLeave={() => setActiveCategory(null)}
+              >
+                <Link className="hover:text-gray-300" href='/' >Categories</Link>   
+                {activeCategory === 'category' && (
+                  <div className="absolute left-0 bg-white w-[260px] text-[#2c65af] border border-gray-300 shadow-lg">
+                    {data?.map((sub, subIndex) => (
+                      <div
+                        key={subIndex}
+                        className=""
+                        onMouseEnter={() => setActiveSubCategory(sub.name)}
+                        onMouseLeave={() => setActiveSubCategory(null)}    
+                      >
+                        <Link href={`${sub.name}`} className="flex justify-between items-center px-2">
+                          <button className="block px-4 py-2 w-full text-left hover:bg-gray-200">{sub.name}</button>
+                          {sub.children.length > 0 && (
+                            activeSubCategory === sub.name ? <MdOutlineKeyboardArrowDown className="text-2xl ml-6" /> : <MdArrowForwardIos />
+                          )}
+                        </Link> 
+                        {activeSubCategory === sub.name && (
+                          <div className="absolute left-full top-0 mt-0 bg-white w-[260px] shadow-md">
+                            {sub.children.map((child, childIndex) => (
+                              <Link key={childIndex} href={`/products/${child.name}`} className="block px-4 py-2 hover:bg-gray-200">
+                                {child.name}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            
             {categories.map((category, index) => (
               <div
                 key={index}
@@ -133,9 +225,6 @@ export default function Navbar() {
               >
                 {/* <button className="hover:text-gray-300">{category.name}</button> */}
                 <Link className="hover:text-gray-300" href={category.path} >{category.name} </Link>   
-
-
-
 
 
 
@@ -173,6 +262,10 @@ export default function Navbar() {
               </div>
             ))}
           </div>
+
+
+
+
         </div>
 
 
@@ -185,8 +278,6 @@ export default function Navbar() {
 
             {
                isModalOpen && <div className="absolute right-0 top-[30px] bg-white p-5 w-[200px] shadow space-y-3.5">
-                    
-                     
                     <div className="flex gap-3"  onClick={()=> setIsModalOpen(false)} >
                     <FaUser className="cursor-pointer  text-[#2c65af]" />
                     <Link href='/viewProfile' ><span className="text-[#2c65af] font-normal text-[15px] ">View Profile</span></Link>

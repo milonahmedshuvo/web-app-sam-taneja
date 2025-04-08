@@ -1,8 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Heart } from "lucide-react"
-import user from "../../image/user.webp"
-import img1 from "../../image/img1.webp"
+import user from "../../../image/user.webp"
+import img1 from "../../../image/img1.webp"
 
 export default function UserProfile() {
   return (

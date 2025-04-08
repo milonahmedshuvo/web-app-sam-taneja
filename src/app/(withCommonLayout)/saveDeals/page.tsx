@@ -1,6 +1,6 @@
 'use client'
 import { SaveDealsProductCard } from "@/components/card/SaveDealProduct"
-import img1 from "../../image/img1.webp"
+import img1 from "../../../image/img1.webp"
 
 const page = () => {
   return (

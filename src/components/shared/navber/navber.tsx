@@ -8,6 +8,7 @@ import { MdArrowForwardIos, MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaAngleLeft } from "react-icons/fa6";
+import { useGetAllStorisQuery } from "@/redux/api/samtanejaApi";
 
 interface ChildCategory {
   name: string;
@@ -113,6 +114,12 @@ export default function Navbar() {
   const [activeSubCategory, setActiveSubCategory] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); 
+  const {data:allStoris, isLoading, isError } = useGetAllStorisQuery("")
+
+  console.log({allStoris})
+  console.log(isError)
+
+
 
 
   
@@ -122,7 +129,7 @@ export default function Navbar() {
 
 
           useEffect(() => {
-            fetch("http://10.0.10.245:9829/api/v1/categories/main-categories")
+            fetch("https://samtaneja-api.code-commando.com/api/v1/categories/main-categories")
               .then((res) => res.json())
               .then((data) => {
                 setData(data?.data || []);
@@ -136,7 +143,7 @@ export default function Navbar() {
         
   
   
-          if (loading) {
+          if (loading || isLoading) {
             return (
               <div className="text-center py-10 text-lg font-medium">Loading...</div>
             );
@@ -206,7 +213,30 @@ export default function Navbar() {
 
 
 
-
+               {/* show one stores  */}
+               <div 
+                className="relative group"
+                onMouseEnter={() => setActiveCategory('stores')}
+                onMouseLeave={() => setActiveCategory(null)}
+              >
+                <Link className="hover:text-gray-300" href='/' >Stores</Link>   
+                {activeCategory === 'stores' && (
+                  <div className="absolute left-0 bg-white w-[260px] text-[#2c65af] border border-gray-300 shadow-lg">
+                    {allStoris?.data?.map((sub, subIndex) => (
+                      <div
+                        key={subIndex}
+                        className=""
+                        onMouseEnter={() => setActiveSubCategory(sub.name)}
+                        onMouseLeave={() => setActiveSubCategory(null)}    
+                      >
+                        <Link href={`${sub.name}`} className="flex justify-between items-center px-2">
+                          <button className="block px-4 py-2 w-full text-left hover:bg-gray-200">{sub.name}</button> 
+                        </Link> 
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
 
 
 

@@ -5,17 +5,19 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const samTanejaApi = createApi({
 
   reducerPath: 'samTanejaApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://10.0.10.245:9829/api/v1' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://samtaneja-api.code-commando.com/api/v1' }),
   endpoints: (build) => ({
 
     getPokemonByName: build.query({
       query: (name) => `/pokemon/${name}`,
     }),
 
-
+   getAllStoris : build.query({
+       query: () => '/stores'
+   })
   }),
 })
 
 
 
-export const { useGetPokemonByNameQuery } = samTanejaApi;
+export const { useGetPokemonByNameQuery, useGetAllStorisQuery } = samTanejaApi;

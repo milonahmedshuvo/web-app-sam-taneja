@@ -31,7 +31,7 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://10.0.10.245:9829/api/v1/blogs")
+    fetch("https://samtaneja-api.code-commando.com/api/v1/blogs")
       .then((res) => res.json())
       .then((data) => {
         setData(data?.data || []);

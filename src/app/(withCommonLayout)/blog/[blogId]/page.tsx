@@ -27,7 +27,7 @@ const Detailspage = () => {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`http://10.0.10.245:9829/api/v1/blogs/${id}`)
+    fetch(`https://samtaneja-api.code-commando.com/api/v1/blogs/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setData(data?.data || null);

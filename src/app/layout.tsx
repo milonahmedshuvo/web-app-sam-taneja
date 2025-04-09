@@ -4,6 +4,7 @@ import "./globals.css";
 // import Navber from "@/components/shared/navber/navber";
 
 import "antd/dist/reset.css";
+import Providers from "@/utils/Provider";
 // import Footer from "@/components/shared/footer/footer";
 
 const geistSans = Geist({
@@ -34,10 +35,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* <Navber /> */}
-        {/* max-w-7xl mx-auto */}
+        <Providers>    
         <div>{children}</div>
-        {/* <Footer/> */}
+        </Providers> 
       </body>
     </html>
   );

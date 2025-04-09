@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import { useEffect, useState } from "react";
@@ -181,8 +182,9 @@ export default function Navbar() {
                       >
                         <Link href={`${sub.name}`} className="flex justify-between items-center px-2">
                           <button className="block px-4 py-2 w-full text-left hover:bg-gray-200">{sub.name}</button>
+                         
                           {sub.children.length > 0 && (
-                            activeSubCategory === sub.name ? <MdOutlineKeyboardArrowDown className="text-2xl ml-6" /> : <MdArrowForwardIos />
+                            activeSubCategory === sub.name ? <MdOutlineKeyboardArrowDown className="text-2xl ml-2" /> : <MdArrowForwardIos />
                           )}
                         </Link> 
                         {activeSubCategory === sub.name && (

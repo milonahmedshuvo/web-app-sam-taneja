@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "antd/dist/reset.css";
 import Footer from "@/components/shared/footer/footer";
 import Navbar from "@/components/shared/navber/navber";
+import Providers from "@/utils/Provider";
 
 
 const geistSans = Geist({
@@ -34,12 +35,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Providers>   
         <Navbar />
-
-
          {/* <NavbarMenu/> */}
         <div className="px-3">{children}</div>
         <Footer/>
+        </Providers>  
       </body>
     </html>
   );

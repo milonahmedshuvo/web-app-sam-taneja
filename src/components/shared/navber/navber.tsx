@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/no-unescaped-entities */
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { FaUser, FaShoppingCart, FaSearch, FaBars } from "react-icons/fa";
 import { MdArrowForwardIos, MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaAngleLeft } from "react-icons/fa6";
-import { useGetAllStorisQuery } from "@/redux/api/samtanejaApi";
+import { useGetAllCategoriesQuery, useGetAllStorisQuery } from "@/redux/api/samtanejaApi";
 
 interface ChildCategory {
   name: string;
@@ -26,6 +26,15 @@ interface Category {
   path: string,
   subCategories: SubCategory[];
 }
+type Categorys = {
+  id: string;
+  name: string;
+  slug: string;
+  parentId: string | null;
+  createdAt: string;
+  updatedAt: string;
+  children: Category[]; // Recursive type for nested categories
+};
 
 
 
@@ -47,20 +56,20 @@ const categories: Category[] = [
   // },
 
 
+  // {
+  //   name: "Storis",
+  //   path: '/',
+  //   subCategories: [
+  //     { name: "Amazon",path: '/', childCategories: [{ name: "Laptops", path: '/', }, { name: "Shoes", path: '/', }, { name: "i5 Laptops", path: '/', }, {name : 'i7 Windows Laptops', path: '/',} ] },
+  //     { name: "Dell",path: '/', childCategories: [{ name: "Dresses", path: '/', }, { name: "Jewelry", path: '/', }, { name: "Bags", path: '/', }] },
+  //     { name: "Disney Plus",path: '/', childCategories: [{ name: "Dresses", path: '/', }, { name: "Jewelry", path: '/', }, { name: "Bags", path: '/', }] },
+  //     { name: "eBay",path: '/', childCategories: [{ name: "Dresses", path: '/', }, { name: "Jewelry", path: '/', }, { name: "Bags", path: '/', }] },
+  //     { name: "Kohl's",path: '/', childCategories: [] },
+  //   ],
+  // },
 
 
 
-  {
-    name: "Storis",
-    path: '/',
-    subCategories: [
-      { name: "Amazon",path: '/', childCategories: [{ name: "Laptops", path: '/', }, { name: "Shoes", path: '/', }, { name: "i5 Laptops", path: '/', }, {name : 'i7 Windows Laptops', path: '/',} ] },
-      { name: "Dell",path: '/', childCategories: [{ name: "Dresses", path: '/', }, { name: "Jewelry", path: '/', }, { name: "Bags", path: '/', }] },
-      { name: "Disney Plus",path: '/', childCategories: [{ name: "Dresses", path: '/', }, { name: "Jewelry", path: '/', }, { name: "Bags", path: '/', }] },
-      { name: "eBay",path: '/', childCategories: [{ name: "Dresses", path: '/', }, { name: "Jewelry", path: '/', }, { name: "Bags", path: '/', }] },
-      { name: "Kohl's",path: '/', childCategories: [] },
-    ],
-  },
 
   {
     name: "From The Blog",
@@ -114,36 +123,11 @@ export default function Navbar() {
   const [activeSubCategory, setActiveSubCategory] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); 
-  const {data:allStoris, isLoading, isError } = useGetAllStorisQuery("")
-
-  console.log({allStoris})
-  console.log(isError)
-
-
-
-
+  const {data:allStoris, isLoading:storesLoading,  } = useGetAllStorisQuery("")
+  const {data:allCategoris, isLoading:categorisLoading,  } = useGetAllCategoriesQuery("")
   
-          const [data, setData] = useState<any[] >([]);
-          const [loading, setLoading] = useState(true);
-        
 
-
-          useEffect(() => {
-            fetch("https://samtaneja-api.code-commando.com/api/v1/categories/main-categories")
-              .then((res) => res.json())
-              .then((data) => {
-                setData(data?.data || []);
-                setLoading(false);
-              })
-              .catch((err) => {
-                console.error(err);
-                setLoading(false);
-              });
-          }, []);
-        
-  
-  
-          if (loading || isLoading) {
+       if (categorisLoading || storesLoading ) {
             return (
               <div className="text-center py-10 text-lg font-medium">Loading...</div>
             );
@@ -151,7 +135,9 @@ export default function Navbar() {
 
 
 
-  console.log("categoris", data)
+     console.log("all categoris", allCategoris)
+
+
 
   return (
     <div className=" mb-2 md:mb-4 relative absolute z-30 ">
@@ -180,7 +166,7 @@ export default function Navbar() {
                 <Link className="hover:text-gray-300" href='/' >Categories</Link>   
                 {activeCategory === 'category' && (
                   <div className="absolute left-0 bg-white w-[260px] text-[#2c65af] border border-gray-300 shadow-lg">
-                    {data?.map((sub, subIndex) => (
+                    {allCategoris?.data?.map((sub:Categorys, subIndex:number) => (
                       <div
                         key={subIndex}
                         className=""
@@ -222,7 +208,7 @@ export default function Navbar() {
                 <Link className="hover:text-gray-300" href='/' >Stores</Link>   
                 {activeCategory === 'stores' && (
                   <div className="absolute left-0 bg-white w-[260px] text-[#2c65af] border border-gray-300 shadow-lg">
-                    {allStoris?.data?.map((sub, subIndex) => (
+                    {allStoris?.data?.map((sub:{name:string, id:string}, subIndex:number) => (
                       <div
                         key={subIndex}
                         className=""

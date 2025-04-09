@@ -12,6 +12,10 @@ export const samTanejaApi = createApi({
       query: (name) => `/pokemon/${name}`,
     }),
 
+   getAllCategories: build.query({
+    query : () => '/categories/main-categories'
+   }),
+
    getAllStoris : build.query({
        query: () => '/stores'
    })
@@ -20,4 +24,4 @@ export const samTanejaApi = createApi({
 
 
 
-export const { useGetPokemonByNameQuery, useGetAllStorisQuery } = samTanejaApi;
+export const { useGetPokemonByNameQuery, useGetAllStorisQuery, useGetAllCategoriesQuery } = samTanejaApi;

@@ -10,7 +10,7 @@ export default function TeamPage() {
 
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-6xl my-10 lg:my-20">
+    <div className="container mx-auto px-4 py-12 max-w-6xl mt-10 lg:mt-20">
       <div className="space-y-8">
         {/* Header Section */}
         <div className="space-y-4">

@@ -1,12 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from "next/image"
 import Link from "next/link"
-import { Facebook, Instagram, Linkedin, Rss } from "lucide-react"
 import work from '../../../image/work.jpg'
+
+type SocialIconProps = {
+  href: string;
+  label: string;
+  icon: React.ReactNode;
+};
+
+// App Store Button Component
+type AppStoreButtonProps = {
+  href: string;
+  type?: string;
+  label: string;
+  imgSrc: string;
+};
 
 
 // bg-[#3a5495]
-
 export default function SocialMediaSection() {
   return (
     <section className="w-full relative text-white py-10 px-4 mb-20 mt-28 !bg-cover bg-center bg-no-repeat bg-fixed" style={{backgroundImage: `url('${work.src}')`}} >
@@ -52,7 +64,7 @@ export default function SocialMediaSection() {
 
 
 // Social Icon Component
-function SocialIcon({ href, label, icon }) {
+function SocialIcon({ href, label, icon }: SocialIconProps) {
   return (
     <Link href={href} className="flex flex-col items-center justify-center group">
       <div className="w-12 h-12 rounded-full bg-[#2c4380] flex items-center justify-center mb-2 transition-transform group-hover:scale-110">
@@ -67,7 +79,7 @@ function SocialIcon({ href, label, icon }) {
 
 
 // App Store Button Component
-function AppStoreButton({ href, type, label, imgSrc }) {
+function AppStoreButton({ href, type, label, imgSrc }: AppStoreButtonProps) {
   return (
     <Link href={href} className="flex flex-col items-center transition-transform hover:scale-105">
       <Image

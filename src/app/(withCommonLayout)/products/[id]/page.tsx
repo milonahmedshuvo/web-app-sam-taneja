@@ -1,6 +1,4 @@
 import BreadCrumb from "@/components/antComponent/breadcrumb/BreadCrumb";
-import Cartparent from "@/components/card/cardParent";
-// import Carousel from "@/components/home/carousel/carousel";
 import ProductCarousel from "@/components/products/productCarousel/productCarousel";
 import ProductFilterComponent from "@/components/products/productFilter/ProductFilter";
 
@@ -14,10 +12,7 @@ const Products = () => {
            {/* product filter components  */}
          <div className="max-w-7xl mx-auto">
               <ProductFilterComponent/> 
-              <ProductCarousel/>
-              <Cartparent />
-              <Cartparent />
-              <Cartparent />
+              <ProductCarousel/>             
          </div>
          
   </div>;

@@ -1,10 +1,11 @@
 "use client";
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { BlogCard } from "@/components/navComponent/BlogCard/BlogCard";
+import { BlogCards } from "@/components/navComponent/BlogCard/BlogCard";
+import { useGetAllBlogsQuery } from "@/redux/api/samtanejaApi";
+import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import applogo from "../../../image/app.webp"
 
 const yearList = [
   { year: 2024 },
@@ -27,37 +28,27 @@ const yearList = [
 ];
 
 const Page = () => {
-  const [data, setData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("https://samtaneja-api.code-commando.com/api/v1/blogs")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data?.data || []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
+  const {data:allBlogs, isLoading} = useGetAllBlogsQuery("")
+  
+  if (isLoading) {
     return (
       <div className="text-center py-10 text-lg font-medium">Loading...</div>
     );
   }
 
-  // console.log(data?.data)
+
+
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="max-w-7xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Latest Tech News</h1>
+ 
+      <div className="flex flex-col xl:flex-row gap-6 items-start">
 
-      <div className="space-y-6">
-        {data.map((post: any) => (
-          <BlogCard
+      <div  className="xl:w-[70%] ">
+      <div  className="space-y-6">
+        {allBlogs?.data?.map((post: any) => (
+          <BlogCards
             key={post.id}
             title={post.title}
             summary={post.summary}
@@ -71,9 +62,33 @@ const Page = () => {
           />
         ))}
       </div>
+      </div>
+        
+         <div className="rounded-md w-full xl:w-[30%] ">
+
+           <div className="border border-[#c1c4cc] px-1 py-1.5 rounded-sm mb-2">
+            <Image src={applogo} width={500} height={500} alt="app" />
+        </div>
+
+        <div className="border border-[#c1c4cc] px-1 py-1.5 rounded-sm mb-2 !mt-6">
+            <Image src={applogo} width={500} height={500} alt="app" />
+        </div>
+           </div>
+        
+        
+        </div> 
+
+
+
+      
+
+
+
+
+
+
 
       <p className="!text-[700] text-[24px] ">Archives</p>
-
       <ul className="space-y-4 flex flex-col items-center">
         {yearList.map((item, index) => (
           <li

@@ -5,73 +5,24 @@ import Banner from "@/components/home/banner/banner";
 import BlogCard from "@/components/home/blogCard/blogCard";
 import Carousel from "@/components/home/carousel/carousel";
 import ProductFilterComponent from "@/components/products/productFilter/ProductFilter";
-import Image from "next/image";
+import { useGetAllBlogsQuery } from "@/redux/api/samtanejaApi";
 import { useEffect, useState } from "react";
-import applogo from "../../image/app.webp"
 
-
-
-//title : name 
-// image : img
-// price: price
-// description: summary
-//  company: store.name
-
-
-// const cartDatas = [
-//   {
-//     id: "1",
-//     image:
-//       "https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/cms/pv3qpvsxrluysblvumn2.jpg",
-//     smallText: "Woot! An Amazon Company · 5 hrs ago",
-//     title: "SanDisk Memory Deals",
-//     price: "From $3",
-//     description:
-//       "In this sale you'll find savings on a selection of SanDisk memory items. Prices start from $2.99 when you use coupon code 'SANDISKFIVE' at checkout.vis sale you'll find savings on a selection of SanDisk memory items. Prices start from $2.99 when you use coupon code 'SANDISKFIVE' at checkout Buy Now at Woot! An Amazon Company.",
-//   },
-//   {
-//     id: "2",
-//     image:
-//       "https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/cms/w19nmg3hu65y8lwqsijs.jpg",
-//     smallText: "Woot! An Amazon Company · 5 hrs ago",
-//     title: "SanDisk Memory Deals",
-//     price: "From $3",
-//     description:
-//       "In this sale you'll find savings on a selection of SanDisk memory items. Prices start from $2.99 when you use coupon code 'SANDISKFIVE' at checkout.vis sale you'll find savings on a selection of SanDisk memory items. Prices start from $2.99 when you use coupon code 'SANDISKFIVE' at checkout Buy Now at Woot! An Amazon Company.",
-//   },
-//   {
-//     id: "3",
-//     image:
-//       "https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/cms/qf9jexi1szonvh046cdf.jpg",
-//     smallText: "Woot! An Amazon Company · 5 hrs ago",
-//     title: "SanDisk Memory Deals",
-//     price: "From $3",
-//     description:
-//       "In this sale you'll find savings on a selection of SanDisk memory items. Prices start from $2.99 when you use coupon code 'SANDISKFIVE' at checkout.vis sale you'll find savings on a selection of SanDisk memory items. Prices start from $2.99 when you use coupon code 'SANDISKFIVE' at checkout Buy Now at Woot! An Amazon Company.",
-//   },
-//   {
-//     id: "4",
-//     image:
-//       "https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/cms/pv3qpvsxrluysblvumn2.jpg",
-//     smallText: "Woot! An Amazon Company · 5 hrs ago",
-//     title: "SanDisk Memory Deals",
-//     price: "From $3",
-//     description:
-//       "In this sale you'll find savings on a selection of SanDisk memory items. Prices start from $2.99 when you use coupon code 'SANDISKFIVE' at checkout.vis sale you'll find savings on a selection of SanDisk memory items. Prices start from $2.99 when you use coupon code 'SANDISKFIVE' at checkout Buy Now at Woot! An Amazon Company.",
-//   },
-// ];
-
-
-// interface HomeCardTypes {
-//   img: string;
-//   price: string;
-//   name: string;
-//   summary: string;
-//   store: object
-// }
+type TBlog = {
+  id: string;            
+  title: string;       
+  content: string;       
+  author: string;        
+  summary: string;      
+  img: string | null;   
+  createdAt: string;     
+  updatedAt: string;    
+};
 
 
 const Homepage = () => {
+       const {data:allBlogs, isLoading} = useGetAllBlogsQuery("")
+        
       const [data, setData] = useState<any[] >([]);
         const [loading, setLoading] = useState(true);
       
@@ -97,7 +48,14 @@ const Homepage = () => {
         }
 
 
-        console.log("ami data", data)
+        if (isLoading) {
+          return (
+            <div className="text-center py-10 text-lg font-medium">Loading...</div>
+          );
+        }
+
+
+        console.log("all blogs", allBlogs)
 
 
 
@@ -138,73 +96,26 @@ const Homepage = () => {
             </p>
           </div>
 
-          {/* <div className="border border-[#c1c4cc] px-1 py-1.5 rounded-sm mb-2">
-            <Image src={applogo} width={500} height={500} alt="app" />
-        </div> */}
 
 
-          <BlogCard
+          {
+            allBlogs?.data?.map((blog:TBlog) => <BlogCard key={blog.id}
+            image={blog.img as string}
+            title={blog.title}
+            subTitle={blog.summary}
+            blogDateTitle="Blog Buying Guides 7 mos ago"
+            href={`/blog/${blog.id}`}
+          /> )
+          }
+         
+
+          {/* <BlogCard
             image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/qpvzbybtgjb2jym2edwf.jpg"
             title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
             subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
             blogDateTitle="Blog Buying Guides 7 mos ago"
-          />
-
-          <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/u0ina8b1daxa9gleeec3.png"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
-            blogDateTitle="Blog Buying Guides 7 mos ago"
-          ></BlogCard>
-
-          <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/qpvzbybtgjb2jym2edwf.jpg"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
-            blogDateTitle="Blog Buying Guides 7 mos ago"
-          ></BlogCard>
-
-          <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/qpvzbybtgjb2jym2edwf.jpg"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
-            blogDateTitle="Blog Buying Guides 7 mos ago"
-          ></BlogCard>
-
-          <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/qpvzbybtgjb2jym2edwf.jpg"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
-            blogDateTitle="Blog Buying Guides 7 mos ago"
-          ></BlogCard>
-
-          <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/qpvzbybtgjb2jym2edwf.jpg"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
-            blogDateTitle="Blog Buying Guides 7 mos ago"
-          ></BlogCard>
-
-          <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/qpvzbybtgjb2jym2edwf.jpg"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
-            blogDateTitle="Blog Buying Guides 7 mos ago"
-          ></BlogCard>
-
-          <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/qpvzbybtgjb2jym2edwf.jpg"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
-            blogDateTitle="Blog Buying Guides 7 mos ago"
-          ></BlogCard>
-
-          <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/qpvzbybtgjb2jym2edwf.jpg"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
-            blogDateTitle="Blog Buying Guides 7 mos ago"
-          ></BlogCard>
+            href=''
+          ></BlogCard> */}
         </div>
       </div>
     </div>

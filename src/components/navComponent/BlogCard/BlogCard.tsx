@@ -1,5 +1,4 @@
 'use client'
-
 import Image from "next/image"
 import Link from "next/link"
 import { Heart } from "lucide-react"
@@ -20,7 +19,11 @@ interface BlogCardProps {
   updatedAt:string
 }
 
-export function BlogCard({
+
+
+
+
+export function BlogCards({
   title,
   summary,
   imageUrl,
@@ -51,6 +54,7 @@ export function BlogCard({
           </div>
         </Link>
       </div>
+
       <div className="flex-1 space-y-2">
         <div className="flex items-start gap-2">
           <Link href={href} className="flex-1">

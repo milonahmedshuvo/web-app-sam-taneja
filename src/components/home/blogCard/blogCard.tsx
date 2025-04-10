@@ -1,13 +1,18 @@
 import Image from "next/image";
+import Link from "next/link";
+import noImg  from "../../../image/blog.webp"
+
+
 
 interface BlogCard {
   image: string;
   title: string;
   subTitle: string;
   blogDateTitle: string;
+  href: string
 }
 
-const BlogCard = ({ image, title, subTitle, blogDateTitle }: BlogCard) => {
+const BlogCard = ({ image, title, subTitle, blogDateTitle, href }: BlogCard) => {
 
 
   return (
@@ -16,6 +21,16 @@ const BlogCard = ({ image, title, subTitle, blogDateTitle }: BlogCard) => {
 
       {/* Image div */}
       <div className="h-full w-32 flex-shrink-0">
+         {
+          href ? <Link href={href} > 
+          <Image
+            className="h-full w-full object-cover"
+            src={image || noImg}
+            width={128} 
+            height={128}
+            alt="image"
+          />
+          </Link> :  
         <Image
           className="h-full w-full object-cover"
           src={image}
@@ -23,6 +38,7 @@ const BlogCard = ({ image, title, subTitle, blogDateTitle }: BlogCard) => {
           height={128}
           alt="image"
         />
+         }
       </div>
 
       {/* Content div */}

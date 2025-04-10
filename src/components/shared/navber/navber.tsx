@@ -156,6 +156,10 @@ export default function Navbar() {
           <div className="hidden md:flex relative gap-7 ">
 
 
+
+
+
+
          
               {/* show one categoris manu  */}
               <div 
@@ -165,7 +169,7 @@ export default function Navbar() {
               >
                 <Link className="hover:text-gray-300" href='/' >Categories</Link>   
                 {activeCategory === 'category' && (
-                  <div className="absolute left-0 bg-white w-[260px] text-[#2c65af] border border-gray-300 shadow-lg">
+                  <div className="absolute left-0 bg-white w-[260px] text-[#2c65af] border border-gray-300 shadow-lg !pt-4">
                     {allCategoris?.data?.map((sub:Categorys, subIndex:number) => (
                       <div
                         key={subIndex}
@@ -180,8 +184,10 @@ export default function Navbar() {
                             activeSubCategory === sub.name ? <MdOutlineKeyboardArrowDown className="text-2xl ml-2" /> : <MdArrowForwardIos />
                           )}
                         </Link> 
+
+                        
                         {activeSubCategory === sub.name && (
-                          <div className="absolute left-full top-0 mt-0 bg-white w-[260px] shadow-md">
+                          <div className="absolute left-full top-0 mt-0 bg-white w-[260px] shadow-md !pt-4">
                             {sub.children.map((child, childIndex) => (
                               <Link key={childIndex} href={`/products/${child.name}`} className="block px-4 py-2 hover:bg-gray-200">
                                 {child.name}
@@ -191,8 +197,14 @@ export default function Navbar() {
                         )}
                       </div>
                     ))}
+                     <Link href='/allCategoris' > 
+                     <p  className="pl-5 py-2  hover:bg-gray-200 cursor-pointer" >All categoris</p>
+                     </Link>
+
+                     
                   </div>
                 )}
+
               </div>
        
 
@@ -221,6 +233,7 @@ export default function Navbar() {
                       </div>
                     ))}
                   </div>
+                  
                 )}
               </div>
 

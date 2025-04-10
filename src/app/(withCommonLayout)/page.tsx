@@ -8,7 +8,7 @@ import ProductFilterComponent from "@/components/products/productFilter/ProductF
 import { useGetAllBlogsQuery } from "@/redux/api/samtanejaApi";
 import { useEffect, useState } from "react";
 
-type TBlog = {
+export type TBlog = {
   id: string;            
   title: string;       
   content: string;       

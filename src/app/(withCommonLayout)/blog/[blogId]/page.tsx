@@ -6,6 +6,8 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import applogo from "../../../../image/app.webp"
 import Image from "next/image";
+import { useGetAllBlogsQuery } from "@/redux/api/samtanejaApi";
+import { TBlog } from "../../page";
 
 
 
@@ -21,10 +23,11 @@ interface BlogData {
 
 const Detailspage = () => {
   const [data, setData] = useState<BlogData | null>(null);
+  const {data:allBlogs, isLoading} = useGetAllBlogsQuery("")
   const [loading, setLoading] = useState(true);
-
   const params = useParams();
   const id = params.blogId as string;
+
 
 
 
@@ -43,7 +46,7 @@ const Detailspage = () => {
       });
   }, [id]);
 
-  if (loading) {
+  if (loading || isLoading) {
     return (
       <div className="text-center py-10 text-lg font-medium">Loading...</div>
     );
@@ -96,40 +99,16 @@ const Detailspage = () => {
           </div>
 
 
-          <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/qpvzbybtgjb2jym2edwf.jpg"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
+          {
+            allBlogs?.data?.map((blog:TBlog) => <BlogCard key={blog.id}
+            image={blog.img as string}
+            title={blog.title}
+            subTitle={blog.summary}
             blogDateTitle="Blog Buying Guides 7 mos ago"
-          />
-
-          <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/u0ina8b1daxa9gleeec3.png"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
-            blogDateTitle="Blog Buying Guides 7 mos ago"
-          ></BlogCard>
-
-          <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/qpvzbybtgjb2jym2edwf.jpg"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
-            blogDateTitle="Blog Buying Guides 7 mos ago"
-          ></BlogCard>
-
-          <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/qpvzbybtgjb2jym2edwf.jpg"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
-            blogDateTitle="Blog Buying Guides 7 mos ago"
-          ></BlogCard>
-          <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/qpvzbybtgjb2jym2edwf.jpg"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
-            blogDateTitle="Blog Buying Guides 7 mos ago"
-          ></BlogCard>
-        </div>
+            href={`/blog/${blog.id}`}
+          /> )
+          }
+        </div >
           
      </div> 
 

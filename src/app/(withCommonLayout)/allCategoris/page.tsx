@@ -30,14 +30,14 @@ export default function CategoryNavigation() {
 
   return (
     <div className="w-full p-4 md:p-6">
-        <Link href="/" className="text-blue-600 hover:underline">
+        {/* <Link href="/" className="text-blue-600 hover:underline">
           ← Back to Categories
-        </Link>
+        </Link> */}
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {allCategoris?.data?.map((category:Category) => (
             <div key={category.id} className="mb-6">
-              <h2 className="text-[18px] !font-[600] text-[#2c65af] mb-2">
+              <h2 className="text-[21px] !font-[600] text-[#2c65af] mb-2">
                 <Link href={`/category/${category.id}`} className="hover:underline">
                   {category.name}
                 </Link>

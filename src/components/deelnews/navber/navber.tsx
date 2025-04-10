@@ -32,7 +32,7 @@ const DeelnewsNavbar = () => {
             <Link href="/deelnews/aboutus" className="text-[#232323] text-[19px] hover:text-[#3e5aa7] mulish">
               About Us
             </Link>
-            <Link href="/services" className="text-[#232323] text-[19px] hover:text-[#3e5aa7] mulish">
+            <Link href="/deelnews/pressroom" className="text-[#232323] text-[19px] hover:text-[#3e5aa7] mulish">
               Press Room
             </Link>
             <Link href="/contact" className="text-[#232323] text-[19px] hover:text-[#3e5aa7] mulish">

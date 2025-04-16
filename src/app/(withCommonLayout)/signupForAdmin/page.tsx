@@ -1,11 +1,9 @@
 "use client"
-import { useCreateCustomerAccountMutation } from "@/redux/api/samtanejaApi"
+import { useCreateAdminAccountMutation } from "@/redux/api/samtanejaApi"
 import Link from "next/link"
 import { useState } from "react"
 
-
-
-export default function SignupFormCustomer() {
+export default function SignupForm() {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -20,10 +18,10 @@ export default function SignupFormCustomer() {
     confirmPassword: "",
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [createCustomerUser, {data} ] = useCreateCustomerAccountMutation()
+  const [createAdminUser, {data}] = useCreateAdminAccountMutation();
     
 
-  console.log("create customer", data)
+  console.log("create admin", data)
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +32,6 @@ export default function SignupFormCustomer() {
     })
   }
 
-  
   const validateForm = () => {
     let isValid = true
     const newErrors = {
@@ -93,7 +90,7 @@ export default function SignupFormCustomer() {
 
 
       try {
-        const res = await createCustomerUser(payload).unwrap();
+        const res = await createAdminUser(payload).unwrap();
         console.log('Success:', res);
           setIsSubmitted(true)
           setFormData({username: "",
@@ -126,7 +123,7 @@ export default function SignupFormCustomer() {
   return (
     <div className="w-full max-w-7xl mx-auto overflow-hidden rounded-lg bg-white ">
      <div className="text-xl font-[500] text-[#2c65af] flex gap-1 mulish cursor-pointer">
-        <Link href='/signupForAdmin' ><p>Create Admin</p></Link>
+        <Link href='/signupForCustomer'><p>Create Customer</p></Link>
         <span>/</span>
         <p>Login</p>
      </div>
@@ -150,7 +147,7 @@ export default function SignupFormCustomer() {
 
         {/* Form section */}
         <div className="p-6 md:p-8 md:w-3/5 bg-[#2c65af] text-white">
-          <h1 className="text-2xl font-bold mb-6 text-center">Create a DealNews Customer Account</h1>
+          <h1 className="text-2xl font-bold mb-6 text-center">Create a DealNews Admin Account</h1>
 
           {isSubmitted && (
             <div className="mb-4 p-3 bg-green-500 text-white rounded-md">Account created successfully!</div>

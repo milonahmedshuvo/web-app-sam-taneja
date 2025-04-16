@@ -328,7 +328,9 @@ export default function Navbar() {
                         
                     <div className="flex gap-3" onClick={()=> setIsModalOpen(false)}>
                     <FaAngleLeft className="cursor-pointer  text-[#2c65af]" />
-                    <span className="text-[#2c65af] font-normal text-[15px] ">Sign Out</span>
+                    <Link href='/signupForCustomer'> 
+                    <span className="text-[#2c65af] font-normal text-[15px] ">Sign up</span>
+                    </Link>
                     </div>
                </div>
             }

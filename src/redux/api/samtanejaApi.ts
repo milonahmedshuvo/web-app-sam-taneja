@@ -34,8 +34,14 @@ export const samTanejaApi = createApi({
     })
    }),
 
-
-
+  createCustomerAccount: build.mutation({
+    query: (userData) => ({
+      url: "/users/create-customer",
+      method: "POST",
+      body: userData
+    })
+  }),
+   
 
 
   }),
@@ -43,4 +49,4 @@ export const samTanejaApi = createApi({
 
 
 
-export const { useGetPokemonByNameQuery, useGetAllStorisQuery, useGetAllCategoriesQuery, useGetAllBlogsQuery, useCreateAdminAccountMutation } = samTanejaApi;
+export const { useGetPokemonByNameQuery, useGetAllStorisQuery, useGetAllCategoriesQuery, useGetAllBlogsQuery, useCreateAdminAccountMutation, useCreateCustomerAccountMutation } = samTanejaApi;

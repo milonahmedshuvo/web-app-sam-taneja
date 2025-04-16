@@ -11,6 +11,7 @@ import brand8 from '../../../../image/brand8.png'
 
 export default function TestimonialSection() {
 
+    
   const testimonials = [
     {
       logo: brand1,

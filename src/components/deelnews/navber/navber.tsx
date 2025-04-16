@@ -38,7 +38,7 @@ const DeelnewsNavbar = () => {
             <Link href="/contact" className="text-[#232323] text-[19px] hover:text-[#3e5aa7] mulish">
               Careers
             </Link>
-            <Link href="/contact" className="text-[#232323] text-[19px] hover:text-[#3e5aa7] mulish">
+            <Link href="/deelnews/faq" className="text-[#232323] text-[19px] hover:text-[#3e5aa7] mulish">
               FAQs
             </Link>
             <Link href="/contact" className="text-white text-[16px] py-4 px-7 rounded bg-[#3e5aa7] mulish ">

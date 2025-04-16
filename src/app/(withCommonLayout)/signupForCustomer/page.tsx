@@ -34,7 +34,7 @@ export default function SignupFormCustomer() {
     })
   }
 
-  
+
   const validateForm = () => {
     let isValid = true
     const newErrors = {
@@ -128,7 +128,7 @@ export default function SignupFormCustomer() {
      <div className="text-xl font-[500] text-[#2c65af] flex gap-1 mulish cursor-pointer">
         <Link href='/signupForAdmin' ><p>Create Admin</p></Link>
         <span>/</span>
-        <p>Login</p>
+        <Link href='/login'><p>Login</p></Link>
      </div>
 
       <div className="flex flex-col md:flex-row my-20">

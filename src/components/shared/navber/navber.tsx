@@ -135,7 +135,7 @@ export default function Navbar() {
 
 
 
-     console.log("all categoris", allCategoris)
+  
 
 
 

@@ -1,5 +1,5 @@
 "use client"
-import { useCreateCustomerAccountMutation, useUserLoginMutation } from "@/redux/api/samtanejaApi"
+import {useUserLoginMutation } from "@/redux/api/samtanejaApi"
 import Link from "next/link"
 import { useState } from "react"
 
@@ -35,7 +35,6 @@ export default function SignupFormCustomer() {
   const validateForm = () => {
     let isValid = true
     const newErrors = {
-
       email: "",
       password: "",
       confirmPassword: "",

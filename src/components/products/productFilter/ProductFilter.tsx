@@ -13,14 +13,8 @@ import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 const filters = [
   { name: "Staff Pick", subcategories: [] },
   {
-    name: "Category",
-    subcategories: [
-      "Electronics",
-      "Clothing",
-      "Home Appliances",
-      "Beauty",
-      "Books",
-    ],
+    name: "Category", 
+    subcategories: [ "Electronics", "Clothing", "Home Appliances", "Beauty", "Books" ],
   },
   {
     name: "Event",
@@ -64,12 +58,20 @@ const filters = [
   },
 ];
 
+
+
+
+
 const ProductFilterComponent = () => {
   const [showFilters, setShowFilters] = useState(true);
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [selectedSubcategories, setSelectedSubcategories] = useState<{
     [key: string]: string[];
   }>({});
+
+
+
+
   const [selectedStaffPick, setSelectedStaffPick] = useState(false);
   const [showAll, setShowAll] = useState(false);
 
@@ -88,6 +90,10 @@ const ProductFilterComponent = () => {
       return { ...prev, [categoryName]: updatedSelections };
     });
   };
+
+
+
+
 
   const getSelectedLabel = (categoryName: string) => {
     const selectedItems = selectedSubcategories[categoryName] || [];
@@ -154,6 +160,8 @@ const ProductFilterComponent = () => {
                 {selectedStaffPick && <AiOutlineClose />}
               </button>
             </div>
+
+
 
 
 

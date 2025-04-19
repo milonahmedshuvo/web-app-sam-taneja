@@ -55,7 +55,7 @@ const Homepage = () => {
         }
 
 
-        console.log("all blogs", allBlogs)
+        console.log("all card", data)
 
 
 
@@ -79,12 +79,16 @@ const Homepage = () => {
               id={item.id}
               image={item.img}
               smallText={item.store.name}
-              title={item. name}
+              title={item.name}
               price={item.price}
               description={item.description}
             />
           ))}
         </div>
+
+
+
+
 
 
         <div className="border-t border-l border-r border-[#c1c4cc] rounded-md w-full xl:w-[30%] ">
@@ -107,15 +111,7 @@ const Homepage = () => {
             href={`/blog/${blog.id}`}
           /> )
           }
-         
-
-          {/* <BlogCard
-            image="https://c.dlnws.com/image/upload/c_lpad,dpr_auto,f_auto,h_300,q_auto:low,w_300/content/qpvzbybtgjb2jym2edwf.jpg"
-            title="Peacock Free Trial: How To Get a Free 7-Day Subscription Trial in 2025"
-            subTitle="The streaming service can be selective about who gets a 7-day or 3-month free trial, but there are ways to stream for free in February 2025."
-            blogDateTitle="Blog Buying Guides 7 mos ago"
-            href=''
-          ></BlogCard> */}
+        
         </div>
       </div>
     </div>

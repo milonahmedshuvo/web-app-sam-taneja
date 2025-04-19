@@ -54,9 +54,7 @@ const YearPage = () => {
 
 
   const fetchBlogs = async (page: number, year: number) => {
-          
-      console.log('fletch year', year)
-     
+              
     try {
       const res = await fetch(
         `https://samtaneja-api.code-commando.com/api/v1/blogs?page=${page}&year=${year}`
@@ -80,8 +78,7 @@ const YearPage = () => {
 
 
 
-  console.log('year hobe ', year)
-  console.log('blogs hobe', blogs)
+ 
 
 
 

@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import ModalComponent from "@/components/antComponent/modal/Modal";
+import { useGetAllCategoriesQuery, useGetAllStorisQuery } from "@/redux/api/samtanejaApi";
 import { useState } from "react";
 import {
   AiOutlineDown,
@@ -12,14 +14,14 @@ import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 
 const filters = [
   { name: "Staff Pick", subcategories: [] },
-  {
-    name: "Category", 
-    subcategories: [ "Electronics", "Clothing", "Home Appliances", "Beauty", "Books" ],
-  },
-  {
-    name: "Event",
-    subcategories: ["Sports", "Music", "Art", "Tech"],
-  },
+  // {
+  //   name: "Category", 
+  //   subcategories: [ "Electronics", "Clothing", "Home Appliances", "Beauty", "Books" ],
+  // },
+  // {
+  //   name: "Event",
+  //   subcategories: ["Sports", "Music", "Art", "Tech"],
+  // },
   {
     name: "Popularity",
     subcategories: ["High", "Medium", "Low"],
@@ -74,6 +76,16 @@ const ProductFilterComponent = () => {
 
   const [selectedStaffPick, setSelectedStaffPick] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const {data:allCategoris, isLoading  } = useGetAllCategoriesQuery("")
+  const {data:allStoris, isLoading:storesLoading } = useGetAllStorisQuery("")
+
+
+  if(isLoading || storesLoading){
+    return <p>Loading..</p>
+  }
+
+
+    console.log('filter categoris', allCategoris?.data) 
 
   const toggleCategory = (categoryName: string) => {
     setOpenCategory(openCategory === categoryName ? null : categoryName);
@@ -104,8 +116,12 @@ const ProductFilterComponent = () => {
       : lastSelected;
   };
 
+
+
+
   return (
     <div className="relative bg-white rounded-lg py-2 px-2 overflow-visible absolute z-10">
+
       {/* Main Filter Button */}
       <div className="flex justify-between items-center gap-4">
         <div className="flex gap-3 items-center">
@@ -166,42 +182,152 @@ const ProductFilterComponent = () => {
 
 
 
-            {/* Category Dropdown */}
-            {filters
-              .slice(1, showAll ? filters.length : 4)
-              .map((filter, index) => (
-                <div key={index} className="relative">
+              {/* i show category  */}
+          
+       
+                <div  className="relative">
                   <button
-                    onClick={() => toggleCategory(filter.name)}
-                    className="px-4 py-2 bg-gray-100 rounded-full flex items-center gap-2 !text-sm hover:!text-[#2c65af] hover:!bg-[#edf5fc] transition-all duration-300"
+                    onClick={() => toggleCategory('categoris')}
+                    className="px-4 py-1.5 border border-[#e2e3e8] hover:border-[#72a1d5]  rounded-full flex items-center gap-2 !text-sm hover:!text-[#2c65af] hover:!bg-[#edf5fc] transition-all duration-300"
                   >
-                    {getSelectedLabel(filter.name)}
-                    {openCategory === filter.name ? (
+                    {getSelectedLabel('categoris')}
+
+
+                    {openCategory === 'categoris' ? (
                       <AiOutlineUp />
                     ) : (
                       <AiOutlineDown />
                     )}
                   </button>
 
+
+
                   {/* Submenu */}
-                  {openCategory === filter.name && (
-                    <div className="absolute z-50 mt-2 bg-white shadow-lg border border-gray-200 rounded-lg p-2 w-[200px]">
-                      {filter.subcategories.map((sub, idx) => (
+                  {openCategory === 'categoris' && (
+                    <div className="absolute z-50 mt-2 bg-white shadow-lg border border-gray-200 rounded-lg p-2 w-[250px]">
+                      {allCategoris?.data?.map((sub:any, idx:number) => (
                         <label
                           key={idx}
                           className="flex items-center gap-2 px-4 py-2 text-sm cursor-pointer transition-all duration-200 hover:bg-gray-100 rounded-md"
                         >
+
+
+
                           <input
                             type="checkbox"
                             checked={
-                              selectedSubcategories[filter.name]?.includes(
+                              selectedSubcategories['categoris']?.includes(
+                                sub.name
+                              ) || false
+                            }
+                            onChange={() => selectSubcategory('categoris', sub.name)}
+                            className="form-checkbox text-blue-500"
+                          />
+                          {sub.name}
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+
+             {/* I show store category  */}
+             <div  className="relative">
+                  <button
+                    onClick={() => toggleCategory('store')}
+                    className="px-4 py-1.5 border border-[#e2e3e8] hover:text-[#2c65af] hover:bg-[#edf5fc] hover:border-[#72a1d5]    rounded-full flex items-center gap-2 !text-sm !hover:text-[#2c65af]  transition-all duration-300"
+                  >
+                    {getSelectedLabel('store')}
+
+
+                    {openCategory === 'store' ? (
+                      <AiOutlineUp />
+                    ) : (
+                      <AiOutlineDown />
+                    )}
+                  </button>
+
+
+
+                  {/* Submenu */}
+                  {openCategory === 'store' && (
+                    <div className="absolute z-50 mt-2 bg-white shadow-lg border border-gray-200 rounded-lg p-2 w-[250px]">
+                      {allStoris?.data?.map((sub:any, idx:number) => (
+                        <label
+                          key={idx}
+                          className="flex items-center gap-2 px-4 py-2 text-sm cursor-pointer transition-all duration-200 hover:bg-gray-100 rounded-md"
+                        >
+
+
+
+                          <input
+                            type="checkbox"
+                            checked={
+                              selectedSubcategories['store']?.includes(
+                                sub.name
+                              ) || false
+                            }
+                            onChange={() => selectSubcategory('store', sub.name)}
+                            className="form-checkbox text-blue-500"
+                          />
+                          {sub.name}
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+           
+
+
+
+
+
+            {/* Category Dropdown */}
+            {filters
+              .slice(1, showAll ? filters.length : 4)
+
+              .map((category, index) => (
+                <div key={index} className="relative">
+                  <button
+                    onClick={() => toggleCategory(category.name)}
+                    className="px-4 py-1.5 border border-[#e2e3e8] hover:text-[#2c65af] hover:bg-[#edf5fc] hover:border-[#72a1d5]  rounded-full flex items-center gap-2 !text-sm transition-all duration-300"
+                  >
+                    {getSelectedLabel(category.name)}
+
+
+                    {openCategory === category.name ? (
+                      <AiOutlineUp />
+                    ) : (
+                      <AiOutlineDown />
+                    )}
+                  </button>
+
+
+
+                  {/* Submenu */}
+                  {openCategory === category.name && (
+                    <div className="absolute z-50 mt-2 bg-white shadow-lg border border-gray-200 rounded-lg p-2 w-[200px]">
+                      {category.subcategories.map((sub, idx) => (
+                        <label
+                          key={idx}
+                          className="flex items-center gap-2 px-4 py-2 text-sm cursor-pointer transition-all duration-200 hover:bg-gray-100 rounded-md"
+                        >
+
+
+
+                          <input
+                            type="checkbox"
+                            checked={
+                              selectedSubcategories[category.name]?.includes(
                                 sub
                               ) || false
                             }
-                            onChange={() => selectSubcategory(filter.name, sub)}
+                            onChange={() => selectSubcategory(category.name, sub)}
                             className="form-checkbox text-blue-500"
                           />
-                          {sub}
+
+
+                          {sub}dddd
                         </label>
                       ))}
                     </div>
@@ -210,7 +336,10 @@ const ProductFilterComponent = () => {
               ))}
 
 
-            <button
+
+
+
+            <button 
               onClick={() => setShowAll(!showAll)}
               className="py-2 flex items-center gap-2 transition-all duration-300 !text-[#2c65af] font-semibold text-lg sticky"
             >

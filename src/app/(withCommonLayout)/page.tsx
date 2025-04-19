@@ -60,6 +60,8 @@ const Homepage = () => {
 
 
 
+
+
   return (
     <div className="max-w-7xl mx-auto">
       <Banner />
@@ -111,7 +113,7 @@ const Homepage = () => {
             href={`/blog/${blog.id}`}
           /> )
           }
-        
+           
         </div>
       </div>
     </div>

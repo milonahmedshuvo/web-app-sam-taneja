@@ -168,7 +168,8 @@ export default function Navbar() {
                 onMouseEnter={() => setActiveCategory('category')}
                 onMouseLeave={() => setActiveCategory(null)}
               >
-                <Link className="hover:text-gray-300" href='/' >Categories</Link>   
+                <Link className="hover:text-gray-300" href='/' >Categories</Link>
+                   
                 {activeCategory === 'category' && (
                   <div className="absolute left-0 bg-white w-[260px] text-[#2c65af] border border-gray-300 shadow-lg !pt-4">
                     {allCategoris?.data?.map((sub:Categorys, subIndex:number) => (

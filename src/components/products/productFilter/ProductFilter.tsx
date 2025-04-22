@@ -85,7 +85,7 @@ const ProductFilterComponent = () => {
   }
 
 
-    console.log('filter categoris', allCategoris?.data) 
+ 
 
   const toggleCategory = (categoryName: string) => {
     setOpenCategory(openCategory === categoryName ? null : categoryName);

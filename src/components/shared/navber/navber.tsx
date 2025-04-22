@@ -229,7 +229,7 @@ export default function Navbar() {
                         onMouseEnter={() => setActiveSubCategory(sub.name)}
                         onMouseLeave={() => setActiveSubCategory(null)}    
                       >
-                        <Link href={`${sub.name}`} className="flex justify-between items-center px-2">
+                        <Link href={`/store/${sub.id}`} className="flex justify-between items-center px-2">
                           <button className="block px-4 py-2 w-full text-left hover:bg-gray-200">{sub.name}</button> 
                         </Link> 
                       </div>

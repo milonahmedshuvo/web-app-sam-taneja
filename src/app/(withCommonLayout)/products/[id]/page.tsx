@@ -15,9 +15,17 @@ const Products = () => {
   const categoryIdParam = params.id as string;
   const [id, setId] = useState<string>(categoryIdParam);
 
+
+  console.log("category id", id)
+
   const [categoriesProducts, setCategoriesProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1); // optional
+
+
+
+
+
 
   // set page
   const handleNext = () => {
@@ -28,12 +36,17 @@ const Products = () => {
     if (currentPage > 1) setCurrentPage((prev) => prev - 1);
   };
 
+
+  
   // set id
   useEffect(() => {
     if (categoryIdParam) {
       setId(categoryIdParam);
     }
   }, [categoryIdParam]);
+
+
+
 
   const fetchBlogs = async (page: number, id: string) => {
     try {
@@ -60,12 +73,15 @@ const Products = () => {
 
 
 
+
+
   
   return (
     <div className="mb-10">
       <div>
         <BreadCrumb />
       </div>
+      <p>Products</p>
 
       {/* product filter components  */}
       <div className="max-w-7xl mx-auto">

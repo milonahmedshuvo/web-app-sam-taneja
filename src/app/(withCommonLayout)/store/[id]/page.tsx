@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 import Card from "@/components/card/card";
 import { useGetAllBlogsQuery } from "@/redux/api/samtanejaApi";
@@ -7,6 +8,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import StoreCarousel from "@/components/home/carousel/storeCarousel";
 import ProductFilterComponent from "@/components/products/productFilter/ProductFilter";
+import Link from "next/link";
 
 
 type TStore = {
@@ -104,12 +106,15 @@ const Storepage = () => {
           ))}
         </div>
 
+
         <div className="border-t border-l border-r border-[#c1c4cc] rounded-md w-full xl:w-[30%] ">
           <div className="flex justify-between px-2 mt-2">
             <p className="text-[#7f8387] font-[700] text-sm">From the Blog</p>
+            <Link href='/blog' className="cursor-pointer"> 
             <p className="text-base font-medium text-[#2c65af] hover:underline ">
               View All
             </p>
+            </Link>
           </div>
 
           {allBlogs?.data?.map((blog: TBlog) => (

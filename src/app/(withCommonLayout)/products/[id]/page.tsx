@@ -1,29 +1,28 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import BreadCrumb from "@/components/antComponent/breadcrumb/BreadCrumb";
 import Card from "@/components/card/card";
-import ProductCarousel from "@/components/products/productCarousel/productCarousel";
+import BlogCard from "@/components/home/blogCard/blogCard";
+import StoreCarousel from "@/components/home/carousel/storeCarousel";
 import ProductFilterComponent from "@/components/products/productFilter/ProductFilter";
+import { useGetAllBlogsQuery } from "@/redux/api/samtanejaApi";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { TBlog } from "../../page";
+import Link from "next/link";
 
 
 
 
 const Products = () => {
+   const { data: allBlogs, isLoading } = useGetAllBlogsQuery("");
   const params = useParams();
   const categoryIdParam = params.id as string;
   const [id, setId] = useState<string>(categoryIdParam);
 
-
-  console.log("category id", id)
-
   const [categoriesProducts, setCategoriesProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1); // optional
-
-
-
 
 
 
@@ -66,27 +65,37 @@ const Products = () => {
     fetchBlogs(currentPage, id);
   }, [currentPage, id]);
 
-  console.log("category products", categoriesProducts);
+
+
+
+
+  if(isLoading){
+    return <p> Loading...</p>
+  }
+
+  console.log("categoriesProducts", categoriesProducts);
+  console.log("category id", id)
 
 
 
 
 
-
+ 
 
 
   
   return (
-    <div className="mb-10">
-      <div>
-        <BreadCrumb />
-      </div>
-      <p>Products</p>
+    <div className="mb-10 max-w-7xl mx-auto">
+
+      
+
+      <div className="flex flex-col xl:flex-row gap-6 items-start"> 
 
       {/* product filter components  */}
-      <div className="max-w-7xl mx-auto">
+      <div className="xl:w-[70%]">
+
         <ProductFilterComponent />
-        <ProductCarousel />
+        <StoreCarousel projects={categoriesProducts} />
 
         <div>
           {/* show category data */}
@@ -109,6 +118,34 @@ const Products = () => {
           )}
         </div>
       </div>
+
+
+          <div className="border-t border-l border-r border-[#c1c4cc] rounded-md w-full xl:w-[30%] ">
+                <div className="flex justify-between px-2 mt-2">
+                  <p className="text-[#7f8387] font-[700] text-sm">From the Blog</p>
+                  <Link href='/blog' className="cursor-pointer"> 
+                  <p className="text-base font-medium text-[#2c65af] hover:underline">
+                    View All
+                  </p>
+                  </Link>
+                </div>
+      
+                {allBlogs?.data?.map((blog: TBlog) => (
+                  <BlogCard
+                    key={blog.id}
+                    image={blog.img as string}
+                    title={blog.title}
+                    subTitle={blog.summary}
+                    blogDateTitle="Blog Buying Guides 7 mos ago"
+                    href={`/blog/${blog.id}`}
+                  />
+                ))}
+              </div>  
+
+
+     
+      </div>
+
     </div>
   );
 };

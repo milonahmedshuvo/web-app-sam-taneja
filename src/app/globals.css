@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 body {
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", AvenirNext,
+    "Helvetica Neue", Helvetica, Arial, Roboto, sans-serif;
 }
+
 
 .mulish {
     font-family: 'Mulish', sans-serif;

@@ -9,6 +9,8 @@ import { FaRegHeart } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaAngleLeft } from "react-icons/fa6";
 import { useGetAllCategoriesQuery, useGetAllStorisQuery } from "@/redux/api/samtanejaApi";
+import logo from '../../../image/logo.png'
+import Image from "next/image";
 
 interface ChildCategory {
   name: string;
@@ -26,6 +28,7 @@ interface Category {
   path: string,
   subCategories: SubCategory[];
 }
+
 type Categorys = {
   id: string;
   name: string;
@@ -33,9 +36,17 @@ type Categorys = {
   parentId: string | null;
   createdAt: string;
   updatedAt: string;
-  children: Category[]; // Recursive type for nested categories
+  children: ChildrenCategory []; // Recursive type for nested categories
 };
 
+type ChildrenCategory = {
+  createdAt : string
+  id : string
+  name : string
+  parentId : string
+  slug : string
+  updatedAt : string
+}
 
 
 
@@ -136,25 +147,28 @@ export default function Navbar() {
 
 
 
-  
+         
 
 
+          
 
   return (
     <div className=" mb-2 md:mb-4 relative absolute z-30 ">
       {/* Navbar */}
-      <nav className="bg-[#2c65af] text-white p-4 flex justify-between items-center ">
+      <nav className="bg-[#2c65af] text-white px-4 py-6  flex justify-between items-center ">
         {/* Left - Logo & Menu Button (Mobile) */}
         <div className="flex items-center gap-6">
           <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-2xl">
             <FaBars />
           </button>
-          <div className="text-2xl font-bold">
-            <Link href='/'> Logo</Link>
+          <div className="mt-[-16px]">
+            <Link href='/'>
+               <Image src={logo} width={100} height={500} alt="logo" />
+            </Link>
           </div>
 
           {/* Center - Categories (Hidden in Mobile) */}
-          <div className="hidden md:flex relative gap-7 ">
+          <div className="hidden md:flex relative gap-10 ">
 
 
 
@@ -168,19 +182,20 @@ export default function Navbar() {
                 onMouseEnter={() => setActiveCategory('category')}
                 onMouseLeave={() => setActiveCategory(null)}
               >
-                <Link className="hover:text-gray-300" href='/' >Categories</Link>
+                <Link className="text-[#FFFFFF] text-[14px] font-semibold " href='/' >Categories</Link>
                    
                 {activeCategory === 'category' && (
-                  <div className="absolute left-0 bg-white w-[260px] text-[#2c65af] border border-gray-300 shadow-lg !pt-4">
+                  <div className="absolute left-0 bg-white w-[260px] text-[#2c65af] border border-gray-300 shadow-lg !pt-4 ">
+
                     {allCategoris?.data?.map((sub:Categorys, subIndex:number) => (
                       <div
                         key={subIndex}
-                        className=""
+                        className="hover:bg-gray-200"
                         onMouseEnter={() => setActiveSubCategory(sub.name)}
                         onMouseLeave={() => setActiveSubCategory(null)}    
                       >
                         <Link href={`/products/${sub.id}`} className="flex justify-between items-center px-2">
-                          <button className="block px-4 py-2 w-full text-left hover:bg-gray-200">{sub.name}</button>
+                          <button className="block px-4 py-2 w-full text-left ">{sub.name}</button>
                          
                           {sub.children.length > 0 && (
                             activeSubCategory === sub.name ? <MdOutlineKeyboardArrowDown className="text-2xl ml-2" /> : <MdArrowForwardIos />
@@ -189,9 +204,9 @@ export default function Navbar() {
 
                         
                         {activeSubCategory === sub.name && (
-                          <div className="absolute left-full top-0 mt-0 bg-white w-[260px] shadow-md !pt-4">
+                          <div className="absolute left-full top-0 mt-0 bg-white w-[260px] h-full shadow-md !pt-4">
                             {sub.children.map((child, childIndex) => (
-                              <Link key={childIndex} href={`/products/${child.name}`} className="block px-4 py-2 hover:bg-gray-200">
+                              <Link key={childIndex} href={`/products/${child.id}`} className="block px-4 py-2 hover:bg-gray-200">
                                 {child.name}
                               </Link>
                             ))}
@@ -219,7 +234,7 @@ export default function Navbar() {
                 onMouseEnter={() => setActiveCategory('stores')}
                 onMouseLeave={() => setActiveCategory(null)}
               >
-                <Link className="hover:text-gray-300" href='/' >Stores</Link>   
+                <Link className="text-[#FFFFFF] text-[14px] font-semibold" href='/' >Stores</Link>   
                 {activeCategory === 'stores' && (
                   <div className="absolute left-0 bg-white w-[260px] text-[#2c65af] border border-gray-300 shadow-lg">
                     {allStoris?.data?.map((sub:{name:string, id:string}, subIndex:number) => (
@@ -257,7 +272,7 @@ export default function Navbar() {
                 onMouseLeave={() => setActiveCategory(null)}
               >
                 {/* <button className="hover:text-gray-300">{category.name}</button> */}
-                <Link className="hover:text-gray-300" href={category.path} >{category.name} </Link>   
+                <Link className="text-[#FFFFFF] text-[14px] font-semibold" href={category.path} >{category.name} </Link>   
 
 
 

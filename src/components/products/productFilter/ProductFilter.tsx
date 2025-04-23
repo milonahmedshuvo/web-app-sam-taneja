@@ -234,7 +234,9 @@ const handleSelect = () => {
                             onChange={() => selectSubcategory('categoris', sub.name)}
                             className="form-checkbox text-blue-500"
                           />
-                          {sub.name}
+                          <Link href={`/products/${sub.id}`} > 
+                          {sub.name} 
+                          </Link>
                         </label>
                       ))}
                     </div>

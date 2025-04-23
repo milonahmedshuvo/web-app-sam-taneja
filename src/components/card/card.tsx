@@ -52,10 +52,60 @@ const Card = ({ image, smallText, title, price, description, id }: CardProps) =>
           <div className="flex justify-between">
             <p className="text-gray-500 text-xs sm:text-sm">{smallText}</p>
 
-            <div className={`${showFullText ? "flex gap-2" : "hidden"}`}>
+
+
+            <div  className={`${showFullText ? "flex gap-2" : "hidden"}`}>
               <FaFire className="text-red-500 text-xl" />
-              <FiMoreVertical className="text-gray-600 text-xl cursor-pointer" />
+              <div className="group">
+              <FiMoreVertical
+                onClick={() => setIsModalOpen(!isModalOpen)}
+                className="text-gray-600 text-2xl cursor-pointer hover:border border-dotted"
+              />
+              <div className="hidden group-hover:block absolute right-[-180px] top-[20px] bg-white p-5 w-[230px] shadow-2xl rounded space-y-3.5">
+                <div
+                  className="flex gap-3"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  <FaUser className="cursor-pointer text-[#2c65af] ml-1" />
+                  <Link href={`/cardDatails/${id}`}>
+                    <span className="text-[#2c65af] !font-thin text-[14px]">
+                      Open Offer in New Tab
+                    </span>
+                  </Link>
+                </div>
+
+                <div
+                  className="flex gap-3"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  <IoIosNotifications className="cursor-pointer  text-[#2c65af] text-2xl" />
+                  <Link href="/saveDeals">
+                    <span className="text-[#2c65af] font-normal text-[15px] ">
+                      Create Alert 
+                    </span>
+                  </Link>
+                </div>
+
+                <div className="flex gap-3 cursor-pointer">
+                  <MdReport className="cursor-pointer  text-[#2c65af] text-2xl" />
+                  <span className="text-[#2c65af] font-normal text-[15px] ">
+                    Report in Error
+                  </span>
+                </div>
+
+                <div
+                  className="flex gap-3 cursor-pointer"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  <CiShare2 className="cursor-pointer  text-[#2c65af] text-2xl" />
+                  <span className="text-[#2c65af] font-normal text-[15px] ">
+                    Share
+                  </span>
+                </div>
+              </div>
             </div>
+            </div>
+
           </div>
 
           <h3 className="text-base sm:text-lg font-semibold mt-1">{title}</h3>

@@ -26,6 +26,11 @@ const projects: Project[] = [
   { id: 10, timeTitle: 'AliExpress 2 day ago', price: 'Up to 80% Off', name: 'AliExpress Tool Storage Deals', image: 'https://cdlnws.a.ssl.fastly.net/image/upload/f_auto,t_xlarge,q_auto:low/cms/axz4d3vxcxanjgrpwpls.png' },
 ];
 
+
+
+
+
+
 export default function ProductCarousel() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);

@@ -7,6 +7,7 @@ import BlogCard from "@/components/home/blogCard/blogCard";
 import StoreCarousel from "@/components/home/carousel/storeCarousel";
 import ProductFilterComponent from "@/components/products/productFilter/ProductFilter";
 import { useGetAllBlogsQuery } from "@/redux/api/samtanejaApi";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export type TBlog = {
@@ -99,9 +100,11 @@ const Homepage = () => {
 
           <div className="flex justify-between px-2 mt-2">
             <p className="text-[#7f8387] font-[700] text-sm">From the Blog</p>
+            <Link href='/blog' className="cursor-pointer">
             <p className="text-base font-medium text-[#2c65af] hover:underline ">
               View All
             </p>
+            </Link>
           </div>
 
 

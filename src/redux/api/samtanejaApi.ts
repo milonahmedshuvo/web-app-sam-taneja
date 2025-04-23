@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 
+
 // Define a service using a base URL and expected endpoints
 export const samTanejaApi = createApi({
 
@@ -48,6 +49,14 @@ export const samTanejaApi = createApi({
       method : "POST",
       body: userData
     })
+  }),
+
+
+  // management store category data 
+  singleStore: build.query({
+    query: (id) => ({
+      url: `/stores/${id}`
+    })
   })
 
 
@@ -56,4 +65,4 @@ export const samTanejaApi = createApi({
 
 
 
-export const { useGetPokemonByNameQuery, useGetAllStorisQuery, useGetAllCategoriesQuery, useGetAllBlogsQuery, useCreateAdminAccountMutation, useCreateCustomerAccountMutation, useUserLoginMutation } = samTanejaApi;
+export const { useGetPokemonByNameQuery, useGetAllStorisQuery, useGetAllCategoriesQuery, useGetAllBlogsQuery, useCreateAdminAccountMutation, useCreateCustomerAccountMutation, useUserLoginMutation, useSingleStoreQuery } = samTanejaApi;

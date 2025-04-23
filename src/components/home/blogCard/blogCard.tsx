@@ -44,7 +44,7 @@ const BlogCard = ({ image, title, subTitle, blogDateTitle, href }: BlogCard) => 
       {/* Content div */}
       <div className="h-full flex flex-col justify-center px-4">
         <p className="text-xs text-gray-500  ">{blogDateTitle}</p>
-        <p className="text-sm font-semibold text-black ">{title.substring(0, 45)}...</p>
+        <Link href={href}><p className="text-sm font-semibold text-black cursor-pointer ">{title.substring(0, 45)}...</p> </Link>
         <p className="text-sm text-gray-600 leading-0 ">{subTitle.substring(0, 20)}...</p>
       </div>
     </div>

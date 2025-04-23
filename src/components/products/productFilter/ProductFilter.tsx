@@ -2,6 +2,7 @@
 "use client";
 import ModalComponent from "@/components/antComponent/modal/Modal";
 import { useGetAllCategoriesQuery, useGetAllStorisQuery } from "@/redux/api/samtanejaApi";
+import Link from "next/link";
 import { useState } from "react";
 import {
   AiOutlineDown,
@@ -22,42 +23,23 @@ const filters = [
   //   name: "Event",
   //   subcategories: ["Sports", "Music", "Art", "Tech"],
   // },
-  {
-    name: "Popularity",
-    subcategories: ["High", "Medium", "Low"],
-  },
-  {
-    name: "Interest",
-    subcategories: ["Gaming", "Reading", "Fitness", "Travel"],
-  },
-  {
-    name: "Rank",
-    subcategories: ["Top", "Trending", "New"],
-  },
-  {
-    name: "Offer",
-    subcategories: ["Discount", "BOGO", "Flash Sale"],
-  },
-  {
-    name: "Condition",
-    subcategories: ["New", "Used", "Refurbished"],
-  },
-  {
-    name: "Store",
-    subcategories: ["Amazon", "eBay", "Walmart", "Target", "Best Buy"],
-  },
-  {
-    name: "Brand",
-    subcategories: ["Apple", "Samsung", "Nike", "Adidas", "Sony"],
-  },
-  {
-    name: "Offer Type",
-    subcategories: ["Discount", "BOGO", "Flash Sale", "Limited Time"],
-  },
-  {
-    name: "Offer Status",
-    subcategories: ["Discount", "BOGO", "Flash Sale", "Limited Time"],
-  },
+  // {
+  //   name: "Popularity",
+  //   subcategories: ["High", "Medium", "Low"],
+  // },
+  // {
+  //   name: "Interest",
+  //   subcategories: ["Gaming", "Reading", "Fitness", "Travel"],
+  // },
+  // {
+  //   name: "Rank",
+  //   subcategories: ["Top", "Trending", "New"],
+  // },
+  // {
+  //   name: "Offer",
+  //   subcategories: ["Discount", "BOGO", "Flash Sale"],
+  // },
+  
 ];
 
 
@@ -119,22 +101,49 @@ const ProductFilterComponent = () => {
 
 
 
+
+
+// setup current selection sub category with dinamic   
+const handleSelect = () => {
+  setSelectedSubcategories((prev) => {
+    const currentSelections = prev['store'] || [];
+
+    const isAlreadySelected = currentSelections.includes('Orbis');
+
+    const updatedSelections = isAlreadySelected
+      ? currentSelections.filter((item) => item !== 'Orbis')
+      : [...currentSelections, 'Orbis'];
+
+    return { ...prev, ['store']: updatedSelections };
+  });
+}
+
+
+
+
+
   return (
     <div className="relative bg-white rounded-lg py-2 px-2 overflow-visible absolute z-10">
 
+
+      <p onClick={()=> handleSelect()} >button</p>
+
+
+
       {/* Main Filter Button */}
       <div className="flex justify-between items-center gap-4">
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-center text-[#2c65af]">
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="px-4 py-2 border rounded border-slate-400 flex cursor-pointer items-center gap-2 hover:bg-gray-200 transition-all duration-300"
+            className={`${!showFilters? 'py-3 border border-[#2c65af] delay-100' :''} px-4 py-2  rounded  flex cursor-pointer items-center gap-2  transition-all duration-300`}
           >
             <AiOutlineFilter />
-            Filter
+            <span className="text-[#2c65af] uppercase"> Filter </span>
           </button>
 
           <ModalComponent></ModalComponent>
         </div>
+
 
         <div>
           <p className="text-[#303437] font-thin text-sm">
@@ -143,12 +152,14 @@ const ProductFilterComponent = () => {
         </div>
       </div>
 
+      <hr />
+
       {/* Filter Options */}
 
       <div className="flex">
         <div
-          className={`transition-all mt-3 h-24 duration-500 ease-in-out shadow-xl overflow-visible flex flex-col justify-between gap-3 pb-4 w-full  ${
-            showFilters
+          className={`transition-all mt-3 h-24 duration-500 ease-in-out shadow-sm overflow-visible flex flex-col justify-between gap-3 pb-4 w-full  ${
+            !showFilters
               ? "opacity-100 scale-y-100"
               : "opacity-0 scale-y-0 max-h-0"
           } transform origin-top`}
@@ -231,6 +242,8 @@ const ProductFilterComponent = () => {
                 </div>
 
 
+
+
              {/* I show store category  */}
              <div  className="relative">
                   <button
@@ -270,7 +283,7 @@ const ProductFilterComponent = () => {
                             onChange={() => selectSubcategory('store', sub.name)}
                             className="form-checkbox text-blue-500"
                           />
-                          {sub.name}
+                          <Link href={`/store/${sub.id}`} >{sub.name} </Link>
                         </label>
                       ))}
                     </div>

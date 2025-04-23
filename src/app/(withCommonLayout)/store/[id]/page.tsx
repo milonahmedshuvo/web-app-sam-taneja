@@ -5,6 +5,9 @@ import { TBlog } from "../../page";
 import BlogCard from "@/components/home/blogCard/blogCard";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import StoreCarousel from "@/components/home/carousel/storeCarousel";
+import ProductFilterComponent from "@/components/products/productFilter/ProductFilter";
+
 
 type TStore = {
   id: string;
@@ -18,6 +21,10 @@ type TStore = {
   createdAt: string; // ISO date string
   updatedAt: string; // ISO date string
 };
+
+
+
+
 
 
 const Storepage = () => {
@@ -71,11 +78,6 @@ const Storepage = () => {
   }, [currentPage, id]);
 
 
-
-  console.log("store products", StoreProducts);
-
-
-
   if (isLoading) {
     return (
       <div className="text-center py-10 text-lg font-medium">Loading...</div>
@@ -86,9 +88,8 @@ const Storepage = () => {
     <div className="max-w-7xl mx-auto">
       <div className="flex flex-col xl:flex-row gap-6 items-start">
         <div className="xl:w-[70%] ">
-          {/* <ProductFilterComponent />
-          <Carousel /> */}
-          {/* <Cartparent /> */}
+           <ProductFilterComponent />
+          <StoreCarousel projects={StoreProducts} />
 
           {StoreProducts?.map((item:TStore) => (
             <Card

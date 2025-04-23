@@ -3,7 +3,8 @@
 import Card from "@/components/card/card";
 import Banner from "@/components/home/banner/banner";
 import BlogCard from "@/components/home/blogCard/blogCard";
-import Carousel from "@/components/home/carousel/carousel";
+// import Carousel from "@/components/home/carousel/carousel";
+import StoreCarousel from "@/components/home/carousel/storeCarousel";
 import ProductFilterComponent from "@/components/products/productFilter/ProductFilter";
 import { useGetAllBlogsQuery } from "@/redux/api/samtanejaApi";
 import { useEffect, useState } from "react";
@@ -72,7 +73,8 @@ const Homepage = () => {
 
         <div className="xl:w-[70%] ">
           <ProductFilterComponent />
-          <Carousel />
+          {/* <Carousel /> */}
+          <StoreCarousel projects={data} />
           {/* <Cartparent /> */}
 
           {data?.map((item) => (

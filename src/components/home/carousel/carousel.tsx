@@ -12,6 +12,8 @@ interface Project {
   price: string;
 }
 
+
+
 const projects: Project[] = [
   {
     id: 1,

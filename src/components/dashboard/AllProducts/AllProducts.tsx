@@ -129,6 +129,8 @@ export default function AllProductsPage() {
       <div className="overflow-x-auto rounded-md  bg-white px-10 py-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between  pb-8">
           <div className="flex gap-8 flex-col md:flex-row">
+
+            
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-500">Showing</span>
               <select
@@ -154,6 +156,7 @@ export default function AllProductsPage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
+
           </div>
 
 

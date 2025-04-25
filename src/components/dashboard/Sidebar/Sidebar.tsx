@@ -63,7 +63,7 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
       label: "Categories",
       key: "3",
       children: [
-        { label: "All Categories", path: "/categories" },
+        { label: "All Categories", path: "/dashboard/allCategoris" },
         { label: "Add Category", path: "/categories/add" },
       ],
     },
@@ -72,14 +72,18 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
       label: "Stores",
       key: "4",
       path: "/stores",
+      children: [
+        { label: "All Stores", path: "/dashboard/allStores" },
+        { label: "Add Stores", path: "/categories/addStores" },
+      ],
     },
     {
       icon: <FileText size={20} />,
       label: "Blogs",
       key: "5",
       children: [
-        { label: "All Blogs", path: "/blogs" },
-        { label: "Add Blog", path: "/blogs/add" },
+        { label: "All Blogs", path: "/dashboard/allBlogs" },
+        { label: "Add Blog", path: "/dashboard/addBlog" },
       ],
     },
   ];

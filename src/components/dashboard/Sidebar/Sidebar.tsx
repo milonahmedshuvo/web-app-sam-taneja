@@ -55,7 +55,7 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
       key: "2",
       children: [
         { label: "All Products", path: "/dashboard/allProducts" },
-        { label: "Add Product", path: "/products/add" },
+        { label: "Add Product", path: "/dashboard/addProducts" },
       ],
     },
     {

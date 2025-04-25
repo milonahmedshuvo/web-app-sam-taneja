@@ -118,6 +118,7 @@ export default function AllProductsPage() {
     setDeleteProductId("");
   };
 
+  
   return (
     <div className="space-y-4 px-4 md:px-6 ">
 
@@ -158,8 +159,8 @@ export default function AllProductsPage() {
 
           {/* add button  */}
           <div className="border-[#2C65AF] border text-[#2C65AF] text-[ 15px] py-1.5 px-2 rounded cursor-pointer" >
-            <Link href="/products/new" className="flex items-center">
-            <Plus className="mr-2 h-4 w-4" />
+            <Link href="/dashboard/addProducts" className="flex items-center">
+            <Plus className="mr-2 h-4 w-4" />  
               <button className="cursor-pointer">
                 Add New Product
               </button>
@@ -184,7 +185,7 @@ export default function AllProductsPage() {
 
 
 
-          <tbody className="">
+          <tbody>
             {displayedProducts.map((product) => (
               <tr key={product.id} className="border-t border-gray-100 text-[#555F7E] ">
                 <td className="px-4 py-3">

@@ -104,19 +104,19 @@ const ProductFilterComponent = () => {
 
 
 // setup current selection sub category with dinamic   
-const handleSelect = () => {
-  setSelectedSubcategories((prev) => {
-    const currentSelections = prev['store'] || [];
+// const handleSelect = () => {
+//   setSelectedSubcategories((prev) => {
+//     const currentSelections = prev['store'] || [];
 
-    const isAlreadySelected = currentSelections.includes('Orbis');
+//     const isAlreadySelected = currentSelections.includes('Orbis');
 
-    const updatedSelections = isAlreadySelected
-      ? currentSelections.filter((item) => item !== 'Orbis')
-      : [...currentSelections, 'Orbis'];
+//     const updatedSelections = isAlreadySelected
+//       ? currentSelections.filter((item) => item !== 'Orbis')
+//       : [...currentSelections, 'Orbis'];
 
-    return { ...prev, ['store']: updatedSelections };
-  });
-}
+//     return { ...prev, ['store']: updatedSelections };
+//   });
+// }
 
 
 
@@ -126,7 +126,7 @@ const handleSelect = () => {
     <div className="relative bg-white rounded-lg py-2 px-2 overflow-visible absolute z-10">
 
 
-      <p onClick={()=> handleSelect()} >button</p>
+      {/* <p onClick={()=> handleSelect()} >button</p> */}
 
 
 

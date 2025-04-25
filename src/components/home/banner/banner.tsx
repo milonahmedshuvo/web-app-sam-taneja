@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import banner from "../../../image/banner.webp"
+
 
 const Banner = () => {
   return (
@@ -8,9 +10,10 @@ const Banner = () => {
       <div className="h-[220px] px-8">
         <Image
           className="w-full h-full  "
-          src="https://c.dlnws.com/image/upload/dpr_auto,f_auto,q_auto:low/v1740749512/Promotional%20Banners%20%28MH%29/Copy_of_2528014_January-Banner_011525_1.jpg"
+          src={banner}
           width={500}
           height={500}
+          priority={true}
           alt="image"
         />
       </div>

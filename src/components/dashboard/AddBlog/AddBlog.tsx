@@ -101,7 +101,7 @@ export default function AddNewBlogPage() {
         <div className="bg-white rounded-lg  mb-6">
           <div className="p-6">
             <div className="mb-6">
-              <label className="block text-[#2E4454] text-[18px] font-medium mb-2 block">
+              <label className="text-[#2E4454] text-[18px] font-medium mb-2 block">
                 Thumbnail <span className="text-red-500">*</span>
               </label>
               <div
@@ -162,9 +162,9 @@ export default function AddNewBlogPage() {
                   accept="image/*"
                 />
               </div>
-              <label  htmlFor="thumbnail-upload" className="mt-2 inline-block text-primary text-sm cursor-pointer">
+              {/* <label  htmlFor="thumbnail-upload" className="mt-2 inline-block text-primary text-sm cursor-pointer">
                 Select a filedd
-              </label>
+              </label> */}
             </div>
 
 
@@ -316,7 +316,7 @@ export default function AddNewBlogPage() {
                 </div>
                 <textarea
                   id="description"
-                  className="w-full p-3 min-h-[200px] focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full p-3 min-h-[200px] focus:outline-none"
                   placeholder="Write your blog content here..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}

@@ -1,4 +1,5 @@
 import Header from "@/components/dashboard/Header/Header";
+import Overview from "@/components/dashboard/Overview/Overview";
 
 
 
@@ -8,10 +9,12 @@ const DashboardHomePage = () => {
     <div>
         <Header/>
         <div className="px-4 md:px-6" >
-         <p>Home page</p>
+         <Overview/>
+         {/* <CategoryManager/> */}
     </div>
     </div>
   )
 }
+
 
 export default DashboardHomePage;

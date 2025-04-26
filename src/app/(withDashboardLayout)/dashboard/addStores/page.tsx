@@ -1,4 +1,4 @@
-import AddNewCategoris from "@/components/dashboard/AddNewCategoris/AddNewCategoris"
+import AddNewStores from "@/components/dashboard/addNewStores/Page"
 import Header from "@/components/dashboard/Header/Header"
 
 
@@ -6,7 +6,7 @@ const page = () => {
   return (
     <div>
         <Header/>
-         <AddNewCategoris/>
+        <AddNewStores/>
     </div>
   )
 }

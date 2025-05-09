@@ -15,7 +15,6 @@ const YearPage = () => {
 
   const [blogs, setBlogs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-
   const [totalPages, setTotalPages] = useState(1); // optional
 
   
@@ -34,7 +33,6 @@ const YearPage = () => {
   };
 
 
-
   // set year
   useEffect(() => {
     if (yearParam) {
@@ -47,17 +45,13 @@ const YearPage = () => {
 
 
 
-
-
-
-
-
+  
 
   const fetchBlogs = async (page: number, year: number) => {
               
     try {
       const res = await fetch(
-        `https://samtaneja-api.code-commando.com/api/v1/blogs?page=${page}&year=${year}`
+        `http://localhost:5777/api/v1/blogs?page=${page}&year=${year}`
       );
       const data = await res.json();
 

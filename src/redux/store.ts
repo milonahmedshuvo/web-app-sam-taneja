@@ -5,7 +5,6 @@ import { samTanejaApi } from './api/samtanejaApi'
 export const store = configureStore({
 
   reducer: {
-
     // add  RTQ query in store for api 
     [samTanejaApi.reducerPath] : samTanejaApi.reducer
   },
@@ -13,6 +12,7 @@ export const store = configureStore({
   
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(samTanejaApi.middleware)
 })
+
 
 
 export type RootState = ReturnType<typeof store.getState>

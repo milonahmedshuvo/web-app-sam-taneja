@@ -1,5 +1,6 @@
 "use client"
-import { useCreateAdminAccountMutation } from "@/redux/api/samtanejaApi"
+
+import { useCreateAdminAccountMutation } from "@/redux/api/auth/authApi"
 import Link from "next/link"
 import { useState } from "react"
 

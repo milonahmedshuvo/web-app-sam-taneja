@@ -93,5 +93,4 @@ export default function AddNewStores() {
         </form>     
     </div>
     </div>
-  
 )}

@@ -1,4 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi,  } from '@reduxjs/toolkit/query/react'
+import { baseQueryWithReauth } from '../utils/baseQueryWithResult';
 
 
 
@@ -6,12 +7,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const samTanejaApi = createApi({
 
   reducerPath: 'samTanejaApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://samtaneja-api.code-commando.com/api/v1' }),
+  // baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5777/api/v1' }),
+  baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
-
-    getPokemonByName: build.query({
-      query: (name) => `/pokemon/${name}`,
-    }),
 
    getAllCategories: build.query({
     query : () => '/categories/main-categories'
@@ -27,29 +25,29 @@ export const samTanejaApi = createApi({
 
 
 
-   createAdminAccount: build.mutation({
-    query: (userData) =>({
-      url: "/users/create-admin",
-      method: "POST",
-      body: userData
-    })
-   }),
+  //  createAdminAccount: build.mutation({
+  //   query: (userData) =>({
+  //     url: "/users/create-admin",
+  //     method: "POST",
+  //     body: userData
+  //   })
+  //  }),
 
-  createCustomerAccount: build.mutation({
-    query: (userData) => ({
-      url: "/users/create-customer",
-      method: "POST",
-      body: userData
-    })
-  }),
+  // createCustomerAccount: build.mutation({
+  //   query: (userData) => ({
+  //     url: "/users/create-customer",
+  //     method: "POST",
+  //     body: userData
+  //   })
+  // }),
    
-  userLogin: build.mutation({
-    query : (userData) =>({
-      url: "/auth/login",
-      method : "POST",
-      body: userData
-    })
-  }),
+  // userLogin: build.mutation({
+  //   query : (userData) =>({
+  //     url: "/auth/login",
+  //     method : "POST",
+  //     body: userData
+  //   })
+  // }),
 
 
   // management store category data 
@@ -65,4 +63,4 @@ export const samTanejaApi = createApi({
 
 
 
-export const { useGetPokemonByNameQuery, useGetAllStorisQuery, useGetAllCategoriesQuery, useGetAllBlogsQuery, useCreateAdminAccountMutation, useCreateCustomerAccountMutation, useUserLoginMutation, useSingleStoreQuery } = samTanejaApi;
+export const { useGetAllStorisQuery, useGetAllCategoriesQuery, useGetAllBlogsQuery, useSingleStoreQuery } = samTanejaApi;

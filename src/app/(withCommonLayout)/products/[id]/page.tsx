@@ -50,7 +50,7 @@ const Products = () => {
   const fetchBlogs = async (page: number, id: string) => {
     try {
       const res = await fetch(
-        `https://samtaneja-api.code-commando.com/api/v1/products?page=${page}&limit=20&categoryId=${id}`
+        `http://localhost:5777/api/v1/products?page=${page}&limit=20&categoryId=${id}`
       );
       const data = await res.json();
 

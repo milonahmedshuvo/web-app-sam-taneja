@@ -18,6 +18,7 @@ const ModalComponent: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  
   return (
     <>
       <button

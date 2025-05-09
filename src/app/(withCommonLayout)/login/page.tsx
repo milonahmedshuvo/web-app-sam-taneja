@@ -1,5 +1,6 @@
 "use client"
-import {useUserLoginMutation } from "@/redux/api/samtanejaApi"
+
+import { useUserLoginMutation } from "@/redux/api/auth/authApi"
 import Link from "next/link"
 import { useState } from "react"
 
@@ -205,7 +206,7 @@ export default function SignupFormCustomer() {
 
             <button
               type="submit"
-              className="w-full bg-white !text-[#2c65af] font-[500] hover:bg-gray-100 py-2 px-4 rounded-md  transition-colors"
+              className="w-full bg-white !text-[#2c65af] font-[500] hover:bg-gray-100 py-2 px-4 rounded-md  transition-colors cursor-pointer "
             >
               CREATE ACCOUNT
             </button>

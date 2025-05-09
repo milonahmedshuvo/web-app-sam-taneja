@@ -34,7 +34,7 @@ const Detailspage = () => {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`https://samtaneja-api.code-commando.com/api/v1/blogs/${id}`)
+    fetch(`http://localhost:5777/api/v1/blogs/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setData(data?.data || null);
@@ -68,10 +68,10 @@ const Detailspage = () => {
 
 
 
+
+  
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-
-
      <div className="flex flex-col xl:flex-row gap-6 items-start">
 
      <div className="xl:w-[70%] ">

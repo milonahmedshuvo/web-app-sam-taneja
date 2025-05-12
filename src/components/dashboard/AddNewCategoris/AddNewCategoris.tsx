@@ -6,6 +6,7 @@ import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
+import Breadcrumbs from "@/components/shared/Breadcrumbs/Breadcrumbs"
 
 
 
@@ -47,31 +48,12 @@ export default function AddNewCategory() {
   }
 
   return (
-    <div className=" px-4 py-6 ">
+    <div className=" px-4 md:px-7 mb-2 ">
 
 
-      <div className="mb-8 flex justify-between">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">Add New Categories</h1>
+      <Breadcrumbs title="Add New Categories" category="Category" subCategory="Add New Categories" ></Breadcrumbs>
 
-        <nav className="flex text-sm text-gray-500">
-          <Link href="/dashboard" className="hover:text-gray-700">
-            Dashboard
-          </Link>
-          <ChevronRight className="h-4 w-4 mx-1" />
-          <Link href="/dashboard/categories" className="hover:text-gray-700">
-            Categories
-          </Link>
-          <ChevronRight className="h-4 w-4 mx-1" />
-          <Link href="/dashboard/categories/all" className="hover:text-gray-700">
-            All Categories
-          </Link>
-          <ChevronRight className="h-4 w-4 mx-1" />
-          <span className="text-gray-700">Add New Categories</span>
-        </nav>
-      </div>
-
-      <div className="bg-white rounded-lg p-6 ">
-
+      <div className="bg-white rounded-lg p-6 mt-2 ">
       <form onSubmit={handleSubmit} className="w-full h-[400px] lg:h-[600px] xl:h-[700px] flex flex-col justify-between">
           <div className="mb-6">
             <label htmlFor="categoryName" className="block text-[18px] font-medium mb-2">

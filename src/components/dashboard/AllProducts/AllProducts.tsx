@@ -1,165 +1,152 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 "use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronDown, Edit, Plus, Search, Trash2, ChevronRight } from "lucide-react";
-
+import { ChevronDown, Edit, Plus, Search, Trash2, ChevronRight, Home } from "lucide-react";
 // import headPhone from "../../../image/head.png";
 import done from "../../../image/done.png";
+import { useProductDeleteMutation, useProductGetLimitedQuery } from "@/redux/api/product/productApi";
+import { useAllBlogsWithPaginationQuery } from "@/redux/api/samtanejaApi";
+import Breadcrumbs from "@/components/shared/Breadcrumbs/Breadcrumbs";
+import UpdatedProduct from "../AddProducts/UpdateProduct";
 
 
-
-type TProduct = {
-  categoryId: string;
-  createdAt: string; // ISO date string
-  description: string;
+export type TProduct = {
   id: string;
-  img: string; // URL string
   name: string;
+  description: string;
   price: string;
-  storeId: string;
+  img: string;
   summary: string;
-  updatedAt: string; // ISO date string
+  categoryId: string;
+  storeId: string;
+  createdAt: string; 
+  updatedAt: string; 
+  category: {
+    id: string;
+    name: string;
+    slug: string;
+    parentId: string;
+    createdAt: string; 
+    updatedAt: string; 
+  };
+  store: {
+    id: string;
+    name: string;
+    createdAt: string; 
+    updatedAt: string; 
+  };
 };
 
 
-// const products = [
-//   {
-//     id: "1",
-//     name: "3mazon Basics for the Home at Woot",
-//     category: "Electronics",
-//     store: "Amazon",
-//     price: 60.76,
-//     listingDate: "3/24/2025",
-//     img : headPhone,
-//   },
-  
-// ];
 
 export default function AllProductsPage() {
-  const [productss, setProducts] = useState<TProduct[]>([]);
+  // const [productss, setProducts] = useState<TProduct[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [perPage, setPerPage] = useState("10");
   const [deleteProductId, setDeleteProductId] = useState<string | null>("");
-
-  const filteredProducts = productss.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-  const displayedProducts = filteredProducts.slice(0, Number.parseInt(perPage));
-
-
-
-
-
-
-
-
+  const [productDelete, {data}] = useProductDeleteMutation()
   // pagination setup 
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1); // optional
+  const [totalPages, setTotalPages] = useState(1); 
+  const [totalBlogPages, setBlogTotalPages] = useState(1); 
+  const {data:allProduct } = useProductGetLimitedQuery(currentPage)
+  // updated 
+  const [isupdate, setIsUpdate] = useState<TProduct | null >(null)
 
 
-    
+ 
+  // console.log("all product from redux", allProduct?.meta?.totalPage)
+  // const fetchBlogs = async (page: number) => {
+  //   try {
+  //     const res = await fetch(
+  //       `http://localhost:5777/api/v1/products?page=${page}&limit=10`
+  //     );
+  //     const data = await res.json();
 
 
-  const fetchBlogs = async (page: number) => {
-              
-    try {
-      const res = await fetch(
-        `http://localhost:5777/api/v1//products?page=${page}&limit=30`
-      );
-      const data = await res.json();
+  //     setProducts(data?.data || [] );
+  //     setTotalPages(data?.meta?.totalPages || 1);
+  //   } catch (error) {
+  //     console.error("Error fetching blogs:", error);
+  //   }
+  // };
 
 
-      setProducts(data?.data || [] );
-      setTotalPages(data?.meta?.totalPages || 1);
-    } catch (error) {
-      console.error("Error fetching blogs:", error);
+
+  useEffect(()=>{
+    if(allProduct?.meta?.totalPage){
+      setTotalPages(allProduct?.meta?.totalPage)  
     }
-  };
-
+  }, [allProduct])
 
   useEffect(() => {
-    fetchBlogs(currentPage);
+    // fetchBlogs(currentPage);
+    setCurrentPage(currentPage)
   }, [currentPage]);
 
   const handleNext = () => {
     if(currentPage < totalPages ) setCurrentPage((prev) => prev + 1)
   }
-
   const handlePrevious = () => {
     if(currentPage > 1) setCurrentPage((prev) => prev - 1)
   }
 
-
-
-
-
+  const filteredProducts = allProduct?.data?.filter((product:TProduct) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  const displayedProducts = filteredProducts?.slice(0, Number.parseInt(perPage));  
 
 
 //  Date format 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  const month = date.getMonth() + 1; // getMonth() is zero-based
+  const month = date.getMonth() + 1; 
   const day = date.getDate();
   const year = date.getFullYear();
   return `${month}/${day}/${year}`;
 }
 
-
-
-  // console.log("dashbord products", productss)
-
   const handleDelete = (id: string) => {
-    // Here you would typically handle actual deletion
     console.log("Deleting product:", id);
+    productDelete(id)
     setDeleteProductId("");
   };
 
+
+
+
+  const handleUpdateProduct = (product:TProduct) => {
+    //  console.log('update product', product)
+     setIsUpdate(product)
+  }
   
+  const close = () => {
+     setIsUpdate(null)
+     console.log("update submit")
+  }
+
+  
+ 
+
+
+
   return (
     <div className="space-y-4 px-4 md:px-6 ">
 
-      
-
-      <div className={` ${deleteProductId? 'opacity-20 bg-gray-300':"opacity-100" } `}> 
-
-      <div  className="flex items-center justify-between my-6">
-        <h1 className="text-[24px] text-[#1C2A53] font-semibold"> All Products</h1>
-
-        <div className="text-[#617A8B] flex justify-between items-center gap-1 ">
-           <span>Dashboard</span>
-           <span><ChevronRight/></span>
-           <span>Product’s</span>
-           <span><ChevronRight/></span>
-           <span>All Product’s</span>
-        </div>
-      </div>
 
 
+      <div className={` ${deleteProductId ? 'opacity-20 bg-gray-300':"opacity-100" }   ${isupdate ? 'opacity-20 bg-gray-300':"opacity-100" } `}> 
+
+      <Breadcrumbs title="All Products" category="Products" subCategory="All Products" ></Breadcrumbs>
 
       <div className={`overflow-x-auto rounded-md  bg-white px-10 py-5 `}>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between  pb-8">
           <div className="flex gap-8 flex-col md:flex-row">
-
-            
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-500">Showing</span>
-              <select
-                className="border border-gray-300 rounded px-2 py-1 text-sm"
-                value={perPage}
-                onChange={(e) => setPerPage(e.target.value)}
-              >
-                {[10, 20, 50, 100].map((num) => (
-                  <option key={num} value={num}>
-                    {num}
-                  </option>
-                ))}
-              </select>
-            </div>
-
             <div className="relative ">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
               <input
@@ -203,7 +190,7 @@ function formatDate(dateString: string): string {
 
 
           <tbody>
-            {displayedProducts.map((product) => (
+            {displayedProducts?.map((product:TProduct) => (
               <tr key={product.id} className="border-t border-gray-100 text-[#555F7E]">
                 <td className="px-4 py-5">
                   <div className="flex justify-between items-center gap-3">
@@ -219,22 +206,18 @@ function formatDate(dateString: string): string {
                     <span className="font-medium w-3/4">{product.name}</span>
                   </div>
                 </td>
-                <td className="px-4 py-3">Emtry</td>
-                <td className="px-4 py-3">Emtry</td>
+                <td className="px-4 py-3">{product.category?.name}</td>
+                <td className="px-4 py-3">{product.store.name}</td>
                 <td className="px-4 py-3">${ product.price}</td>
                 <td className="px-4 py-3">
-                  {/* {product.listingDate} */} { formatDate(product.updatedAt) }
+                 { formatDate(product.updatedAt) }
                   </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end items-center gap-2">
-
-                    {/* <Link href={`/products/${product.id}/edit`}> */}
-                      <button>
+                      <button onClick={()=>handleUpdateProduct(product)} >
                         <Edit className="h-4 w-4" />
                         <span className="sr-only">Edit</span>
                       </button>
-                    {/* </Link> */}
-
                     <button
                       onClick={() => setDeleteProductId(product.id)}
                       className="p-2 rounded hover:bg-gray-100"
@@ -248,12 +231,11 @@ function formatDate(dateString: string): string {
           </tbody>
         </table>
       </div>
-
       </div>
 
     
-      {deleteProductId && (
-        
+
+      {deleteProductId && (    
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-100 ">
           <div className="bg-white p-6 rounded shadow-md w-full max-w-md space-y-4">
             <h2 className="text-lg font-semibold">Delete Product</h2>
@@ -280,6 +262,23 @@ function formatDate(dateString: string): string {
       )}
 
 
+       {/* update modal  */}
+       {isupdate && (    
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-100  overflow-y-auto">
+          <div className="bg-white p-6 rounded shadow-md w-full max-w-6xl space-y-4">
+              <UpdatedProduct isupdate={isupdate} close={close} ></UpdatedProduct>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setIsUpdate(null)}
+                className="px-4 py-2 rounded border text-sm"
+              >
+                Cancel
+              </button>
+             
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

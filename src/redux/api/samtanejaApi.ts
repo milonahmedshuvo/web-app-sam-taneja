@@ -9,8 +9,9 @@ export const samTanejaApi = createApi({
   reducerPath: 'samTanejaApi',
   // baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5777/api/v1' }),
   baseQuery: baseQueryWithReauth,
-  endpoints: (build) => ({
+  tagTypes: ["product", "blog"],
 
+  endpoints: (build) => ({
    getAllCategories: build.query({
     query : () => '/categories/main-categories'
    }),
@@ -20,40 +21,35 @@ export const samTanejaApi = createApi({
    }),
 
    getAllBlogs : build.query({
-    query : () => '/blogs'
+    query : () => '/blogs',
    }),
+   allBlogsWithPagination : build.query({
+    query: (page) => `/blogs?limit=10&page=${page}`,
+    providesTags: ['blog']
+   }),
+   blogsDeleted: build.mutation({
+    query: (id) => ({
+      url: `/blogs/${id}`,
+      method: "DELETE",
+    }),
+    invalidatesTags: ['blog']
 
-
-
-  //  createAdminAccount: build.mutation({
-  //   query: (userData) =>({
-  //     url: "/users/create-admin",
-  //     method: "POST",
-  //     body: userData
-  //   })
-  //  }),
-
-  // createCustomerAccount: build.mutation({
-  //   query: (userData) => ({
-  //     url: "/users/create-customer",
-  //     method: "POST",
-  //     body: userData
-  //   })
-  // }),
-   
-  // userLogin: build.mutation({
-  //   query : (userData) =>({
-  //     url: "/auth/login",
-  //     method : "POST",
-  //     body: userData
-  //   })
-  // }),
+   }),
+ 
 
 
   // management store category data 
   singleStore: build.query({
     query: (id) => ({
       url: `/stores/${id}`
+    })
+  }),
+
+  addStore : build.mutation({
+    query: (body) => ({
+      url: "/stores",
+      method: "POST",
+      body: body
     })
   })
 
@@ -63,4 +59,4 @@ export const samTanejaApi = createApi({
 
 
 
-export const { useGetAllStorisQuery, useGetAllCategoriesQuery, useGetAllBlogsQuery, useSingleStoreQuery } = samTanejaApi;
+export const { useGetAllStorisQuery, useGetAllCategoriesQuery, useGetAllBlogsQuery, useSingleStoreQuery, useAddStoreMutation, useAllBlogsWithPaginationQuery, useBlogsDeletedMutation } = samTanejaApi;

@@ -1,111 +1,116 @@
-"use client"
+/* eslint-disable @next/next/no-img-element */
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import Link from "next/link"
-import {
-  Bold,
-  Italic,
-  Underline,
-  Strikethrough,
-  List,
-  ListOrdered,
-  LinkIcon,
-  ImageIcon,
-  Code,
-  Quote,
-  Undo,
-  Redo,
-  ChevronDown,
-  AlignLeft,
-} from "lucide-react"
+import type React from "react";
+import { useRef, useState } from "react";
+import { ChevronDown } from "lucide-react";
+import dynamic from "next/dynamic";
+import { toast } from "sonner";
+import Breadcrumbs from "@/components/shared/Breadcrumbs/Breadcrumbs";
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 export default function AddNewBlogPage() {
-  const [thumbnail, setThumbnail] = useState<File | null>(null)
-  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null)
-  const [headline, setHeadline] = useState("")
-  const [subHeadline, setSubHeadline] = useState("")
-  const [description, setDescription] = useState("")
-  const [isDragging, setIsDragging] = useState(false)
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [year, setyear] = useState("");
+  const [summary, setSummary] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+
+  // Jodit
+  const [content, setContent] = useState("");
+  const editor = useRef(null);
+  const config = {
+    height: 400,
+    tabIndex: 2,
+  };
+  console.log("content", content);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0]
-      setThumbnail(file)
-      setThumbnailPreview(URL.createObjectURL(file))
+      const file = e.target.files[0];
+      setThumbnail(file);
+      setThumbnailPreview(URL.createObjectURL(file));
     }
-  }
+  };
 
   const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault()
-    setIsDragging(true)
-  }
+    e.preventDefault();
+    setIsDragging(true);
+  };
 
   const handleDragLeave = () => {
-    setIsDragging(false)
-  }
+    setIsDragging(false);
+  };
 
   const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault()
-    setIsDragging(false)
+    e.preventDefault();
+    setIsDragging(false);
 
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      const file = e.dataTransfer.files[0]
-      setThumbnail(file)
-      setThumbnailPreview(URL.createObjectURL(file))
+      const file = e.dataTransfer.files[0];
+      setThumbnail(file);
+      setThumbnailPreview(URL.createObjectURL(file));
     }
-  }
+  };
 
   const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
+    const formData = new FormData();
 
-    // Here you would typically send the data to your API
-    console.log({
-      thumbnail,
-      headline,
-      subHeadline,
-      description,
-    })
+    if (thumbnail) {
+      formData.append("file", thumbnail);
+    }
+    formData.append("title", title);
+    formData.append("author", author);
+    formData.append("year", year);
+    formData.append("summary", summary);
+    formData.append("content", content);
 
+    try {
+      const res = await fetch("http://localhost:5777/api/v1/blogs", {
+        method: "POST",
+        body: formData,
+      });
 
-
-    // For demo purposes, just show an alert
-    alert("Blog post saved successfully!")
-  }
-
-
-
+      const result = await res.json();
+      console.log(result);
+      if (result.success) {
+        toast.success("Blog post saved successfully!");
+        setThumbnail(null);
+        setThumbnailPreview(null);
+        setTitle("");
+        setAuthor("");
+        setyear("");
+        setSummary("");
+        setContent("");
+      }
+    } catch (err) {
+      console.error("Upload failed", err);
+      toast.error("Failed to save blog post.");
+    }
+  };
 
   return (
-    <div className="p-4 sm:p-6">
-      <div className="mb-6 flex justify-between">
-        <h1 className="text-2xl font-bold">Add New Blog</h1>
-        <div className="flex items-center text-sm text-muted-foreground mt-1">
-          <Link href="/" className="hover:underline">
-            Dashboard
-          </Link>
-          <span className="mx-2">›</span>
-          <Link href="/" className="hover:underline">
-            Blogs
-          </Link>
-          <span className="mx-2">›</span>
-          <span>Add New Blog</span>
-        </div>
-      </div>
-
-
+    <div className="px-4 md:px-7">
+      <Breadcrumbs
+        title="Add New Blog"
+        category="Blog"
+        subCategory="Add New Blog"
+      ></Breadcrumbs>
 
       <form onSubmit={handleSave}>
-        <div className="bg-white rounded-lg  mb-6">
-          <div className="p-6">
+        <div className=" rounded-lg  mb-6 pb-10">
+          <div className="py-6">
             <div className="mb-6">
               <label className="text-[#2E4454] text-[18px] font-medium mb-2 block">
                 Thumbnail <span className="text-red-500">*</span>
               </label>
               <div
-                className={`border-2 border-dashed rounded-md p-6 text-center ${isDragging ? "border-primary bg-primary/5" : "border-gray-300"}`}
+                className={`border-2 border-dashed rounded-md p-6 text-center ${
+                  isDragging ? "border-primary bg-primary/5" : "border-gray-300"
+                }`}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
@@ -121,8 +126,8 @@ export default function AddNewBlogPage() {
                       type="button"
                       className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 text-xs"
                       onClick={() => {
-                        setThumbnail(null)
-                        setThumbnailPreview(null)
+                        setThumbnail(null);
+                        setThumbnailPreview(null);
                       }}
                     >
                       ✕
@@ -130,28 +135,35 @@ export default function AddNewBlogPage() {
                   </div>
                 ) : (
                   <>
-                    <div className="mx-auto w-12 h-12 mb-3 flex items-center justify-center rounded-full bg-primary/10">
-                      <svg
-                        className="w-6 h-6 text-primary"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                        />
-                      </svg>
-                    </div>
-                    <label htmlFor="thumbnail-upload" >
-                    <p className="text-sm text-gray-600 mb-1">
-                      Drag your file(s) or <span className="text-primary cursor-pointer">browse</span>
-                    </p>
+                    <label htmlFor="thumbnail-upload">
+                      <div className="mx-auto w-12 h-12 mb-3 flex items-center justify-center rounded-full bg-primary/10">
+                        <svg
+                          className="w-6 h-6 text-primary"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                          />
+                        </svg>
+                      </div>
+
+                      <p className="text-sm text-gray-600 mb-1">
+                        Drag your file(s) or{" "}
+                        <span className="text-primary cursor-pointer">
+                          browse
+                        </span>
+                      </p>
+
+                      <p className="text-xs text-gray-500">
+                        Max 10 MB files are allowed
+                      </p>
                     </label>
-                    <p className="text-xs text-gray-500">Max 10 MB files are allowed</p>
                   </>
                 )}
                 <input
@@ -167,24 +179,21 @@ export default function AddNewBlogPage() {
               </label> */}
             </div>
 
-
-
-
-
-
-
             <div className="mb-6">
-              <label htmlFor="headline" className="block text-[#2E4454] text-[18px] font-medium mb-2 ">
-                Headline <span className="text-red-500">*</span>
+              <label
+                htmlFor="title"
+                className="block text-[#2E4454] text-[18px] font-medium mb-2 "
+              >
+                Title <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
-                  id="headline"
+                  id="title"
                   type="text"
-                  className="w-full border border-gray-300 rounded-md p-2 pr-8 focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Blog headline here..."
-                  value={headline}
-                  onChange={(e) => setHeadline(e.target.value)}
+                  className="w-full border border-gray-200 py-3 rounded-md p-2 pr-8 focus:outline-none "
+                  placeholder="Blog title here..."
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                   required
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
@@ -194,17 +203,21 @@ export default function AddNewBlogPage() {
             </div>
 
             <div className="mb-6">
-              <label htmlFor="sub-headline" className="text-[#2E4454] text-[18px] font-medium mb-2 block">
-                Sub-Headline
+              <label
+                htmlFor="Author"
+                className="block text-[#2E4454] text-[18px] font-medium mb-2 "
+              >
+                Author <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
-                  id="sub-headline"
+                  id="Author"
                   type="text"
-                  className="w-full border border-gray-300 rounded-md p-2 pr-8 focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Blog sub-heading here"
-                  value={subHeadline}
-                  onChange={(e) => setSubHeadline(e.target.value)}
+                  className="w-full border border-gray-200 py-3 rounded-md p-2 pr-8 focus:outline-none "
+                  placeholder="Blog Author here..."
+                  value={author}
+                  onChange={(e) => setAuthor(e.target.value)}
+                  required
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                   <ChevronDown className="h-4 w-4 text-gray-400" />
@@ -213,129 +226,78 @@ export default function AddNewBlogPage() {
             </div>
 
             <div className="mb-6">
-              <label htmlFor="description" className="text-[#2E4454] text-[18px] font-medium mb-2 block">
-                Description <span className="text-red-500">*</span>
+              <label
+                htmlFor="year"
+                className="block text-[#2E4454] text-[18px] font-medium mb-2 "
+              >
+                Year <span className="text-red-500">*</span>
               </label>
-              <div className="border border-gray-300 rounded-md overflow-hidden">
-                <div className="flex flex-wrap items-center gap-1 p-2 border-b bg-gray-50">
-                  <button type="button" className="p-1 rounded hover:bg-gray-200">
-                    <Undo className="h-4 w-4" />
-                  </button>
-                  <button type="button" className="p-1 rounded hover:bg-gray-200">
-                    <Redo className="h-4 w-4" />
-                  </button>
-                  <div className="h-4 border-r border-gray-300 mx-1"></div>
-
-                  <div className="relative inline-block text-left">
-                    <button
-                      type="button"
-                      className="flex items-center p-1 rounded hover:bg-gray-200"
-                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    >
-                      <span className="text-xs mr-1">Normal text</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </button>
-
-                    {isDropdownOpen && (
-                      <div className="absolute left-0 mt-1 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
-                        <div className="py-1" role="menu" aria-orientation="vertical">
-                          <button
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                            role="menuitem"
-                            onClick={() => setIsDropdownOpen(false)}
-                          >
-                            Normal text
-                          </button>
-                          <button
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                            role="menuitem"
-                            onClick={() => setIsDropdownOpen(false)}
-                          >
-                            Heading 1
-                          </button>
-                          <button
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                            role="menuitem"
-                            onClick={() => setIsDropdownOpen(false)}
-                          >
-                            Heading 2
-                          </button>
-                          <button
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                            role="menuitem"
-                            onClick={() => setIsDropdownOpen(false)}
-                          >
-                            Heading 3
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="h-4 border-r border-gray-300 mx-1"></div>
-
-                  <button type="button" className="p-1 rounded hover:bg-gray-200">
-                    <Bold className="h-4 w-4" />
-                  </button>
-                  <button type="button" className="p-1 rounded hover:bg-gray-200">
-                    <Italic className="h-4 w-4" />
-                  </button>
-                  <button type="button" className="p-1 rounded hover:bg-gray-200">
-                    <Underline className="h-4 w-4" />
-                  </button>
-                  <button type="button" className="p-1 rounded hover:bg-gray-200">
-                    <Strikethrough className="h-4 w-4" />
-                  </button>
-
-                  <div className="h-4 border-r border-gray-300 mx-1"></div>
-
-                  <button type="button" className="p-1 rounded hover:bg-gray-200">
-                    <AlignLeft className="h-4 w-4" />
-                  </button>
-                  <button type="button" className="p-1 rounded hover:bg-gray-200">
-                    <List className="h-4 w-4" />
-                  </button>
-                  <button type="button" className="p-1 rounded hover:bg-gray-200">
-                    <ListOrdered className="h-4 w-4" />
-                  </button>
-
-                  <div className="h-4 border-r border-gray-300 mx-1"></div>
-
-                  <button type="button" className="p-1 rounded hover:bg-gray-200">
-                    <LinkIcon className="h-4 w-4" />
-                  </button>
-                  <button type="button" className="p-1 rounded hover:bg-gray-200">
-                    <ImageIcon className="h-4 w-4" />
-                  </button>
-                  <button type="button" className="p-1 rounded hover:bg-gray-200">
-                    <Code className="h-4 w-4" />
-                  </button>
-                  <button type="button" className="p-1 rounded hover:bg-gray-200">
-                    <Quote className="h-4 w-4" />
-                  </button>
+              <div className="relative">
+                <input
+                  id="year"
+                  type="text"
+                  className="w-full border border-gray-200 py-3 rounded-md p-2 pr-8 focus:outline-none "
+                  placeholder="Blog year here..."
+                  value={year}
+                  onChange={(e) => setyear(e.target.value)}
+                  required
+                />
+                <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                  <ChevronDown className="h-4 w-4 text-gray-400" />
                 </div>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <label
+                htmlFor="summary"
+                className="block text-[#2E4454] text-[18px] font-medium mb-2 "
+              >
+                Summary <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
                 <textarea
-                  id="description"
-                  className="w-full p-3 min-h-[200px] focus:outline-none"
-                  placeholder="Write your blog content here..."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  rows={6}
+                  id="summary"
+                  className="w-full border border-gray-200 py-3 rounded-md p-2 pr-8 focus:outline-none "
+                  placeholder="Blog summary here..."
+                  value={summary}
+                  onChange={(e) => setSummary(e.target.value)}
                   required
-                ></textarea>
+                />
+                <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                  <ChevronDown className="h-4 w-4 text-gray-400" />
+                </div>
               </div>
+            </div>
+
+            {/* jodit components */}
+            <div>
+              <label
+                htmlFor="sub-headline"
+                className="text-[#2E4454] text-[18px] font-medium mb-2 block"
+              >
+                Content
+              </label>
+              <JoditEditor
+                ref={editor}
+                value={content}
+                config={config}
+                onBlur={(newContent) => setContent(newContent)}
+              />
             </div>
           </div>
-        </div>
 
-        <div className="flex justify-end">
-          <button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors w-full sm:w-auto"
-          >
-            Save Product
-          </button>
+          <div className="w-full mt-10">
+            <button
+              type="submit"
+              className="bg-[#2C65AF] !text-white font-medium py-3 px-4 rounded-md transition-colors w-full"
+            >
+              Save Product
+            </button>
+          </div>
         </div>
       </form>
     </div>
-  )
+  );
 }

@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   LayoutGrid,
   Users,
@@ -12,11 +13,9 @@ import {
   ChevronUp,
 } from "lucide-react";
 import Link from "next/link";
-import dealNews from '../../../image/logo.png'
+import dealNews from "../../../image/logo.png";
 import Image from "next/image";
-
-
-
+import { usePathname } from "next/navigation";
 
 type SidebarProps = {
   collapsed: boolean;
@@ -28,13 +27,25 @@ type MenuItem = {
   label: string;
   key: string;
   path?: string;
-  children?: { label: string; path: string }[];
-};
+  children?: { label: string; path: string, showItem: string }[];
+}; 
 
 const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
-  const [activeItem, setActiveItem] = useState<string>("Overview");
+  const [activePath, setActivePath] = useState<string>("");
   const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
+  const pathname = usePathname();
 
+  useEffect(() => {
+    setActivePath(pathname);
+
+    const foundItem = menuItems.find((item) =>
+      item.children?.some((sub) => sub.path === pathname)
+    );
+
+    if (foundItem) {
+      setOpenSubMenu(foundItem.label);
+    }
+  }, [pathname]);
 
   const toggleSubMenu = (label: string) => {
     setOpenSubMenu((prev) => (prev === label ? null : label));
@@ -42,20 +53,21 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
 
 
 
+
   const menuItems: MenuItem[] = [
-    {
-      icon: <LayoutGrid size={20} />,
-      label: "Overview",
-      key: "1",
-      path: "/dashboard",
-    },
+    // {
+    //   icon: <LayoutGrid size={20} />,
+    //   label: "Overview",
+    //   key: "1",
+    //   path: "/dashboard",
+    // },
     {
       icon: <Users size={20} />,
       label: "Products",
       key: "2",
       children: [
-        { label: "All Products", path: "/dashboard/allProducts" },
-        { label: "Add Product", path: "/dashboard/addProducts" },
+        { label: "allProducts", path: "/dashboard/allProducts", showItem: "All Products" },
+        { label: "addProducts", path: "/dashboard/addProducts", showItem: "Add Products" },
       ],
     },
     {
@@ -63,18 +75,17 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
       label: "Categories",
       key: "3",
       children: [
-        { label: "All Categories", path: "/dashboard/allCategoris" },
-        { label: "Add new Category", path: "/dashboard/addCategoris" },
+        // { label: "allCategoris", path: "/dashboard/allCategoris", showItem: "All Categoris" },
+        { label: "addCategoris", path: "/dashboard/addCategoris", showItem: "Add Categoris" },
       ],
     },
     {
       icon: <Home size={20} />,
       label: "Stores",
       key: "4",
-      path: "/stores",
       children: [
-        { label: "All Stores", path: "/dashboard/allStores" },
-        { label: "Add Stores", path: "/dashboard/addStores" },
+        { label: "allStores", path: "/dashboard/allStores" , showItem: "All Stores"},
+        { label: "addStores", path: "/dashboard/addStores", showItem: "Add stores" },
       ],
     },
     {
@@ -82,8 +93,8 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
       label: "Blogs",
       key: "5",
       children: [
-        { label: "All Blogs", path: "/dashboard/allBlogs" },
-        { label: "Add Blog", path: "/dashboard/addBlog" },
+        { label: "allBlogs", path: "/dashboard/allBlogs" , showItem: "All Blogs"},
+        { label: "addBlog", path: "/dashboard/addBlog", showItem: "Add Blog"},
       ],
     },
   ];
@@ -107,34 +118,49 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
         } md:translate-x-0 w-80 flex flex-col`}
       >
         {/* Logo */}
-        <div className="p-4 h-20 flex  items-center border-b  border-gray-500">
+        <div className="p-4 h-20 flex items-center border-b border-gray-500">
           <Image src={dealNews} width={100} height={100} alt="logo" />
         </div>
 
         {/* Menu Items */}
         <nav className="flex-1 overflow-y-auto py-4">
+         
           <ul className="space-y-2 px-2">
+
+
+            <Link href='/dashboard' >
+            <li className="px-4 py-2.5 rounded-md text-[18px] font-[500] cursor-pointer text-[#D8E9FF] bg-[#354357] flex gap-2.5 my-3"> 
+            <LayoutGrid size={20} />
+              Overview
+              </li>
+              </Link>
+
+
             {menuItems.map((item) => (
               <li key={item.key}>
                 <div
                   className={`flex items-center justify-between px-4 py-2.5 rounded-md text-[18px] font-[500] cursor-pointer ${
-                    activeItem === item.label
-                      ? "bg-blue-500 text-white"
-                      : "text-[#D8E9FF] hover:bg-gray-100"
+                    activePath === item.path || openSubMenu === item.label
+                      ? "bg-[#354357] text-white"
+                      : "text-[#D8E9FF] "
                   }`}
                   onClick={() => {
                     if (item.children) {
                       toggleSubMenu(item.label);
-                      setActiveItem(item.label)
-                    } else {
-                      setActiveItem(item.label);
+                    } else if (item.path) {
+                      setActivePath(item.path);
                     }
                   }}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className={`flex items-center gap-3${item.label =="Overview"? "bg-red-600": ""}`}>
                     {item.icon}
+                    <Link href={`${item.path?  item.path:"#"}`}>  
                     <span>{item.label}</span>
+                    </Link>
                   </div>
+
+
+
                   {item.children &&
                     (openSubMenu === item.label ? (
                       <ChevronUp size={18} />
@@ -150,14 +176,14 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
                       <li key={idx} className="mt-2">
                         <Link
                           href={subItem.path}
-                          className={`block px-2 py-2 text-[16px] rounded-md  ${
-                            activeItem === subItem.label
-                              ? "bg-blue-500 text-white"
+                          className={`block px-2 py-2 text-[16px] rounded-md ${
+                            activePath === subItem.path
+                              ? "bg-[#354357] text-white"
                               : "text-[#D8E9FF] hover:text-blue-500"
                           }`}
-                          onClick={() => setActiveItem(subItem.label)}
+                          onClick={() => setActivePath(subItem.path)}
                         >
-                          {subItem.label}
+                          {subItem.showItem}
                         </Link>
                       </li>
                     ))}

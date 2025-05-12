@@ -1,5 +1,6 @@
-import AllCategoriesPage from "@/components/dashboard/AllCategoris/AllCategoris";
+// import AllCategoriesPage from "@/components/dashboard/AllCategoris/AllCategoris";
 import Header from "@/components/dashboard/Header/Header";
+import Jodit from "@/components/Jodit/Jodit";
 
 
 const page = () => {
@@ -7,7 +8,8 @@ const page = () => {
   return (
     <div>
         <Header/>
-        <AllCategoriesPage/>
+        {/* <AllCategoriesPage/> */}
+        <Jodit></Jodit>
     </div>
   )
 }

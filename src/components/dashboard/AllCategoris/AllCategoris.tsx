@@ -114,7 +114,7 @@ export default function AllCategoriesPage() {
 
 
 
-      <div className="overflow-x-auto rounded-md  bg-white px-10 py-6">
+   <div className="overflow-x-auto rounded-md  bg-white px-10 py-6">
 
  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between bg-white pb-6">
 

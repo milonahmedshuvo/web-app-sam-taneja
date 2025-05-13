@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Breadcrumbs from "@/components/shared/Breadcrumbs/Breadcrumbs";
+import UpdateBlogPage from "../AddBlog/UpdateBlog";
 
 interface TBlog {
   id: string;
@@ -34,6 +35,11 @@ export default function BlogsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const { data: allBlogs } = useAllBlogsWithPaginationQuery(currentPage);
+
+
+  // updated blog 
+  const [updatedBlogData, setUpdatedBlogData] = useState<TBlog | null>(null)
+
 
   useEffect(() => {
     if (allBlogs?.meta?.totalPage) {
@@ -92,9 +98,17 @@ if(isSuccess){
   };
 
 
+  // blog updated 
+  const handleBlogUpdate = (post:TBlog) => {
+        setUpdatedBlogData(post)
+  }
+
+  const close = () => {
+    setUpdatedBlogData(null)
+  }
 
   return (
-    <div className="px-4 md:px-7">
+    <div className="px-4 md:px-7 ">
 
       <Breadcrumbs title="All Blogs" category="Blogs" subCategory="All Blogs"></Breadcrumbs>
       
@@ -157,7 +171,7 @@ if(isSuccess){
             </div>
 
             <div className="col-span-2 sm:col-span-1 flex justify-end space-x-2 text-[#555F7E] gap-3.5">
-              <button className="text-gray-400 hover:text-gray-600 cursor-pointer">
+              <button  onClick={()=> handleBlogUpdate(post)}  className="text-gray-400 hover:text-gray-600 cursor-pointer" >
                 <PencilIcon className="w-5 h-5" />
               </button>
               <button className="text-gray-400 hover:text-red-500 cursor-pointer" onClick={() => setDeleteProductId(post.id)}>
@@ -196,6 +210,19 @@ if(isSuccess){
         </div>
       )}
 
+
+      
+             {updatedBlogData && (    
+               <div className="fixed inset-0 z-50 bg-opacity-100  overflow-y-auto">
+                 <div className="bg-white p-6 rounded shadow-md w-full max-w-6xl mx-auto space-y-1">
+                     {/* <UpdatedProduct isupdate={isupdate} close={close} ></UpdatedProduct> */}
+                     <UpdateBlogPage close={close} updatedBlogData={updatedBlogData}  ></UpdateBlogPage>
+                   <div className="flex justify-end gap-2">
+                   </div>
+                 </div>
+               </div>
+             )} 
+      
 
     </div>
   );

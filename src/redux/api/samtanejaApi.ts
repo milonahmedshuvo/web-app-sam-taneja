@@ -9,7 +9,7 @@ export const samTanejaApi = createApi({
   reducerPath: 'samTanejaApi',
   // baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5777/api/v1' }),
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["product", "blog"],
+  tagTypes: ["product", "blog", "store"],
 
   endpoints: (build) => ({
    getAllCategories: build.query({
@@ -28,8 +28,29 @@ export const samTanejaApi = createApi({
 
 
    getAllStoris : build.query({
-       query: () => '/stores'
+       query: () => '/stores',
+       providesTags: ['store']
    }),
+   deletedStoris : build.mutation({
+    query: (id) => ({
+      url: `/stores/${id}`,
+      method: "DELETE"
+    }),
+    invalidatesTags: ['store']
+   }),
+   updateStoris : build.mutation({
+    query : ({data, id}) => ({
+      url : `/stores/${id}`,
+      method: "PATCH",
+      body: data
+    }),
+    invalidatesTags: ['store']
+   }),
+
+
+
+
+
    getAllBlogs : build.query({
     query : () => '/blogs',
    }),
@@ -67,4 +88,4 @@ export const samTanejaApi = createApi({
 
 
 
-export const { useGetAllStorisQuery, useGetAllCategoriesQuery, useGetAllBlogsQuery, useSingleStoreQuery, useAddStoreMutation, useAllBlogsWithPaginationQuery, useBlogsDeletedMutation, useGetParentCategorisQuery, useCreateCategorisNameMutation} = samTanejaApi;
+export const { useGetAllStorisQuery, useDeletedStorisMutation, useGetAllCategoriesQuery, useGetAllBlogsQuery, useSingleStoreQuery, useAddStoreMutation, useAllBlogsWithPaginationQuery, useBlogsDeletedMutation, useGetParentCategorisQuery, useCreateCategorisNameMutation, useUpdateStorisMutation} = samTanejaApi;

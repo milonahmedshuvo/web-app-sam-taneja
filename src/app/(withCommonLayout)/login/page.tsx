@@ -76,7 +76,6 @@ export default function SignupFormCustomer() {
     e.preventDefault()
 
     if (validateForm()) {
-      console.log(formData)
     //   setIsSubmitted(true)
     const payload = {
         email: formData.email,

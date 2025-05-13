@@ -15,11 +15,21 @@ export const samTanejaApi = createApi({
    getAllCategories: build.query({
     query : () => '/categories/main-categories'
    }),
+   getParentCategoris: build.query({
+    query: () => '/categories/parent-categories'
+   }),
+   createCategorisName: build.mutation({
+    query: (data) => ({
+      url: '/categories',
+      method: 'POST',
+      body: data,
+    })
+   }),
+
 
    getAllStoris : build.query({
        query: () => '/stores'
    }),
-
    getAllBlogs : build.query({
     query : () => '/blogs',
    }),
@@ -33,7 +43,6 @@ export const samTanejaApi = createApi({
       method: "DELETE",
     }),
     invalidatesTags: ['blog']
-
    }),
  
 
@@ -44,7 +53,6 @@ export const samTanejaApi = createApi({
       url: `/stores/${id}`
     })
   }),
-
   addStore : build.mutation({
     query: (body) => ({
       url: "/stores",
@@ -59,4 +67,4 @@ export const samTanejaApi = createApi({
 
 
 
-export const { useGetAllStorisQuery, useGetAllCategoriesQuery, useGetAllBlogsQuery, useSingleStoreQuery, useAddStoreMutation, useAllBlogsWithPaginationQuery, useBlogsDeletedMutation } = samTanejaApi;
+export const { useGetAllStorisQuery, useGetAllCategoriesQuery, useGetAllBlogsQuery, useSingleStoreQuery, useAddStoreMutation, useAllBlogsWithPaginationQuery, useBlogsDeletedMutation, useGetParentCategorisQuery, useCreateCategorisNameMutation} = samTanejaApi;

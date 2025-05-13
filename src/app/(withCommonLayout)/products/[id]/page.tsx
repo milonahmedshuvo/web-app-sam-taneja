@@ -73,8 +73,7 @@ const Products = () => {
     return <p> Loading...</p>
   }
 
-  console.log("categoriesProducts", categoriesProducts);
-  console.log("category id", id)
+ 
 
 
 

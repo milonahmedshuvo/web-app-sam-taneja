@@ -310,10 +310,6 @@ export default function Navbar() {
               </div>
             ))}
           </div>
-
-
-
-
         </div>
 
 
@@ -326,18 +322,21 @@ export default function Navbar() {
 
             {
                isModalOpen && <div className="absolute right-0 top-[30px] bg-white p-5 w-[200px] shadow space-y-3.5">
+
+                   <div className="flex gap-3"  onClick={()=> setIsModalOpen(false)} >
+                    <FaUser className="cursor-pointer  text-[#2c65af]" />
+                    <Link href='/dashboard' ><span className="text-[#2c65af] font-normal text-[15px] ">Dashborad</span></Link>
+                    </div> 
                     <div className="flex gap-3"  onClick={()=> setIsModalOpen(false)} >
                     <FaUser className="cursor-pointer  text-[#2c65af]" />
                     <Link href='/viewProfile' ><span className="text-[#2c65af] font-normal text-[15px] ">View Profile</span></Link>
                     </div>
-               
                     <div className="flex gap-3" onClick={()=> setIsModalOpen(false)} >
                     <FaRegHeart className="cursor-pointer  text-[#2c65af]" />
                     <Link href='/saveDeals' > 
                     <span className="text-[#2c65af] font-normal text-[15px] ">Save Deals</span>
                     </Link>
                     </div>
-
                     <div className="flex gap-3">
                     <IoSettingsOutline className="cursor-pointer  text-[#2c65af]" />
                     <span className="text-[#2c65af] font-normal text-[15px] ">Interests</span>

@@ -35,8 +35,6 @@ const Storepage = () => {
   const storeIdParam = params.id as string;
   const [id, setId] = useState<string>(storeIdParam);
 
-  console.log("category id", id);
-
   const [StoreProducts, setStoreProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1); // optional
@@ -47,8 +45,6 @@ const Storepage = () => {
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
   };
-
-  
   const handlePrev = () => {
     if (currentPage > 1) setCurrentPage((prev) => prev - 1);
   };

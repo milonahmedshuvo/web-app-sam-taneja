@@ -25,7 +25,7 @@ export default function AddNewBlogPage() {
     height: 400,
     tabIndex: 2,
   };
-  console.log("content", content);
+  
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {

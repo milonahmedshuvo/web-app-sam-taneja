@@ -67,7 +67,6 @@ export default function AllStore() {
 
   const confirmDelete = () => {
     // TODO: Implement actual delete logic
-    console.log("Deleting category:", selectedCategoryId);
     setDeleteModal(false);
   };
 

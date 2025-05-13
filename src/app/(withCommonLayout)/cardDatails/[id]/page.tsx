@@ -60,7 +60,7 @@ const HomeCardDatailspage = () => {
               }
       
       
-              console.log("ami data", data)
+          
 
 
               const day = new Date(`${data?.updatedAt}`).getDate();

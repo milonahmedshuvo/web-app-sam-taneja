@@ -112,7 +112,6 @@ function formatDate(dateString: string): string {
 }
 
   const handleDelete = (id: string) => {
-    console.log("Deleting product:", id);
     productDelete(id)
     setDeleteProductId("");
   };
@@ -127,7 +126,6 @@ function formatDate(dateString: string): string {
   
   const close = () => {
      setIsUpdate(null)
-     console.log("update submit")
   }
 
   
@@ -140,7 +138,7 @@ function formatDate(dateString: string): string {
 
 
 
-      <div className={` ${deleteProductId ? 'opacity-20 bg-gray-300':"opacity-100" }   ${isupdate ? 'opacity-20 bg-gray-300':"opacity-100" } `}> 
+      <div className={` ${deleteProductId || isupdate ? 'opacity-20 bg-gray-300':"opacity-100" }   `}> 
 
       <Breadcrumbs title="All Products" category="Products" subCategory="All Products" ></Breadcrumbs>
 
@@ -246,13 +244,13 @@ function formatDate(dateString: string): string {
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setDeleteProductId(null)}
-                className="px-4 py-2 rounded border text-sm"
+                className="px-4 py-2 rounded border text-sm cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleDelete(deleteProductId)}
-                className="px-4 py-2 rounded bg-red-500 text-white text-sm hover:bg-red-600"
+                className="px-4 py-2 rounded bg-red-500 !text-white text-sm hover:bg-red-600 cursor-pointer"
               >
                 Delete
               </button>
@@ -268,13 +266,6 @@ function formatDate(dateString: string): string {
           <div className="bg-white p-6 rounded shadow-md w-full max-w-6xl space-y-4">
               <UpdatedProduct isupdate={isupdate} close={close} ></UpdatedProduct>
             <div className="flex justify-end gap-2">
-              <button
-                onClick={() => setIsUpdate(null)}
-                className="px-4 py-2 rounded border text-sm"
-              >
-                Cancel
-              </button>
-             
             </div>
           </div>
         </div>

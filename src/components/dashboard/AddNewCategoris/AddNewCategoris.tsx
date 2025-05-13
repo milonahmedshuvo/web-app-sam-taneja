@@ -1,62 +1,75 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import Link from "next/link"
-import { ChevronRight } from "lucide-react"
-import Breadcrumbs from "@/components/shared/Breadcrumbs/Breadcrumbs"
-
-
+import { useState } from "react";
+import Breadcrumbs from "@/components/shared/Breadcrumbs/Breadcrumbs";
+import { toast } from "sonner";
+import {  useCreateCategorisNameMutation, useGetParentCategorisQuery } from "@/redux/api/samtanejaApi";
 
 export default function AddNewCategory() {
-  const [categoryName, setCategoryName] = useState("")
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [categoryName, setCategoryName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [parentId, setParentId] = useState("");
+  const { data } = useGetParentCategorisQuery(undefined);
+  const [categorisName, {isError, isSuccess}] = useCreateCategorisNameMutation()
 
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (!categoryName.trim()) {
-      alert('success')
-      return
-    }
-
-    setIsSubmitting(true)
-
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // toast({
-      //   title: "Success",
-      //   description: `Category "${categoryName}" has been created`,
-      // })
-      console.log(categoryName)
-
-      setCategoryName("")
-    } catch (error) {
-      // toast({
-      //   title: "Error",
-      //   description: "Failed to create category",
-      //   variant: "destructive",
-      // })
-    } finally {
-      setIsSubmitting(false)
-    }
+  if(isSuccess){
+    toast.success('Category name create is succces!!')
+  }
+  if(isError){
+    toast.error('Category name add is Filed!!')
   }
 
+
+ 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!categoryName.trim()) {
+      alert("success");
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+
+
+      const data = {
+       name: categoryName,
+         parentId
+      }
+
+      await categorisName(data).unwrap()   
+      // console.log(categoryName, parentId);
+      setCategoryName("");
+      setParentId("")
+    } catch (error) {
+      toast.error("Category name add Filed!!");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+
   return (
-    <div className=" px-4 md:px-7 mb-2 ">
-
-
-      <Breadcrumbs title="Add New Categories" category="Category" subCategory="Add New Categories" ></Breadcrumbs>
+    <div className="px-4 md:px-7 mb-2">
+      <Breadcrumbs
+        title="Add New Categories"
+        category="Category"
+        subCategory="Add New Categories"
+      ></Breadcrumbs>
 
       <div className="bg-white rounded-lg p-6 mt-2 ">
-      <form onSubmit={handleSubmit} className="w-full h-[400px] lg:h-[600px] xl:h-[700px] flex flex-col justify-between">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full h-[400px] lg:h-[600px] xl:h-[700px] "
+        >
           <div className="mb-6">
-            <label htmlFor="categoryName" className="block text-[18px] font-medium mb-2">
+            <label
+              htmlFor="categoryName"
+              className="block text-[18px] font-medium mb-2"
+            >
               Category Name<span className="text-red-500">*</span>
             </label>
             <input
@@ -69,11 +82,40 @@ export default function AddNewCategory() {
             />
           </div>
 
-          <button type="submit" disabled={isSubmitting} className="mt-4 bg-[#2C65AF] py-2.5 rounded text-white ">
-            {isSubmitting ? "Creating..." : <span className="text-white">Save Categories</span>}
+          <div className="">
+            <label
+              htmlFor="categoryName"
+              className="block text-[18px] font-medium mb-2"
+            >
+              ParentId<span className="text-red-500">*</span>
+            </label>
+            <select
+              value={parentId}
+              onChange={(e) => setParentId(e.target.value)}
+              className="w-full focus:outline-none py-3 border border-gray-200 px-4 rounded"
+            >
+              <option value="">Select</option>
+              {data?.data?.map((item: { id: string; name: string }) => (
+                <option key={item.id} value={item.id}>
+                  {item.id}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className=" !mt-8 bg-[#2C65AF] py-2.5 rounded text-white !px-6 "
+          >
+            {isSubmitting ? (
+              "Creating..."
+            ) : (
+              <span className="text-white">Save Categories</span>
+            )}
           </button>
-        </form>     
+        </form>
+      </div>
     </div>
-    </div>
-  
-)}
+  );
+}

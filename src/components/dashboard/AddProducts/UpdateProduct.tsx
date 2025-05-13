@@ -2,8 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { Cloud } from "lucide-react";
-import { useGetAllCategoriesQuery, useGetAllStorisQuery } from "@/redux/api/samtanejaApi";
+import {
+  useGetAllCategoriesQuery,
+  useGetAllStorisQuery,
+} from "@/redux/api/samtanejaApi";
 import { toast } from "sonner";
+import { X } from "lucide-react";
 
 interface TCategory {
   id: string;
@@ -33,10 +37,10 @@ interface TProduct {
 
 interface TProductProps {
   isupdate: TProduct;
-  close: () => void
+  close: () => void;
 }
 
-export default function UpdatedProduct({ isupdate, close  }: TProductProps) {
+export default function UpdatedProduct({ isupdate, close }: TProductProps) {
   const [formData, setFormData] = useState({
     id: "",
     name: "",
@@ -68,10 +72,6 @@ export default function UpdatedProduct({ isupdate, close  }: TProductProps) {
     }
   }, [isupdate]);
 
-
-  console.log('update product', isupdate)
-  console.log('update form', formData)
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -102,11 +102,9 @@ export default function UpdatedProduct({ isupdate, close  }: TProductProps) {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-        setImageFile(e.target.files[0]);
-      }
+      setImageFile(e.target.files[0]);
+    }
   };
-
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -120,34 +118,43 @@ export default function UpdatedProduct({ isupdate, close  }: TProductProps) {
     }
 
     try {
-      const res = await fetch(`http://localhost:5777/api/v1/products/${isupdate.id}`, {
-        method: "PATCH", // Use PUT for update
-        body: formDatas,
-      });
+      const res = await fetch(
+        `http://localhost:5777/api/v1/products/${isupdate.id}`,
+        {
+          method: "PATCH", // Use PUT for update
+          body: formDatas,
+        }
+      );
 
       const result = await res.json();
       console.log(result);
       if (result.success) {
-        toast.success('Product updated successfully!')
-        close()
+        toast.success("Product updated successfully!");
+        close();
       }
     } catch (err) {
       console.error("Update failed", err);
       alert("Failed to update product.");
     }
 
-    console.log("update submit", )
+    console.log("update submit");
   };
 
-
-  
   return (
     <div className="space-y-4 px-4 md:px-6 !mt-40">
       <div className="rounded-lg bg-white p-6">
+        <div className="flex justify-end">
+          <button onClick={()=> close()} className="cursor-pointer hover:text-red-700" >
+            <X className="cursor-pointer hover:text-red-700" />
+          </button>
+        </div>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
             <div>
-              <label htmlFor="name" className="text-[#2E4454] text-[18px] font-medium mb-2 block">
+              <label
+                htmlFor="name"
+                className="text-[#2E4454] text-[18px] font-medium mb-2 block"
+              >
                 Product Name<span className="text-red-500">*</span>
               </label>
               <input
@@ -162,7 +169,10 @@ export default function UpdatedProduct({ isupdate, close  }: TProductProps) {
             </div>
 
             <div>
-              <label htmlFor="image" className="text-[#2E4454] text-[18px] font-medium mb-2 block">
+              <label
+                htmlFor="image"
+                className="text-[#2E4454] text-[18px] font-medium mb-2 block"
+              >
                 Product Image<span className="text-red-500">*</span>
               </label>
               <div
@@ -177,16 +187,21 @@ export default function UpdatedProduct({ isupdate, close  }: TProductProps) {
                 {imageFile ? (
                   <div className="flex flex-col items-center">
                     <div className="text-sm font-medium">{imageFile.name}</div>
-                    <div className="text-xs text-gray-500">{(imageFile.size / 1024).toFixed(2)} KB</div>
+                    <div className="text-xs text-gray-500">
+                      {(imageFile.size / 1024).toFixed(2)} KB
+                    </div>
                   </div>
                 ) : (
                   <>
                     <Cloud className="mb-2 h-10 w-10 text-gray-400" />
                     <div className="text-center">
                       <p className="text-sm font-medium">
-                        Drag your file(s) or <span className="text-blue-500">browse</span>
+                        Drag your file(s) or{" "}
+                        <span className="text-blue-500">browse</span>
                       </p>
-                      <p className="text-xs text-gray-500">Max 10 MB files are allowed</p>
+                      <p className="text-xs text-gray-500">
+                        Max 10 MB files are allowed
+                      </p>
                     </div>
                   </>
                 )}
@@ -201,13 +216,18 @@ export default function UpdatedProduct({ isupdate, close  }: TProductProps) {
             </div>
 
             <div>
-              <label htmlFor="categoryId" className="text-[#2E4454] text-[18px] font-medium mb-2 block">
+              <label
+                htmlFor="categoryId"
+                className="text-[#2E4454] text-[18px] font-medium mb-2 block"
+              >
                 Select Categories<span className="text-red-500">*</span>
               </label>
               <select
                 name="categoryId"
                 value={formData.categoryId}
-                onChange={(e) => handleSelectChange("categoryId", e.target.value)}
+                onChange={(e) =>
+                  handleSelectChange("categoryId", e.target.value)
+                }
                 required
                 className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2.5 text-sm"
               >
@@ -222,13 +242,18 @@ export default function UpdatedProduct({ isupdate, close  }: TProductProps) {
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
-                <label htmlFor="storeId" className="text-[#2E4454] text-[18px] font-medium mb-2 block">
+                <label
+                  htmlFor="storeId"
+                  className="text-[#2E4454] text-[18px] font-medium mb-2 block"
+                >
                   Select Stores<span className="text-red-500">*</span>
                 </label>
                 <select
                   name="storeId"
                   value={formData.storeId}
-                  onChange={(e) => handleSelectChange("storeId", e.target.value)}
+                  onChange={(e) =>
+                    handleSelectChange("storeId", e.target.value)
+                  }
                   required
                   className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2.5 text-sm"
                 >
@@ -242,11 +267,16 @@ export default function UpdatedProduct({ isupdate, close  }: TProductProps) {
               </div>
 
               <div>
-                <label htmlFor="price" className="text-[#2E4454] text-[18px] font-medium mb-2 block">
+                <label
+                  htmlFor="price"
+                  className="text-[#2E4454] text-[18px] font-medium mb-2 block"
+                >
                   Price
                 </label>
                 <div className="relative">
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                    $
+                  </span>
                   <input
                     id="price"
                     name="price"
@@ -260,7 +290,10 @@ export default function UpdatedProduct({ isupdate, close  }: TProductProps) {
             </div>
 
             <div>
-              <label htmlFor="summary" className="text-[#2E4454] text-[18px] font-medium mb-2 block">
+              <label
+                htmlFor="summary"
+                className="text-[#2E4454] text-[18px] font-medium mb-2 block"
+              >
                 Summary<span className="text-red-500">*</span>
               </label>
               <textarea
@@ -275,7 +308,10 @@ export default function UpdatedProduct({ isupdate, close  }: TProductProps) {
             </div>
 
             <div>
-              <label htmlFor="description" className="text-[#2E4454] text-[18px] font-medium mb-2 block">
+              <label
+                htmlFor="description"
+                className="text-[#2E4454] text-[18px] font-medium mb-2 block"
+              >
                 Description<span className="text-red-500">*</span>
               </label>
               <textarea

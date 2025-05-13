@@ -103,7 +103,7 @@ export default function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false); 
 
 
-  console.log(isModalOpen)
+ 
 
 
   return (

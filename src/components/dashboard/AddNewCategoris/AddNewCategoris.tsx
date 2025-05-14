@@ -111,7 +111,7 @@ export default function AddNewCategory() {
             {isSubmitting ? (
               "Creating..."
             ) : (
-              <span className="text-white">Save Categories</span>
+              <span className="text-white cursor-pointer ">Save Categories</span>
             )}
           </button>
         </form>

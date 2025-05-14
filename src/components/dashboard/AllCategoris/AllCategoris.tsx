@@ -214,19 +214,18 @@ export default function AllCategoriesPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
             <h2 className="text-lg font-semibold">Delete Category</h2>
-            <p className="mt-2 text-sm text-gray-600">
-              Are you sure you want to delete this category? This will also delete all products in this category. This
-              action cannot be undone.
+            <p className="mt-2 text-lg text-gray-600">
+              Are you sure you want to delete this category?
             </p>
             <div className="mt-4 flex justify-end gap-2">
               <button
-                className="rounded-md border border-gray-300 px-4 py-2 text-sm hover:bg-gray-100"
+                className="rounded-md border border-gray-300 px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
                 onClick={() => setDeleteModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="rounded-md bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700"
+                className="rounded-md bg-red-600 px-4 py-2 text-sm !text-white hover:bg-red-700 cursor-pointer"
                 onClick={confirmDelete}
               >
                 Delete

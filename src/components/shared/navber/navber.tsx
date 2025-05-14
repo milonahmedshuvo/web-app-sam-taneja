@@ -3,14 +3,19 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { FaUser, FaShoppingCart, FaSearch, FaBars } from "react-icons/fa";
+import { FaUser, FaSearch, FaBars, FaHome } from "react-icons/fa";
 import { MdArrowForwardIos, MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { FaRegHeart } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaAngleLeft } from "react-icons/fa6";
 import { useGetAllCategoriesQuery, useGetAllStorisQuery } from "@/redux/api/samtanejaApi";
 import logo from '../../../image/logo.png'
 import Image from "next/image";
+import { GetUserInfo } from "@/redux/utils/GetUserInfo";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { logout } from "@/redux/slice/user/userSlice";
+import { CircleAlert } from "lucide-react";
+
+
 
 interface ChildCategory {
   name: string;
@@ -134,11 +139,17 @@ export default function Navbar() {
   const [activeSubCategory, setActiveSubCategory] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [circleModalOpen, setCircleModalOpen ] = useState(false)
   const {data:allStoris, isLoading:storesLoading,  } = useGetAllStorisQuery("")
   const {data:allCategoris, isLoading:categorisLoading,  } = useGetAllCategoriesQuery("")
-  
+  const {user} = useAppSelector((state)=> state.user)
+  const dispatch = useAppDispatch()
 
-  
+  console.log( "redux store success", user?.email)
+
+
+
+
        if (categorisLoading || storesLoading ) {
             return (
               <div className="text-center py-10 text-lg font-medium">Loading...</div>
@@ -146,11 +157,23 @@ export default function Navbar() {
           }
 
 
-
-         
-
-
+    const userInfo = GetUserInfo()         
+    console.log('user info in get function', userInfo)
           
+
+
+        
+    const handleLogout = () => {
+      localStorage.removeItem('token')
+      dispatch(logout())
+      setIsModalOpen(false)
+      console.log("click logout")
+    }    
+        
+    
+          
+
+
 
   return (
     <div className=" mb-2 md:mb-4 relative absolute z-30 ">
@@ -170,12 +193,6 @@ export default function Navbar() {
           {/* Center - Categories (Hidden in Mobile) */}
           <div className="hidden md:flex relative gap-10 ">
 
-
-
-
-
-
-         
               {/* show one categoris manu  */}
               <div 
                 className="relative group"
@@ -314,40 +331,100 @@ export default function Navbar() {
 
 
         {/* Right - Icons */}
-        <div className="flex gap-4 text-xl relative">
+        <div className="flex gap-6 text-xl relative items-center">
+         <CircleAlert onClick={()=> setCircleModalOpen(!circleModalOpen)} className="cursor-pointer hover:text-gray-300"  />  
           <FaSearch className="cursor-pointer hover:text-gray-300" />
-          <FaShoppingCart className="cursor-pointer hover:text-gray-300" />
-          <FaUser className="cursor-pointer hover:text-gray-300" onClick={() => setIsModalOpen(!isModalOpen)} />
-
-
+                  
             {
-               isModalOpen && <div className="absolute right-0 top-[30px] bg-white p-5 w-[200px] shadow space-y-3.5">
+              user?.email ? <button className="cursor-pointer hover:text-gray-300 !text-[17px] " onClick={() => setIsModalOpen(!isModalOpen)} > {`${user?.email.slice(0, 7)}...`} </button> :  <button> <Link href='/login' > Singin </Link> </button> 
+            }
 
-                   <div className="flex gap-3"  onClick={()=> setIsModalOpen(false)} >
-                    <FaUser className="cursor-pointer  text-[#2c65af]" />
-                    <Link href='/dashboard' ><span className="text-[#2c65af] font-normal text-[15px] ">Dashborad</span></Link>
+
+            {/* MODAL OPEN NAVIGATE HOME OHTERS page   */}
+            {
+              circleModalOpen && <div className="absolute right-0 top-[30px] bg-white  w-[200px] shadow ">
+                  
+                    <div>
+                    <Link href='/deelnews' className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2" onClick={()=> setIsModalOpen(false)}>
+                        <span className="text-[#2c65af] font-normal text-[15px] ">About Us</span>
+                        </Link>
+                    </div>
+
+                    <div>
+                    <Link href='/deelnews' className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2" onClick={()=> setIsModalOpen(false)}>
+                        <span className="text-[#2c65af] font-normal text-[15px] ">Contact Us</span>
+                        </Link>
+                    </div>
+
+
+                    {/* /deelnews/faq */}
+                    <div>
+                    <Link href='/deelnews/pressroom' className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2" onClick={()=> setIsModalOpen(false)}>
+                        <span className="text-[#2c65af] font-normal text-[15px] ">Press Room</span>
+                        </Link>
+                    </div>
+
+                    <div>
+                    <Link href='/deelnews/faq' className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2" onClick={()=> setIsModalOpen(false)}>
+                        <span className="text-[#2c65af] font-normal text-[15px] ">FAQ</span>
+                        </Link>
+                    </div>
+                    
+                    
+
+                  
+               </div>
+            }
+ 
+
+
+            {/* modal open NAVIGATE OTHERS PRIFLE   */}
+            {
+               isModalOpen && <div className="absolute right-0 top-[30px] bg-white  w-[200px] shadow ">
+                   <div>
+                    <Link href='/dashboard' className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2" onClick={()=> setIsModalOpen(false)}>
+                        <FaHome className="cursor-pointer text-[16px] text-[#2c65af]" /> 
+                        <span className="text-[#2c65af] font-normal text-[15px] ">Dashborad</span>
+                        </Link>
                     </div> 
-                    <div className="flex gap-3"  onClick={()=> setIsModalOpen(false)} >
-                    <FaUser className="cursor-pointer  text-[#2c65af]" />
-                    <Link href='/viewProfile' ><span className="text-[#2c65af] font-normal text-[15px] ">View Profile</span></Link>
+
+
+                    <div>
+                    <Link href='/viewProfile' className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2" onClick={()=> setIsModalOpen(false)}>
+                        <FaUser className="cursor-pointer text-[16px] text-[#2c65af]" /> 
+                        <span className="text-[#2c65af] font-normal text-[15px] ">View Profile</span>
+                        </Link>
                     </div>
-                    <div className="flex gap-3" onClick={()=> setIsModalOpen(false)} >
-                    <FaRegHeart className="cursor-pointer  text-[#2c65af]" />
-                    <Link href='/saveDeals' > 
-                    <span className="text-[#2c65af] font-normal text-[15px] ">Save Deals</span>
-                    </Link>
+
+                    <div>
+                    <Link href='/saveDeals' className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2" onClick={()=> setIsModalOpen(false)}>
+                        <IoSettingsOutline className="cursor-pointer text-[16px] text-[#2c65af]" /> 
+                        <span className="text-[#2c65af] font-normal text-[15px] ">Save Deals</span>
+                        </Link>
                     </div>
-                    <div className="flex gap-3">
-                    <IoSettingsOutline className="cursor-pointer  text-[#2c65af]" />
-                    <span className="text-[#2c65af] font-normal text-[15px] ">Interests</span>
+
+                    <div>
+                    <Link href='#' className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2" onClick={()=> setIsModalOpen(false)}>
+                        <IoSettingsOutline className="cursor-pointer text-[16px] text-[#2c65af]" /> 
+                        <span className="text-[#2c65af] font-normal text-[15px] ">Interests</span>
+                        </Link>
                     </div>
-                        
-                    <div className="flex gap-3" onClick={()=> setIsModalOpen(false)}>
-                    <FaAngleLeft className="cursor-pointer  text-[#2c65af]" />
-                    <Link href='/signupForCustomer'> 
-                    <span className="text-[#2c65af] font-normal text-[15px] ">Sign up</span>
-                    </Link>
+                    
+                    <div>
+                       {
+                        user?.email ? <div className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2" onClick={handleLogout} >
+                        <FaAngleLeft className="cursor-pointer text-[16px] text-[#2c65af]" /> 
+                        <span className="text-[#2c65af] font-normal text-[15px] ">Logout</span>
+                        </div> : <Link href='/login' className="flex gap-1 items-center hover:bg-[#eff0f3] px-5 py-2" onClick={()=> setIsModalOpen(false)}>
+                        <FaAngleLeft className="cursor-pointer text-[16px] text-[#2c65af]" /> 
+                        <span className="text-[#2c65af] font-normal text-[15px] ">Signin</span>
+                        </Link>
+                       }
                     </div>
+
+                   {/* <div>
+                   <button onClick={handleLogout} className="w-full text-left px-4 py-2 !text-[#2c65af]" > Logout </button>
+                   </div> */}
                </div>
             }
         </div>

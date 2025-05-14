@@ -25,6 +25,7 @@ interface TBlogProps {
   close: () => void;
 }
 
+
 export default function UpdateBlogPage({ close, updatedBlogData }: TBlogProps) {
   // console.log( "update blog", updatedBlogData)
 
@@ -316,7 +317,7 @@ export default function UpdateBlogPage({ close, updatedBlogData }: TBlogProps) {
           <div className="w-full mt-10">
             <button
               type="submit"
-              className="bg-[#2C65AF] !text-white font-medium py-3 px-4 rounded-md transition-colors w-full"
+              className="bg-[#2C65AF] !text-white font-medium py-3 px-4 rounded-md transition-colors w-full cursor-pointer"
             >
               Save Product
             </button>

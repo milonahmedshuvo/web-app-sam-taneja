@@ -1,12 +1,20 @@
 "use client"
 
+
 import { useUserLoginMutation } from "@/redux/api/auth/authApi"
+import { useAppDispatch } from "@/redux/hook"
+import { setUser } from "@/redux/slice/user/userSlice"
+import { jwtDecode } from "jwt-decode"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { toast } from "sonner"
 
 
 
 export default function SignupFormCustomer() {
+  const dispatch = useAppDispatch()
+  const router = useRouter()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,9 +27,9 @@ export default function SignupFormCustomer() {
     confirmPassword: "",
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [loginUser, {data} ] = useUserLoginMutation()
+  const [loginUser,  ] = useUserLoginMutation()
     
-  console.log("login", data)
+  // console.log("login", data)
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,23 +91,28 @@ export default function SignupFormCustomer() {
       };
 
 
-
       try {
         const res = await loginUser(payload).unwrap();
-        console.log('Success:', res);
+        if(res?.data?.accessToken){
+          console.log('Success:', res);
           setIsSubmitted(true)
           setFormData({
             email: "",
             password: "",
             confirmPassword: "",
-            newsletter: false,})
+            newsletter: false,}) 
+            toast.success('Login success!!') 
+            localStorage.setItem('token', res?.data?.accessToken)
+
+            const decodedUser = jwtDecode(res?.data?.accessToken)
+            dispatch(setUser({user: decodedUser, token:res?.data?.accessToken}))
+      
+            router.push('/') 
+        }
       } catch (error) {
         console.error('Error:', error);
+        toast.error('Login failed!!')
       }
-
-
-
-
 
 
 

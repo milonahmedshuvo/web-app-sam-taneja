@@ -2,9 +2,12 @@
 
 import { useCreateAdminAccountMutation } from "@/redux/api/auth/authApi"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { toast } from "sonner"
 
 export default function SignupForm() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -93,14 +96,20 @@ export default function SignupForm() {
       try {
         const res = await createAdminUser(payload).unwrap();
         console.log('Success:', res);
-          setIsSubmitted(true)
-          setFormData({username: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            newsletter: false,})
+           if(res.success){
+            setIsSubmitted(true)
+            setFormData({username: "",
+              email: "",
+              password: "",
+              confirmPassword: "",
+              newsletter: false,})
+              toast.success("Account create success!!")
+              router.push('/login')
+           }
+
       } catch (error) {
         console.error('Error:', error);
+        toast.error("Account create filed!!")
       }
 
 

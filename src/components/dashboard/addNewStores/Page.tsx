@@ -62,12 +62,12 @@ export default function AddNewStores() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="mt-4 bg-[#2C65AF] py-2.5 rounded text-white "
+            className="mt-4 bg-[#2C65AF] py-2.5 rounded text-white  "
           >
             {isSubmitting ? (
               "Creating..."
             ) : (
-              <span className="text-white">Save Store</span>
+              <span className="text-white cursor-pointer">Save Store</span>
             )}
           </button>
         </form>

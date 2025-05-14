@@ -47,6 +47,8 @@ function AccordionItem({ title, content, isOpen, onClick }: AccordionItemProps) 
 
   return (
     <div className="mb-2 overflow-hidden rounded-md bg-slate-50">
+
+
       <button
         className="flex w-full items-center justify-between p-4 text-left"
         onClick={onClick}
@@ -61,10 +63,12 @@ function AccordionItem({ title, content, isOpen, onClick }: AccordionItemProps) 
           >
             {isOpen ? "✓" : ""}
           </div>
-          <h3 className="font-medium">{title}</h3>
+          <h3 className="font-medium text-black hover:text-[#7287C3] text-[18px]">{title}</h3>
         </div>
         <ChevronDown className={cn("h-5 w-5 transition-transform duration-300", isOpen ? "rotate-180" : "")} />
       </button>
+
+
       <div
         ref={contentRef}
         className="overflow-hidden transition-all duration-300 ease-in-out"
@@ -73,7 +77,7 @@ function AccordionItem({ title, content, isOpen, onClick }: AccordionItemProps) 
           opacity: isOpen ? 1 : 0,
         }}
       >
-        <div className="p-4 pt-0">{content}</div>
+        <div className="!p-4 pt-0 bg-white text-[#616161] leading-6 ">{content}</div>
       </div>
     </div>
   )

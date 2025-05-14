@@ -2,7 +2,9 @@
 
 import { useCreateCustomerAccountMutation, } from "@/redux/api/auth/authApi"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { toast } from "sonner"
 
 
 
@@ -10,6 +12,7 @@ import { useState } from "react"
 
 
 export default function SignupFormCustomer() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -99,24 +102,22 @@ export default function SignupFormCustomer() {
 
       try {
         const res = await createCustomerUser(payload).unwrap();
-        console.log('Success:', res);
+
+        if(res.success){
+          console.log('Success:', res);
           setIsSubmitted(true)
           setFormData({username: "",
             email: "",
             password: "",
             confirmPassword: "",
             newsletter: false,})
+            toast.success("Account create success!!")
+            router.push('/login')
+        }
       } catch (error) {
         console.error('Error:', error);
+        toast.error("Account create filed!!")
       }
-
-
-
-
-
-
-
-
 
       // Reset form after successful submission
       setTimeout(() => {

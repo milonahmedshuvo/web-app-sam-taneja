@@ -270,7 +270,7 @@ export default function AllStore() {
           </div>
 
 
-           <button type="submit" className="bg-blue-500 px-6 py-1.5 text-white rounded-2xl" >Submit</button>          
+           <button type="submit" className="bg-blue-500 px-6 py-1.5 text-white rounded-2xl cursor-pointer" >Submit</button>          
              </form>
 
           </div>

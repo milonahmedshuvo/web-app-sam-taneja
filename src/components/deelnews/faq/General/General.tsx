@@ -62,9 +62,9 @@ export default function HomeGeneralCollapse() {
 
   
   return (
-    <main className="flex min-h-screen flex-col items-center p-8">
-      <div className="w-full max-w-3xl">
-        <h1 className="mb-8 text-3xl font-bold">General</h1>
+    <main className=" p-8">
+      <div className="w-full max-w-6xl mx-auto">
+        <h1 className="mb-8 text-3xl !font-bold text-[#3E5AA7]">General</h1>
         <Accordion items={faqItems} defaultOpen={0} />
       </div>
     </main>

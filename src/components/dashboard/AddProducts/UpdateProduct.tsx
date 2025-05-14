@@ -328,7 +328,7 @@ export default function UpdatedProduct({ isupdate, close }: TProductProps) {
 
           <button
             type="submit"
-            className="w-full rounded-md bg-[#2C65AF] px-6 py-3 text-[18px] !text-white "
+            className="w-full rounded-md bg-[#2C65AF] px-6 py-3 text-[18px] !text-white  cursor-pointer"
           >
             Save Product
           </button>

@@ -291,7 +291,7 @@ export default function AddNewBlogPage() {
           <div className="w-full mt-10">
             <button
               type="submit"
-              className="bg-[#2C65AF] !text-white font-medium py-3 px-4 rounded-md transition-colors w-full"
+              className="bg-[#2C65AF] !text-white font-medium py-3 px-4 rounded-md transition-colors w-full cursor-pointer"
             >
               Save Product
             </button>

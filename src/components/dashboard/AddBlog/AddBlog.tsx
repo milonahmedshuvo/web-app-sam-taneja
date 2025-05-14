@@ -69,7 +69,7 @@ export default function AddNewBlogPage() {
     formData.append("content", content);
 
     try {
-      const res = await fetch("http://localhost:5777/api/v1/blogs", {
+      const res = await fetch("https://samtaneja-api.code-commando.com/api/v1/blogs", {
         method: "POST",
         body: formData,
       });

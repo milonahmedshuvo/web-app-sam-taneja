@@ -7,7 +7,7 @@ import { baseQueryWithReauth } from '../utils/baseQueryWithResult';
 export const samTanejaApi = createApi({
 
   reducerPath: 'samTanejaApi',
-  // baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5777/api/v1' }),
+  // baseQuery: fetchBaseQuery({ baseUrl: 'https://samtaneja-api.code-commando.com/api/v1' }),
   baseQuery: baseQueryWithReauth,
   tagTypes: ["product", "blog", "store"],
 

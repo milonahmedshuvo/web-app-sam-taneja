@@ -119,7 +119,7 @@ export default function UpdatedProduct({ isupdate, close }: TProductProps) {
 
     try {
       const res = await fetch(
-        `http://localhost:5777/api/v1/products/${isupdate.id}`,
+        `https://samtaneja-api.code-commando.com/api/v1/products/${isupdate.id}`,
         {
           method: "PATCH", // Use PUT for update
           body: formDatas,

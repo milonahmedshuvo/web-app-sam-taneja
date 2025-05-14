@@ -64,7 +64,7 @@ export default function AllProductsPage() {
   // const fetchBlogs = async (page: number) => {
   //   try {
   //     const res = await fetch(
-  //       `http://localhost:5777/api/v1/products?page=${page}&limit=10`
+  //       `https://samtaneja-api.code-commando.com/api/v1/products?page=${page}&limit=10`
   //     );
   //     const data = await res.json();
 

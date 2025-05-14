@@ -331,7 +331,7 @@ export default function Navbar() {
 
 
         {/* Right - Icons */}
-        <div className="flex gap-6 text-xl relative items-center">
+        <div className="flex gap-6 text-md relative items-center">
          <CircleAlert onClick={()=> setCircleModalOpen(!circleModalOpen)} className="cursor-pointer hover:text-gray-300"  />  
           <FaSearch className="cursor-pointer hover:text-gray-300" />
                   

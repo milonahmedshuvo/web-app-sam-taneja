@@ -40,7 +40,7 @@ const HomeCardDatailspage = () => {
 
 
               useEffect(() => {
-                fetch(`http://localhost:5777/api/v1/products/${id}`)
+                fetch(`https://samtaneja-api.code-commando.com/api/v1/products/${id}`)
                   .then((res) => res.json())
                   .then((data) => {
                     setData(data?.data || []);

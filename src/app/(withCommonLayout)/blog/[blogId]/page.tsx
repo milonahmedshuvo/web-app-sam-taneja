@@ -34,7 +34,7 @@ const Detailspage = () => {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`http://localhost:5777/api/v1/blogs/${id}`)
+    fetch(`https://samtaneja-api.code-commando.com/api/v1/blogs/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setData(data?.data || null);

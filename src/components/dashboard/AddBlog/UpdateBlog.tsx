@@ -95,7 +95,7 @@ export default function UpdateBlogPage({ close, updatedBlogData }: TBlogProps) {
 
     try {
       const res = await fetch(
-        `http://localhost:5777/api/v1/blogs/${updatedBlogData.id}`,
+        `https://samtaneja-api.code-commando.com/api/v1/blogs/${updatedBlogData.id}`,
         {
           method: "PATCH",
           body: formData,

@@ -129,7 +129,7 @@ export default function AddProductPage() {
   
 
     try {
-      const res = await fetch("http://localhost:5777/api/v1/products",{
+      const res = await fetch("https://samtaneja-api.code-commando.com/api/v1/products",{
         method: "POST",
         body: formDatas,
       });

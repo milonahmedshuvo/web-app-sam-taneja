@@ -28,9 +28,9 @@ const Homepage = () => {
       const [data, setData] = useState<any[] >([]);
         const [loading, setLoading] = useState(true);
       
-        // http://localhost:5777/api/v1
+        // https://samtaneja-api.code-commando.com/api/v1
         useEffect(() => {
-          fetch("http://localhost:5777/api/v1/products?page=1&limit=20&populate=category,store")
+          fetch("https://samtaneja-api.code-commando.com/api/v1/products?page=1&limit=20&populate=category,store")
             .then((res) => res.json())
             .then((data) => {
               setData(data?.data || []);

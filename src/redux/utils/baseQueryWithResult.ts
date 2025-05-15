@@ -17,7 +17,8 @@ const rawBaseQuery = fetchBaseQuery({
   baseUrl,
   credentials: "include",
   prepareHeaders: (headers) => {
-    const token = Cookies.get("token");
+    // const token = Cookies.get("token");
+    const token = localStorage.getItem('token')
     if (token) {
       headers.set("authorization", token);
     }

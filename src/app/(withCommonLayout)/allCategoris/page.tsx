@@ -1,5 +1,6 @@
 "use client"
 import { useGetAllCategoriesQuery } from "@/redux/api/samtanejaApi"
+import Loading from "@/utils/Loading";
 import Link from "next/link"
 
 export type Category = {
@@ -19,9 +20,7 @@ export default function CategoryNavigation() {
 
    if (categorisLoading) {
 
-    return (
-      <div className="text-center py-10 text-lg font-medium">Loading...</div>
-    );
+    return <Loading></Loading>
   }
  
 

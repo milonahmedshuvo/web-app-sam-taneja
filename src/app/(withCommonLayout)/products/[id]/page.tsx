@@ -10,6 +10,8 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { TBlog } from "../../page";
 import Link from "next/link";
+import CategorisFilterProducts from "@/components/products/productFilter/CategorisFilters";
+import Loading from "@/utils/Loading";
 
 
 
@@ -70,7 +72,7 @@ const Products = () => {
 
 
   if(isLoading){
-    return <p> Loading...</p>
+    return <Loading></Loading>
   }
 
  
@@ -93,9 +95,12 @@ const Products = () => {
       {/* product filter components  */}
       <div className="xl:w-[70%]">
 
-        <ProductFilterComponent />
-        <StoreCarousel projects={categoriesProducts} />
+        {/* <ProductFilterComponent /> */}
+        <CategorisFilterProducts></CategorisFilterProducts>
 
+
+
+        <StoreCarousel projects={categoriesProducts} />
         <div>
           {/* show category data */}
           {categoriesProducts?.length === 0 ? (

@@ -62,29 +62,8 @@ const CardDeals = () => {
               Home
             </span>
           </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            {/* <a href="" className="!text-blue-500 hover:!text-blue-700 !font-semibold text-md">Application Center</a> */}
-            <span className="!font-semibold !text-[#2c65af] text-md hover:underline text-[15px]">
-              All Deals
-            </span>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <span className="!font-semibold !text-[#2c65af] text-md hover:underline text-[15px]">
-              Application List
-            </span>
-          </Breadcrumb.Item>
-
-          <Breadcrumb.Item>
-            <span className="!font-semibold !text-[#2c65af] text-md hover:underline text-[15px]">
-              An Application
-            </span>
-          </Breadcrumb.Item>
         </Breadcrumb>
          
-
-         {/* this is reuseable card carosel component it  */}
-        {/* <CartCarousel projects={projects} /> */}
-
         <CartCarousel />
 
 

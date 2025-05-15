@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
+import Link from "next/link";
 
 interface TProject {
     id: string;
@@ -102,6 +103,7 @@ export default function StoreCarousel({projects}:TProjectProps) {
             className="min-w-[160px] h-[300px] relative bg-white shadow-md rounded-lg  p-1 border border-gray-200"
           >
             <div className="overflow-hidden">
+               <Link href={`/cardDatails/${project.id}`} > 
               <Image
                 src={project.img}
                 alt={project.name}
@@ -109,6 +111,7 @@ export default function StoreCarousel({projects}:TProjectProps) {
                 height={150}
                 className="h-[130px] w-full object-contain transition-transform duration-300 ease-in-out transform hover:scale-110"
               />
+              </Link>
             </div>
 
             <p className="text-xs text-gray-500 pt-2"> {project.name.substring(0, 32)} </p>
@@ -124,8 +127,8 @@ export default function StoreCarousel({projects}:TProjectProps) {
               </p>
             </div>
 
-            <button className="!text-[#2C65BB] text-sm absolute w-full bottom-0 left-0 cursor-pointer pt-3 pb-2 text-end flex justify-end items-center hover:bg-gray-100 gap-2 pr-3"> 
-              <span>Daitals</span> <FaAngleRight> </FaAngleRight> 
+            <button className="!text-[#2C65BB] text-sm absolute w-full bottom-0 left-0 cursor-pointer pt-3 pb-2 text-end flex justify-end items-center hover:bg-gray-100 gap-1 pr-3"> 
+              <Link href={`/cardDatails/${project.id}`} > <span className="!text-[#2c65af] text-[14px]">Daitals</span> </Link> <FaAngleRight className="text-[12px] "> </FaAngleRight> 
             </button>
           </div>
         ))}

@@ -8,6 +8,7 @@ import applogo from "../../../../image/app.webp"
 import Image from "next/image";
 import { useGetAllBlogsQuery } from "@/redux/api/samtanejaApi";
 import { TBlog } from "../../page";
+import Loading from "@/utils/Loading";
 
 
 
@@ -47,9 +48,7 @@ const Detailspage = () => {
   }, [id]);
 
   if (loading || isLoading) {
-    return (
-      <div className="text-center py-10 text-lg font-medium">Loading...</div>
-    );
+    return <Loading></Loading>
   }
 
   if (!data) {

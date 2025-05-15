@@ -1,108 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
-
-interface Project {
-  id: number;
-  name: string;
-  image: string;
-  timeTitle: string;
-  price: string;
-}
-
-
-
-const projects: Project[] = [
-  {
-    id: 1,
-    timeTitle: "AliExpress 2 day ago",
-    price: "Up to 80% Off",
-    name: "AliExpress Tool Storage Deals",
-    image:
-      "https://cdlnws.a.ssl.fastly.net/image/upload/f_auto,t_xlarge,q_auto:low/cms/shzinc2z2tsnmrbdc6ys.png",
-  },
-  {
-    id: 2,
-    timeTitle: "AliExpress 2 day ago",
-    price: "$500",
-    name: "MLILY Fusion Supreme Luxury..",
-    image:
-      "https://cdlnws.a.ssl.fastly.net/image/upload/f_auto,t_xlarge,q_auto:low/content/zs7erjhvdhlyaktsajcp.jpg",
-  },
-  {
-    id: 3,
-    timeTitle: "AliExpress 2 day ago",
-    price: "Get a 100 ama..",
-    name: "AliExpress Tool Storage Deals",
-    image:
-      "https://cdlnws.a.ssl.fastly.net/image/upload/f_auto,t_xlarge,q_auto:low/content/nxqozcejsev49fw2apwr.jpg",
-  },
-  {
-    id: 4,
-    timeTitle: "AliExpress 2 day ago",
-    price: "$11 per year",
-    name: "AliExpress Tool Storage Deals",
-    image:
-      "https://cdlnws.a.ssl.fastly.net/image/upload/f_auto,t_xlarge,q_auto:low/content/ha2pjlke8r6muhxcyqg5.png",
-  },
-  {
-    id: 5,
-    timeTitle: "AliExpress 2 day ago",
-    price: "Trio basic for $29",
-    name: "AliExpress Tool Storage Deals",
-    image:
-      "https://cdlnws.a.ssl.fastly.net/image/upload/f_auto,t_xlarge,q_auto:low/content/qxfv9mltbssms3eyd4w9.png",
-  },
-  {
-    id: 6,
-    timeTitle: "AliExpress 2 day ago",
-    price: "Up to 80% Off",
-    name: "AliExpress Tool Storage Deals",
-    image:
-      "https://cdlnws.a.ssl.fastly.net/image/upload/f_auto,t_xlarge,q_auto:low/cms/pv3qpvsxrluysblvumn2.jpg",
-  },
-  {
-    id: 7,
-    timeTitle: "AliExpress 2 day ago",
-    price: "Up to 80% Off",
-    name: "AliExpress Tool Storage Deals",
-    image:
-      "https://cdlnws.a.ssl.fastly.net/image/upload/f_auto,t_xlarge,q_auto:low/cms/yq4xacrshhs2srgv1f8a.jpg",
-  },
-  {
-    id: 8,
-    timeTitle: "AliExpress 2 day ago",
-    price: "Up to 80% Off",
-    name: "AliExpress Tool Storage Deals",
-    image:
-      "https://cdlnws.a.ssl.fastly.net/image/upload/f_auto,t_xlarge,q_auto:low/cms/fyj6jtkdhfts2fvgcbeg.jpg",
-  },
-  {
-    id: 9,
-    timeTitle: "AliExpress 2 day ago",
-    price: "Up to 80% Off",
-    name: "AliExpress Tool Storage Deals",
-    image:
-      "https://cdlnws.a.ssl.fastly.net/image/upload/f_auto,t_xlarge,q_auto:low/cms/ovpirzadfrjtxe5uz5yt.jpg",
-  },
-  {
-    id: 10,
-    timeTitle: "AliExpress 2 day ago",
-    price: "Up to 80% Off",
-    name: "AliExpress Tool Storage Deals",
-    image:
-      "https://cdlnws.a.ssl.fastly.net/image/upload/f_auto,t_xlarge,q_auto:low/cms/axz4d3vxcxanjgrpwpls.png",
-  },
-];
-
-
+import Loading from "@/utils/Loading";
+import Link from "next/link";
 
 export default function CartCarousel() {
-
-  
-
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -121,6 +26,31 @@ export default function CartCarousel() {
     return () => window.removeEventListener("resize", updateScrollButtons);
   }, []);
 
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // https://samtaneja-api.code-commando.com/api/v1
+  useEffect(() => {
+    fetch(
+      "https://samtaneja-api.code-commando.com/api/v1/products?page=1&limit=20&populate=category,store"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data?.data || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  console.log("card carosel", data);
+
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
@@ -134,9 +64,6 @@ export default function CartCarousel() {
       });
     }
   };
-
-
-
 
   return (
     <div className="relative pt-4 mt-5">
@@ -153,30 +80,47 @@ export default function CartCarousel() {
         className="flex overflow-x-auto gap-2 scrollbar-hide hide-scrollbar "
         onScroll={updateScrollButtons}
       >
-        {projects.map((project) => (
-          <div            
+        {data?.map((project) => (
+          <div
             key={project.id}
-            className="min-w-[150px] h-[250px] relative bg-white shadow-md rounded-lg  p-1 border border-gray-200 "
+            className="min-w-[160px] h-[300px] relative bg-white shadow-md rounded-lg  p-1 border border-gray-200"
           >
-            <Image
-              src={project.image}
-              alt={project.name}
-              width={150}
-              height={150}
-              className="h-[130px] w-full object-contain"
-            />
+            <div className="overflow-hidden">
+              <Link href={`/cardDatails/${project.id}`} >
+              <Image
+                src={project.img}
+                alt={project.name}
+                width={150}
+                height={150}
+                className="h-[130px] w-full object-contain transition-transform duration-300 ease-in-out transform hover:scale-110"
+              />
+               </Link>
+            </div>
 
-            <p className="text-xs text-gray-500 mt-2"> {project.timeTitle} </p>
+            <p className="text-xs text-gray-500 pt-2">
+              {" "}
+              {project.name.substring(0, 32)}{" "}
+            </p>
 
-            
-              <h3 className="mt-1 font-medium text-black text-md leading-4">
-                {project.name}
+            <div className="flex flex-col justify-between min-h-[86px] ">
+              <h3 className="mt-1 font-medium text-black text-md ">
+                {project.name.substring(0, 30)}
               </h3>
 
-              <p className="text-[#00A863] font-medium text-xl leading-0 absolute bottom-0">
-                {project.price.substring(0, 15)}
+              <p className="text-[#00A863] font-medium text-xl">
+                {project.price.substring(0, 14)}
               </p>
-           
+            </div>
+
+            <button className="!text-[#2C65BB] text-sm absolute w-full bottom-0 left-0 cursor-pointer pt-3 pb-2 text-end flex justify-end items-center hover:bg-gray-100 gap-1 pr-3">
+              <Link href={`/cardDatails/${project.id}`}>
+                {" "}
+                <span className="!text-[#2c65af] text-[14px]">
+                  Daitals
+                </span>{" "}
+              </Link>{" "}
+              <FaAngleRight className="text-[12px] "> </FaAngleRight>
+            </button>
           </div>
         ))}
       </div>

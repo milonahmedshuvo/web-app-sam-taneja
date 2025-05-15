@@ -31,6 +31,9 @@ export const samTanejaApi = createApi({
        query: () => '/stores',
        providesTags: ['store']
    }),
+
+
+   
    deletedStoris : build.mutation({
     query: (id) => ({
       url: `/stores/${id}`,

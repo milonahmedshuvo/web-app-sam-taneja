@@ -1,24 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
-
-
-
 
 import "antd/dist/reset.css";
 import Providers from "@/utils/Provider";
 // import Footer from "@/components/shared/footer/footer";
+import { Roboto } from 'next/font/google';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400','500', '600', '700'], // regular and bold
+  variable: '--font-roboto', // optional if using Tailwind
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -36,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${roboto.className}  antialiased`}
       >
         <Providers>    
         <div>

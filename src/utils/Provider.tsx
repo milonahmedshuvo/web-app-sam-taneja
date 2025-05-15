@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+// import Loading from "./Loading";
 
 
 
@@ -18,7 +19,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
       <Provider store={store}>
         <PersistGate 
-        loading={<div>redux is loadidng..</div>}
+        // loading={ <Loading/> }
         persistor={persistor}
         > 
         {children}

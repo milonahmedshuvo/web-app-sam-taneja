@@ -3,7 +3,8 @@
 import { useGetAllCategoriesQuery, useGetAllStorisQuery } from "@/redux/api/samtanejaApi";
 import Loading from "@/utils/Loading";
 import Link from "next/link";
-import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import {
   AiOutlineDown,
   AiOutlineUp,
@@ -45,7 +46,7 @@ const filters = [
 
 
 
-const ProductFilterComponent = () => {
+const StoreFilterComponent = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [selectedSubcategories, setSelectedSubcategories] = useState<{
@@ -53,12 +54,64 @@ const ProductFilterComponent = () => {
   }>({});
 
 
-
-
   // const [selectedStaffPick, setSelectedStaffPick] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const {data:allCategoris, isLoading  } = useGetAllCategoriesQuery("")
   const {data:allStoris, isLoading:storesLoading } = useGetAllStorisQuery("")
+
+  // Single store name by filter show store category
+  const [selectStoreName, setSelectStoreName] = useState('')
+  const params = useParams();
+  const storeIdParam = params.id as string;
+  const [id, setId] = useState<string>(storeIdParam);
+
+  // set id
+  useEffect(() => {
+    if (storeIdParam) {
+      setId(storeIdParam);
+    }
+  }, [storeIdParam]);
+
+
+  const fetchBlogs = async (id: string) => {
+      try {
+        const res = await fetch(
+          `https://samtaneja-api.code-commando.com/api/v1/stores/${id}`
+        );
+        const data = await res.json();
+
+        console.log("store name", data?.data?.name)
+
+        setSelectStoreName(data?.data?.name)
+        // setStoreProducts(data?.data || []);
+        // setTotalPages(data?.meta?.totalPages || 1);
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchBlogs(id);
+    }, [id]);
+    
+
+    useEffect(()=> {
+      setSelectedSubcategories((prev) => {
+    const currentSelections = prev['store'] || [];
+
+    const isAlreadySelected = currentSelections.includes(selectStoreName);
+
+    const updatedSelections = isAlreadySelected
+      ? currentSelections.filter((item) => item !== selectStoreName)
+      : [...currentSelections, selectStoreName];
+
+    return { ...prev, ['store']: updatedSelections };
+  });
+    }, [selectStoreName])
+
+
+
+
 
 
   if(isLoading || storesLoading){
@@ -84,7 +137,6 @@ const ProductFilterComponent = () => {
     });
   };
 
-
   const getSelectedLabel = (categoryName: string) => {
     const selectedItems = selectedSubcategories[categoryName] || [];
     if (selectedItems.length === 0) return categoryName;
@@ -93,6 +145,10 @@ const ProductFilterComponent = () => {
       ? `${lastSelected} +${selectedItems.length - 1}`
       : lastSelected;
   };
+
+
+
+
 
 
 
@@ -115,6 +171,8 @@ const ProductFilterComponent = () => {
 //     return { ...prev, ['store']: updatedSelections };
 //   });
 // }
+
+
 
 
 
@@ -192,6 +250,8 @@ const ProductFilterComponent = () => {
 
 
               {/* i show category  */}
+          
+       
                 <div  className="relative">
                   <button
                     onClick={() => toggleCategory('categoris')}
@@ -205,6 +265,9 @@ const ProductFilterComponent = () => {
                       <AiOutlineDown />
                     )}
                   </button>
+
+
+
                   {/* Submenu */}
                   {openCategory === 'categoris' && (
                     <div className="absolute z-50 mt-2 bg-white shadow-lg border border-gray-200 rounded-lg p-2 w-[250px]">
@@ -213,7 +276,10 @@ const ProductFilterComponent = () => {
                           key={idx}
                           className="flex items-center gap-2 px-4 py-2 text-sm cursor-pointer transition-all duration-200 hover:bg-gray-100 rounded-md"
                         >
-                          {/* <input
+
+
+
+                          <input
                             type="checkbox"
                             checked={
                               selectedSubcategories['categoris']?.includes(
@@ -222,8 +288,8 @@ const ProductFilterComponent = () => {
                             }
                             onChange={() => selectSubcategory('categoris', sub.name)}
                             className="form-checkbox text-blue-500"
-                          /> */}
-                          <Link href={`/products/${sub.id}`} className="text-[#2c65af]" > 
+                          />
+                          <Link href={`/products/${sub.id}`} > 
                           {sub.name} 
                           </Link>
                         </label>
@@ -236,18 +302,17 @@ const ProductFilterComponent = () => {
 
 
              {/* I show store category  */}
-             <div  className="relative">
+             <div className="relative">
                   <button
                     onClick={() => toggleCategory('store')}
-                    className="px-4 py-1.5 border border-[#e2e3e8] hover:text-[#2c65af] hover:bg-[#edf5fc] hover:border-[#72a1d5]    rounded-full flex items-center gap-2 !text-sm !hover:text-[#2c65af]  transition-all duration-300"
+                    className={`px-4 py-1.5 border border-[#e2e3e8]  hover:text-[#2c65af] hover:bg-[#edf5fc]   rounded-full flex items-center gap-2 !text-sm !hover:text-[#2c65af]  transition-all duration-300  ${selectedSubcategories ? "!text-[#2c65af] !bg-[#edf5fc] border !border-[#72a1d5]  " :""}  `}
                   >
                     {getSelectedLabel('store')}
-
 
                     {openCategory === 'store' ? (
                       <AiOutlineUp />
                     ) : (
-                      <AiOutlineDown />
+                      <span> <AiOutlineDown /> </span>
                     )}
                   </button>
 
@@ -261,7 +326,19 @@ const ProductFilterComponent = () => {
                           key={idx}
                           className="flex items-center gap-2 px-4 py-2 text-sm cursor-pointer transition-all duration-200 hover:bg-gray-100 rounded-md"
                         >
-                          
+                          {/* <input 
+                            type="checkbox"
+                            checked={
+                              selectedSubcategories['store']?.includes(
+                                sub.name
+                              ) || false
+                            }
+                            onChange={() => selectSubcategory('store', sub.name)}
+                            className="form-checkbox text-blue-500"
+                          /> */}
+
+
+
                           <Link href={`/store/${sub.id}`} className="text-[#2c65af]" >{sub.name} </Link>
                         </label>
                       ))}
@@ -349,4 +426,4 @@ const ProductFilterComponent = () => {
   );
 };
 
-export default ProductFilterComponent;
+export default StoreFilterComponent;

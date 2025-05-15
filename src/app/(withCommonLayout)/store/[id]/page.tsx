@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import StoreCarousel from "@/components/home/carousel/storeCarousel";
 import ProductFilterComponent from "@/components/products/productFilter/ProductFilter";
 import Link from "next/link";
+import Loading from "@/utils/Loading";
+import StoreFilterComponent from "@/components/products/productFilter/StoresFilters";
 
 
 type TStore = {
@@ -77,16 +79,22 @@ const Storepage = () => {
 
 
   if (isLoading) {
-    return (
-      <div className="text-center py-10 text-lg font-medium">Loading...</div>
-    );
+    return <Loading></Loading>
   }
+
+
+
 
   return (
     <div className="max-w-7xl mx-auto">
       <div className="flex flex-col xl:flex-row gap-6 items-start">
         <div className="xl:w-[70%] ">
-           <ProductFilterComponent />
+
+           {/* <ProductFilterComponent /> */}
+           <StoreFilterComponent/>
+
+
+
           <StoreCarousel projects={StoreProducts} />
 
           {StoreProducts?.map((item:TStore) => (

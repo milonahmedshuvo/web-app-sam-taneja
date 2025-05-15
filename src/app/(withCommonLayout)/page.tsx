@@ -7,6 +7,7 @@ import BlogCard from "@/components/home/blogCard/blogCard";
 import StoreCarousel from "@/components/home/carousel/storeCarousel";
 import ProductFilterComponent from "@/components/products/productFilter/ProductFilter";
 import { useGetAllBlogsQuery } from "@/redux/api/samtanejaApi";
+import Loading from "@/utils/Loading";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -45,20 +46,14 @@ const Homepage = () => {
 
 
         if (loading) {
-          return (
-            <div className="text-center py-10 text-lg font-medium">Loading...</div>
-          );
+          return <Loading/>
         }
-
-
         if (isLoading) {
-          return (
-            <div className="text-center py-10 text-lg font-medium">Loading...</div>
-          );
+          return  <Loading/>
         }
 
 
-        console.log("all card", data)
+        
 
 
 

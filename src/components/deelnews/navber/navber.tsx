@@ -26,7 +26,7 @@ const DeelnewsNavbar = () => {
 
           {/* Right Side: Nav Links (hidden on small screens) */}
           <div className="hidden md:flex space-x-6 items-center mt-3">
-            <Link href="/" className="text-[#232323] text-[19px] hover:text-[#3e5aa7] mulish">
+            <Link href="/deelnews" className="text-[#232323] text-[19px] hover:text-[#3e5aa7] mulish">
               Home
             </Link>
             <Link href="/deelnews/aboutus" className="text-[#232323] text-[19px] hover:text-[#3e5aa7] mulish">
@@ -35,13 +35,11 @@ const DeelnewsNavbar = () => {
             <Link href="/deelnews/pressroom" className="text-[#232323] text-[19px] hover:text-[#3e5aa7] mulish">
               Press Room
             </Link>
-            <Link href="/contact" className="text-[#232323] text-[19px] hover:text-[#3e5aa7] mulish">
-              Careers
-            </Link>
+            
             <Link href="/deelnews/faq" className="text-[#232323] text-[19px] hover:text-[#3e5aa7] mulish">
               FAQs
             </Link>
-            <Link href="/contact" className="text-white text-[16px] py-4 px-7 rounded bg-[#3e5aa7] mulish ">
+            <Link href="/" className="text-white text-[16px] py-4 px-7 rounded bg-[#3e5aa7] mulish ">
                <button className="text-white mulish">DeelNews.com</button>
             </Link>
           </div>

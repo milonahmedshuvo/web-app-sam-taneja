@@ -1,10 +1,14 @@
+"use client"
 import Image from "next/image"
 import Link from "next/link"
 import { Heart } from "lucide-react"
 import user from "../../../image/user.webp"
 import img1 from "../../../image/img1.webp"
+import { useAppSelector } from "@/redux/hook"
 
 export default function UserProfile() {
+       const myProfileInfo = useAppSelector((state) => state.user.user)
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 ">
       <div className="grid gap-8">
@@ -23,21 +27,21 @@ export default function UserProfile() {
             <div className="space-y-4">
               <div className="grid grid-cols-1 gap-2">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8">
-                  <span className="font-semibold text-[#303437] text-sm w-32">Username</span>
-                  <Link href="#" className="text-[#2c65af] font-semibold text-md hover:underline">
-                    CREATE A USERNAME!
+                  <span className="font-semibold text-[#303437] text-sm w-32">Email</span>
+                  <Link href="#" className="text-[#2c65af] font-semibold text-md ">
+                     {myProfileInfo?.email}
                   </Link>
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8">
-                  <span className="font-semibold text-[#303437] text-sm w-32">Address</span>
-                  <span className="text-gray-600">No address on file</span>
+                  <span className="font-semibold text-[#303437] text-sm w-32">Role</span>
+                  <span className="text-gray-600">{myProfileInfo?.role}</span>
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8">
+                {/* <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8">
                   <span className="font-semibold text-[#303437] text-sm w-32">Email Address</span>
                   <span className="text-gray-600">milonshmedshuv01@gmail.com</span>
-                </div>
+                </div> */}
               </div>
 
               <div className="flex flex-wrap gap-2 pt-2">
@@ -45,9 +49,9 @@ export default function UserProfile() {
                   EDIT MY PROFILE
                 </Link>
                 <span className="text-gray-400">|</span>
-                <Link href="#" className="text-[#2c65af] font-semibold text-sm hover:underline">
+                {/* <Link href="#" className="text-[#2c65af] font-semibold text-sm hover:underline">
                   CHANGE MY PASSWORD
-                </Link>
+                </Link> */}
                 <span className="text-gray-400">|</span>
                 <Link href="#" className="text-[#2c65af] font-semibold text-sm hover:underline">
                   DELETE MY ACCOUNT
@@ -57,14 +61,14 @@ export default function UserProfile() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-3 pt-2">
+        {/* <div className="flex flex-wrap gap-3 pt-2">
                 <button className="px-4 py-2 bg-[#00a863] hover:bg-[#82ca9c] !text-white rounded-md font-semibold !text-sm cursor-pointer">
                   MANAGE NEWSLETTERS
                 </button>
                 <button className="px-4 py-2 bg-[#2c65af] hover:bg-[#72a1d5] !text-white rounded-md font-semibold !text-sm cursor-pointer">
                   MANAGE INTERESTS
                 </button>
-              </div>
+              </div> */}
 
 
 

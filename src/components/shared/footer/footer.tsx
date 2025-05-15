@@ -29,18 +29,14 @@ export default function Footer() {
           <div className=" lg:pl-28">
             <h3 className="text-[#303437] !font-semibold !mb-4">DEALS</h3>
 
-            <ul className="space-y-3">
+            {/* <ul className="space-y-3">
               <li>
                 <Link href="#" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
                   POPULAR BRANDS
                 </Link>
               </li>
-              <li>
-                <Link href="#" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
-                  ONLINE COUPONS
-                </Link>
-              </li>
-            </ul>
+              
+            </ul> */}
           </div>
 
 
@@ -49,47 +45,23 @@ export default function Footer() {
             <h3 className="text-[#303437] !font-semibold !mb-4">HELPFUL LINKS</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="#" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
+                <Link href="/deelnews/aboutus" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
                   ABOUT US
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
+                <Link href="/deelnews" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
                   CONTACT US
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
-                  STORE COMPLAINTS
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
+                <Link href="/deelnews/pressroom" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
                   PRESS ROOM
                 </Link>
               </li>
+  
               <li>
-                <Link href="#" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
-                  ADVERTISE ON DEALNEWS
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
-                  MARKETPLACE EXPERTISE
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
-                  CAREERS
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
-                  SWEEPSTAKES WINNERS
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
+                <Link href="/deelnews/faq" className="text-[#2a69b2] font-[500] text-[14px] hover:underline">
                   FAQ
                 </Link>
               </li>
@@ -100,16 +72,13 @@ export default function Footer() {
           <div>
             <h3 className="text-[#303437] !font-semibold !mb-4">CONNECT</h3>
             <div className="flex flex-col space-y-4">
-              
-                <FaFacebookSquare className="w-9 h-9 text-[#2a69b2]"></FaFacebookSquare>
-                <FaLinkedin className="w-9 h-9 text-[#0077B5]"/>
-                < FaTwitterSquare className="w-9 h-9 text-[#1DA1F2]" />
-                <BsRssFill className="w-9 h-9 text-[#f26522]" />
-              
+                <Link href='https://www.facebook.com/dealnews'> <FaFacebookSquare className="w-9 h-9 text-[#2a69b2]"></FaFacebookSquare> </Link>
+                <Link href='https://www.linkedin.com/uas/login?session_redirect=%2Fcompany%2F125457' > <FaLinkedin className="w-9 h-9 text-[#0077B5]"/> </Link> 
+                <Link href='https://x.com/DealNews'> < FaTwitterSquare className="w-9 h-9 text-[#1DA1F2]" /> </Link>  
+                <Link href='https://www.dealnews.com/pages/rss.html'> <BsRssFill className="w-9 h-9 text-[#f26522]" /> </Link> 
             </div>
           </div>
         </div>
-
       </div>
 
       <div className="bg-[#2c65af]  pt-5 pb-0.5 pl-3.5" >

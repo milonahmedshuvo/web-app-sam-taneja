@@ -24,7 +24,7 @@ interface CardProps {
 const Card = ({ image, smallText, title, price, description, id }: CardProps) => {
   const [showFullText, setShowFullText] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  
 
 
   
@@ -108,17 +108,17 @@ const Card = ({ image, smallText, title, price, description, id }: CardProps) =>
 
           </div>
 
-          <h3 className="text-base sm:text-lg font-semibold mt-1">{title}</h3>
-          <div className="flex items-center gap-1 text-sm sm:text-base">
+          <h3 className="text-base sm:text-lg md:text-[24px] !font-[400] mt-1">{title}d</h3>
+          <div className="flex items-center gap-1 text-base sm:text-lg md:text-[24px] !font-[500]">
             <p className="text-green-600 font-bold">{price}</p>
 
-            <span className="text-xs text-gray-400 font-medium italic mt-[-14px] ">
+            <span className="text-xs text-gray-400 !font-[200] italic mt-[-14px] ">
               + Free shipping w/ Prime
             </span>
           </div>
 
           {/* Description with Read More/Less */}
-          <p className="text-[#303437] mt-2 text-[14px] font-extralight tracking-wide leading-5">
+          <p className="text-[#303437] mt-2 text-[14px] !font-[300] tracking-wide leading-5">
             {showFullText ? description : `${description.substring(0, 80)}... `}
             <button
               onClick={() => setShowFullText(!showFullText)}

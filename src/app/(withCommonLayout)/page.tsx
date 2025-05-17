@@ -56,7 +56,7 @@ const Homepage = () => {
         
 
 
-
+   console.log( 'all card', data)
 
 
 
@@ -65,15 +65,12 @@ const Homepage = () => {
       <Banner />
 
       <div className="flex flex-col xl:flex-row gap-6 items-start">
+        
 
 
-
-        <div className="xl:w-[70%] ">
+        <div  className=" w-full xl:w-[70%]">
           <ProductFilterComponent />
-          {/* <Carousel /> */}
           <StoreCarousel projects={data} />
-          {/* <Cartparent /> */}
-
           {data?.map((item) => (
             <Card
               key={item.id}
@@ -83,17 +80,12 @@ const Homepage = () => {
               title={item.name}
               price={item.price}
               description={item.description}
+              link={item.link}
             />
           ))}
         </div>
 
-
-
-
-
-
         <div className="border-t border-l border-r border-[#c1c4cc] rounded-md w-full xl:w-[30%] ">
-
           <div className="flex justify-between px-2 mt-2">
             <p className="text-[#7f8387] font-[700] text-sm">From the Blog</p>
             <Link href='/blog' className="cursor-pointer">
@@ -102,9 +94,6 @@ const Homepage = () => {
             </p>
             </Link>
           </div>
-
-
-
           {
             allBlogs?.data?.map((blog:TBlog) => <BlogCard key={blog.id}
             image={blog.img as string}
@@ -114,8 +103,10 @@ const Homepage = () => {
             href={`/blog/${blog.id}`}
           /> )
           }
-           
-        </div>
+        </div > 
+
+
+
       </div>
     </div>
   );

@@ -22,6 +22,7 @@ type TStore = {
   summary: string;
   categoryId: string;
   storeId: string;
+  link: string;
   createdAt: string; // ISO date string
   updatedAt: string; // ISO date string
 };
@@ -88,7 +89,7 @@ const Storepage = () => {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="flex flex-col xl:flex-row gap-6 items-start">
-        <div className="xl:w-[70%] ">
+        <div className="w-full xl:w-[70%] ">
 
            {/* <ProductFilterComponent /> */}
            <StoreFilterComponent/>
@@ -106,6 +107,7 @@ const Storepage = () => {
               title={item.name}
               price={item.price}
               description={item.description}
+              link={item.link}
             />
           ))}
         </div>

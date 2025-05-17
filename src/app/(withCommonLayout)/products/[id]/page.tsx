@@ -90,17 +90,16 @@ const Products = () => {
 
       
 
-      <div className="flex flex-col xl:flex-row gap-6 items-start"> 
+      <div className="flex flex-col  xl:flex-row gap-6 items-start"> 
 
       {/* product filter components  */}
-      <div className="xl:w-[70%]">
+      <div className=" w-full xl:w-[70%]">
 
         {/* <ProductFilterComponent /> */}
         <CategorisFilterProducts></CategorisFilterProducts>
-
-
-
         <StoreCarousel projects={categoriesProducts} />
+
+
         <div>
           {/* show category data */}
           {categoriesProducts?.length === 0 ? (
@@ -116,6 +115,7 @@ const Products = () => {
                 title={product.name}
                 price={product.price}
                 description={product.description}
+                link={product.link}
               />
               ))}
             </div>

@@ -41,12 +41,12 @@ const Page = () => {
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Latest Tech News</h1>
+      <h1 className="text-3xl font-bold !mb-18 text-[#303437]">Latest Tech News</h1>
  
       <div className="flex flex-col xl:flex-row gap-6 items-start">
 
-      <div  className="xl:w-[70%] ">
-      <div  className="space-y-6">
+      <div  className="w-full xl:w-[70%] ">
+      <div  className="space-y-6 ">
         {allBlogs?.data?.map((post: any) => (
           <BlogCards
             key={post.id}

@@ -16,12 +16,13 @@ interface CardProps {
   title: string;
   price: string;
   description: string;
+  link: string
 }
 
 
 
 
-const Card = ({ image, smallText, title, price, description, id }: CardProps) => {
+const Card = ({ image, smallText, title, price, description, id, link }: CardProps) => {
   const [showFullText, setShowFullText] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
@@ -118,7 +119,7 @@ const Card = ({ image, smallText, title, price, description, id }: CardProps) =>
           </div>
 
           {/* Description with Read More/Less */}
-          <p className="text-[#303437] mt-2 text-[14px] !font-[300] tracking-wide leading-5">
+          <p className="!text-[#303437] mt-2 text-[14px] !font-[100] tracking-wide leading-5 ">
             {showFullText ? description : `${description.substring(0, 80)}... `}
             <button
               onClick={() => setShowFullText(!showFullText)}
@@ -133,9 +134,11 @@ const Card = ({ image, smallText, title, price, description, id }: CardProps) =>
           </p>
 
           <div className={`${showFullText ? "flex justify-end" : "hidden"}`}>
+            <Link href={link} > 
             <button className="bg-[#00a862] cursor-pointer hover:opacity-45 hover:drop-shadow-2xl delay-150 ease-in-out decoration-2 !text-white font-semibold  px-4 py-2 rounded-xs text-xs sm:text-sm w-full md:w-auto">
-              Shop Now
+               Shop Now    
             </button>
+            </Link>
           </div>
         </div>
 
@@ -200,9 +203,11 @@ const Card = ({ image, smallText, title, price, description, id }: CardProps) =>
             </div>
           </div>
 
+          <Link href={link} > 
           <button className="bg-[#00a862]  cursor-pointer hover:opacity-45 hover:drop-shadow-2xl delay-150 ease-in-out decoration-2 !text-white font-semibold  px-4 py-2 rounded-xs text-xs sm:text-sm w-full md:w-auto">
-            Shop Now
+             Shop Now  
           </button>
+          </Link>
         </div>
 
         {/* {showFullText &&  <Button type="primary">Primary Button</Button> } */}

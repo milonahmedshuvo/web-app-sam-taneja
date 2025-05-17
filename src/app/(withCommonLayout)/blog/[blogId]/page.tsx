@@ -73,8 +73,8 @@ const Detailspage = () => {
     <div className="max-w-7xl mx-auto px-4 py-8">
      <div className="flex flex-col xl:flex-row gap-6 items-start">
 
-     <div className="xl:w-[70%] ">
-     <h1 className="text-[34px] font-[800]">{data.title}</h1>
+     <div className="w-full xl:w-[70%] ">
+     <h1 className="text-[34px] font-[800]">{data.title} </h1>
      <p className="max-w-3xl text-[17px] font-[300] text-[#303437]">{data.summary}</p>
      <p className="text-[#303437] text-[15px] font-[300]">Updated {createdAt}</p>
      <div dangerouslySetInnerHTML={{ __html: data.content }} />

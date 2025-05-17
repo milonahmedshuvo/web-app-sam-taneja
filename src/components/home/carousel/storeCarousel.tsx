@@ -114,11 +114,11 @@ export default function StoreCarousel({projects}:TProjectProps) {
               </Link>
             </div>
 
-            <p className="text-xs text-gray-500 pt-2"> {project.name.substring(0, 32)} </p>
+            <p className="text-xs text-gray-400  pt-2"> {project.name.substring(0, 22)} </p>
 
             <div className="flex flex-col justify-between min-h-[86px] ">
 
-              <h3 className="mt-1 font-medium text-black text-md ">
+              <h3 className="mt-1 font-[] text-[#303437] text-[14px] ">
                 {project.name.substring(0, 30)}
               </h3>
 

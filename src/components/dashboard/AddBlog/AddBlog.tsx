@@ -286,6 +286,13 @@ export default function AddNewBlogPage() {
                 onBlur={(newContent) => setContent(newContent)}
               />
             </div>
+
+
+
+
+
+
+            
           </div>
 
           <div className="w-full mt-10">

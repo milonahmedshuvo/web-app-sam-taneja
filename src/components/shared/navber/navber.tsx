@@ -287,7 +287,7 @@ export default function Navbar() {
                           href={`${sub.path}`}
                           className="flex justify-between items-center"
                         >
-                          <button className="block px-4 py-2 w-full text-left hover:bg-gray-200">
+                          <button className="block px-4 py-2 w-full text-left hover:bg-gray-200 cursor-pointer">
                             {sub.name}
                           </button>
                           {sub.childCategories.length > 0 &&

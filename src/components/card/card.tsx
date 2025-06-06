@@ -134,11 +134,18 @@ const Card = ({ image, smallText, title, price, description, id, link }: CardPro
           </p>
 
           <div className={`${showFullText ? "flex justify-end" : "hidden"}`}>
-            <Link href={link} > 
+            
+
+            <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >  
             <button className="bg-[#00a862] cursor-pointer hover:opacity-45 hover:drop-shadow-2xl delay-150 ease-in-out decoration-2 !text-white font-semibold  px-4 py-2 rounded-xs text-xs sm:text-sm w-full md:w-auto">
-               Shop Now    
+               Shop Now   
             </button>
-            </Link>
+            </a>
+           
           </div>
         </div>
 
@@ -203,11 +210,11 @@ const Card = ({ image, smallText, title, price, description, id, link }: CardPro
             </div>
           </div>
 
-          <Link href={link} > 
+          <a href={link} target="_blank" rel="noopener noreferrer">   
           <button className="bg-[#00a862]  cursor-pointer hover:opacity-45 hover:drop-shadow-2xl delay-150 ease-in-out decoration-2 !text-white font-semibold  px-4 py-2 rounded-xs text-xs sm:text-sm w-full md:w-auto">
              Shop Now  
           </button>
-          </Link>
+          </a>
         </div>
 
         {/* {showFullText &&  <Button type="primary">Primary Button</Button> } */}

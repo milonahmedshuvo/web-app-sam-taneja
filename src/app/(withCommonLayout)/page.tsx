@@ -24,14 +24,14 @@ export type TBlog = {
 
 
 const Homepage = () => {
-       const {data:allBlogs, isLoading} = useGetAllBlogsQuery("")
+       const {data:allBlogs, isLoading} = useGetAllBlogsQuery(1)
         
       const [data, setData] = useState<any[] >([]);
         const [loading, setLoading] = useState(true);
       
         // https://samtaneja-api.code-commando.com/api/v1
         useEffect(() => {
-          fetch("https://samtaneja-api.code-commando.com/api/v1/products?page=1&limit=20&populate=category,store")
+          fetch(`https://samtaneja-api.code-commando.com/api/v1/products?page=${1}&limit=50&populate=category,store`)
             .then((res) => res.json())
             .then((data) => {
               setData(data?.data || []);

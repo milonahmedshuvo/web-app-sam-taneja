@@ -19,3 +19,9 @@ body {
     height: 400px !important;
     border: red solid 2px;
   }
+
+
+.ant-pagination .ant-pagination-item-active {
+  border: none !important;
+  box-shadow: none !important;
+}

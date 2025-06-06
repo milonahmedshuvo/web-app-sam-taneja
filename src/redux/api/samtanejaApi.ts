@@ -55,7 +55,7 @@ export const samTanejaApi = createApi({
 
 
    getAllBlogs : build.query({
-    query : () => '/blogs',
+    query : (id) => `/blogs?limit=97&page=${id}`,
    }),
    allBlogsWithPagination : build.query({
     query: (page) => `/blogs?limit=10&page=${page}`,

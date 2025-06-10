@@ -8,9 +8,6 @@ import { toast } from "sonner"
 
 
 
-
-
-
 export default function SignupFormCustomer() {
   const router = useRouter()
   const [formData, setFormData] = useState({
@@ -29,9 +26,9 @@ export default function SignupFormCustomer() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [createCustomerUser, {data} ] = useCreateCustomerAccountMutation()
     
- 
 
   console.log("create customer account res: ", data)
+
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -131,11 +128,11 @@ export default function SignupFormCustomer() {
 
   return (
     <div className="w-full max-w-7xl mx-auto overflow-hidden rounded-lg bg-white ">
-     <div className="text-xl font-[500] text-[#2c65af] flex gap-1 mulish cursor-pointer">
+     {/* <div className="text-xl font-[500] text-[#2c65af] flex gap-1 mulish cursor-pointer">
         <Link href='/signupForAdmin' ><p>Create Admin</p></Link>
         <span>/</span>
         <Link href='/login'><p>Login</p></Link>
-     </div>
+     </div> */}
 
       <div className="flex flex-col md:flex-row my-20">
 
@@ -143,11 +140,11 @@ export default function SignupFormCustomer() {
         {/* Benefits section */}
         <div className="p-6 md:p-8 md:w-2/5 bg-white">
           <h2 className="text-3xl font-bold text-gray-800 mb-6">Unlock Member Benefits Today</h2>
-          <p className="text-lg mb-4">As a member, you can:</p>
+          <p className="text-[20px] mb-4">As a member, you can:</p>
           <ul className="space-y-3 list-disc pl-5">
-            <li className="text-gray-700">Save a deal to access later via desktop, mobile or app.</li>
-            <li className="text-gray-700">Create alerts and receive notifications when we post deals you want.</li>
-            <li className="text-gray-700">Join the conversation by leaving comments on our deals and blog articles.</li>
+            <li className="text-gray-700 text-lg">Save a deal to access later via desktop, mobile or app.</li>
+            <li className="text-gray-700 text-lg ">Create alerts and receive notifications when we post deals you want.</li>
+            <li className="text-gray-700 text-lg ">Join the conversation by leaving comments on our deals and blog articles.</li>
           </ul>
         </div>
 
@@ -226,19 +223,7 @@ export default function SignupFormCustomer() {
 
            
 
-            <div className="flex items-start space-x-3 py-4">
-              <input
-                id="newsletter"
-                name="newsletter"
-                type="checkbox"
-                checked={formData.newsletter}
-                onChange={handleChange}
-                className="mt-1 h-4 w-4"
-              />
-              <label htmlFor="newsletter" className="text-sm">
-                Yes, subscribe me to the DealNews Select Newsletter, featuring the days hottest deals.
-              </label>
-            </div>
+            
 
             <button
               type="submit"
@@ -246,6 +231,9 @@ export default function SignupFormCustomer() {
             >
               CREATE ACCOUNT
             </button>
+
+           <p className="!mt-7 text-center">You have already member, please <span className="font-semibold text-md cursor-pointer"><Link href="/login" >Singin</Link></span></p>
+
           </form>
         </div>
       </div>

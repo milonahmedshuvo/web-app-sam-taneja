@@ -8,6 +8,7 @@ import Image from "next/image";
 import applogo from "../../../image/app.webp"
 import { useEffect, useState } from "react";
 import CustomPagination from "@/components/pagination/CustomPagination";
+import Loading from "@/utils/Loading";
 
 const yearList = [
   { year: 2024 },
@@ -71,7 +72,8 @@ const Page = () => {
   
   if (loading) {
     return (
-      <div className="text-center py-10 text-lg font-medium">Loading...</div>
+      // <div className="text-center py-10 text-lg font-medium">Loading...</div>
+      <Loading/>
     );
   }
 

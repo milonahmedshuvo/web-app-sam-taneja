@@ -56,7 +56,7 @@ const Homepage = () => {
         
 
 
-   console.log( 'all card', data)
+  //  console.log( 'all card', data)
 
 
 
@@ -66,7 +66,6 @@ const Homepage = () => {
 
       <div className="flex flex-col xl:flex-row gap-6 items-start">
         
-
 
         <div  className=" w-full xl:w-[70%]">
           <ProductFilterComponent />

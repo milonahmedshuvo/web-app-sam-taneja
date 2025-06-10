@@ -130,11 +130,11 @@ export default function SignupFormCustomer() {
 
   return (
     <div className="w-full max-w-7xl mx-auto overflow-hidden rounded-lg bg-white ">
-     <div className="text-xl font-[500] text-[#2c65af] flex gap-1 mulish cursor-pointer">
+     {/* <div className="text-xl font-[500] text-[#2c65af] flex gap-1 mulish cursor-pointer">
         <Link href='/signupForAdmin' ><p>Create Admin</p></Link>
         <span>/</span>
         <Link href='/signupForCustomer' ><p>Create Customer</p></Link>
-     </div>
+     </div> */}
 
       <div className="flex justify-center items-center my-20">
 
@@ -202,26 +202,16 @@ export default function SignupFormCustomer() {
 
            
 
-            <div className="flex items-start space-x-3 py-4">
-              <input
-                id="newsletter"
-                name="newsletter"
-                type="checkbox"
-                checked={formData.newsletter}
-                onChange={handleChange}
-                className="mt-1 h-4 w-4"
-              />
-              <label htmlFor="newsletter" className="text-sm">
-                Yes, subscribe me to the DealNews Select Newsletter, featuring the days hottest deals.
-              </label>
-            </div>
+            
 
             <button
               type="submit"
               className="w-full bg-white !text-[#2c65af] font-[500] hover:bg-gray-100 py-2 px-4 rounded-md  transition-colors cursor-pointer "
             >
-              CREATE ACCOUNT
+              Singin
             </button>
+
+            <p className="!mt-7 text-center">If you dont have any account please <span className="font-semibold text-md cursor-pointer"><Link href="/signupForCustomer" >Create Account</Link></span></p>
           </form>
         </div>
       </div>

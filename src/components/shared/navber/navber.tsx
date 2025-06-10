@@ -98,6 +98,8 @@ const categories: Category[] = [
   },
 ];
 
+
+
 export default function Navbar() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeSubCategory, setActiveSubCategory] = useState<string | null>(
@@ -112,7 +114,7 @@ export default function Navbar() {
     useGetAllCategoriesQuery("");
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  console.log("redux store success", user?.email);
+  console.log("redux user store success", user?.role);
 
   if (categorisLoading || storesLoading) {
     return <Loading />;
@@ -126,6 +128,8 @@ export default function Navbar() {
     dispatch(logout());
     setIsModalOpen(false);
   };
+
+
 
   return (
     <div className=" mb-2 md:mb-4 relative absolute z-30 ">
@@ -259,7 +263,7 @@ export default function Navbar() {
               )}
             </div>
 
-            {categories.map((category, index) => (
+            {categories?.map((category, index) => (
               <div
                 key={index}
                 className="relative group"
@@ -401,7 +405,24 @@ export default function Navbar() {
           {/* modal open NAVIGATE OTHERS PRIFLE   */}
           {isModalOpen && (
             <div className="absolute right-0 top-[30px] bg-white  w-[200px] shadow ">
-              <div>
+
+
+              {/* <div>
+                <Link
+                  href="/dashboard"
+                  className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  <FaHome className="cursor-pointer text-[16px] text-[#2c65af]" />
+                  <span className="text-[#2c65af] font-normal text-[15px] ">
+                    Dashborad
+                  </span>
+                </Link>
+              </div> */}
+
+
+              {
+                user?.role == "ADMIN" && <div>
                 <Link
                   href="/dashboard"
                   className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2"
@@ -413,54 +434,19 @@ export default function Navbar() {
                   </span>
                 </Link>
               </div>
+              }
 
-              {/* <div>
-                <Link
-                  href="/viewProfile"
-                  className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  <FaUser className="cursor-pointer text-[16px] text-[#2c65af]" />
-                  <span className="text-[#2c65af] font-normal text-[15px] ">
-                    View Profile
-                  </span>
-                </Link>
-              </div> */}
 
-              {/* <div>
-                <Link
-                  href="/saveDeals"
-                  className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  <IoSettingsOutline className="cursor-pointer text-[16px] text-[#2c65af]" />
-                  <span className="text-[#2c65af] font-normal text-[15px] ">
-                    Save Deals
-                  </span>
-                </Link>
-              </div> */}
 
-              {/* <div>
-                <Link
-                  href="#"
-                  className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  <IoSettingsOutline className="cursor-pointer text-[16px] text-[#2c65af]" />
-                  <span className="text-[#2c65af] font-normal text-[15px] ">
-                    Interests
-                  </span>
-                </Link>
-              </div> */}
 
               <div>
                 {user?.email ? (
                   <div
-                    className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2"
+                    className="flex gap-3 items-center hover:bg-[#eff0f3] px-5 py-2 cursor-pointer"
                     onClick={handleLogout}
                   >
                     <FaAngleLeft className="cursor-pointer text-[16px] text-[#2c65af]" />
-                    <span className="text-[#2c65af] font-normal text-[15px] ">
+                    <span className="text-[#2c65af] font-normal text-[15px] cursor-pointer ">
                       Logout
                     </span>
                   </div>

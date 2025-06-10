@@ -13,8 +13,7 @@ import { FiMoreVertical } from "react-icons/fi";
 import { IoIosNotifications } from "react-icons/io";
 import { MdReport } from "react-icons/md";
 import applogo from '../../../../image/app.webp'
-
-
+import Loading from "@/utils/Loading";
 
 interface cardTypes {
   id: string;
@@ -26,7 +25,8 @@ interface cardTypes {
   store: {
     name: string;
   };
-  updatedAt: string
+  updatedAt: string;
+  link: string
 }
 
 const HomeCardDatailspage = () => {
@@ -55,15 +55,15 @@ const HomeCardDatailspage = () => {
             
               if (loading) {
                 return (
-                  <div className="text-center py-10 text-lg font-medium">Loading...</div>
+                   <Loading/>
                 );
               }
       
       
-          
+        const day = new Date(`${data?.updatedAt}`).getDate();
 
 
-              const day = new Date(`${data?.updatedAt}`).getDate();
+        // console.log('ddddddddddddd', data)
 
 
   return (
@@ -189,9 +189,16 @@ const HomeCardDatailspage = () => {
 
     
        <div className={`flex justify-end`}>
-          <button className="bg-[#00a862] cursor-pointer hover:opacity-45 hover:drop-shadow-2xl delay-150 ease-in-out decoration-2 !text-white font-semibold  px-4 py-2 rounded-xs text-xs sm:text-sm w-full md:w-auto">
-            Shop Now
-          </button>
+          <a
+          href={data?.link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >  
+            <button className="bg-[#00a862] cursor-pointer hover:opacity-45 hover:drop-shadow-2xl delay-150 ease-in-out decoration-2 !text-white font-semibold  px-4 py-2 rounded-xs text-xs sm:text-sm w-full md:w-auto">
+               Shop Now   
+            </button>
+            </a>
+
         </div>
 
 
